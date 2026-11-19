@@ -1,4 +1,4 @@
-DISTVERSION=	1.8.6
+DISTVERSION=	1.8.7
 PORTREVISION=	0
 PKGNAMESUFFIX=	-plugin
 
@@ -27,6 +27,6 @@ slave-post-patch:
 		${WRKSRC}/meson.build
 
 post-install:
-	@${REINPLACE_CMD} '/licenses/!s/${PORTNAME}/${PKGBASE}/' ${TMPPLIST}
+	@${REINPLACE_CMD} -E '/licenses|sbom/!s/${PORTNAME}/${PKGBASE}/' ${TMPPLIST}
 
 .include "${MASTERDIR}/Makefile"

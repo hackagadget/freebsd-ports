@@ -1,9 +1,9 @@
 PORTNAME=	kdsingleapplication
-DISTVERSION=	1.2.0
+DISTVERSION=	1.2.1
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/KDAB/KDSingleApplication/releases/download/v${DISTVERSION}/
 
-MAINTAINER=	diizzy@FreeBSD.org
+MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KDAB's helper class for single-instance policy applications
 WWW=		https://github.com/KDAB/KDSingleApplication
 

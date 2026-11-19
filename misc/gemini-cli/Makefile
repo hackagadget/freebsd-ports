@@ -1,5 +1,5 @@
 PORTNAME=	gemini-cli
-DISTVERSION=	0.42.0
+DISTVERSION=	0.62.0
 CATEGORIES=	misc # machine-learning
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -49,15 +49,17 @@ do-fetch:
 		${LN} -sf ../lib/node_modules/${PACKAGE_NAME}/bundle/gemini.js bin/gemini && \
 		${RM} -rf node_modules package.json && \
 		${FIND} ${WRKDIR} -and -exec ${TOUCH} -h -d 1970-01-01T00:00:00Z {} \; && \
-		cd ${WRKDIR} && ${FIND} ${PORTNAME}-${DISTVERSION} -print0 | LC_ALL=C ${SORT} -z | \
+		cd ${WRKDIR} && ${FIND} ${PORTNAME}-${DISTVERSION} -print0 | ${SORT} -z | \
 			${TAR} czf ${DISTDIR}/${PORTNAME}-${DISTVERSION}${EXTRACT_SUFX} --format=bsdtar --gid 0 --uid 0 --options gzip:!timestamp --no-recursion --null -T - \
 	); fi
 
 do-build:
-	# Build native modules for node-pty
 	@cd ${WRKSRC}/lib/node_modules/${PACKAGE_NAME}/node_modules/node-pty && \
 		${SETENV} HOME=${WRKDIR} CFLAGS="-I${LOCALBASE}/include" CXXFLAGS="-I${LOCALBASE}/include" \
-		PYTHON=${PYTHON_CMD} npm rebuild --nodedir=${LOCALBASE}
+		PYTHON=${PYTHON_CMD} npx node-gyp rebuild --nodedir=${LOCALBASE}
+	@${RM} -r \
+		${WRKSRC}/lib/node_modules/${PACKAGE_NAME}/node_modules/node-pty/build/Release/.deps \
+		${WRKSRC}/lib/node_modules/${PACKAGE_NAME}/node_modules/node-pty/build/Release/obj.target
 
 do-install:
 	# install files

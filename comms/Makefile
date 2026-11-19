@@ -17,8 +17,8 @@
     SUBDIR += bluez-firmware
     SUBDIR += bpl+
     SUBDIR += chirp
-    SUBDIR += chu
     SUBDIR += conserver-com
+    SUBDIR += cp210x-cfg
     SUBDIR += cqrlog
     SUBDIR += cubicsdr
     SUBDIR += cutecom
@@ -97,6 +97,7 @@
     SUBDIR += lrzsz
     SUBDIR += lysdr
     SUBDIR += mbelib
+    SUBDIR += mbpoll
     SUBDIR += meshcore-cli
     SUBDIR += mgetty+sendfax
     SUBDIR += minicom
@@ -185,6 +186,7 @@
     SUBDIR += scmxx
     SUBDIR += scrcpy
     SUBDIR += sdr++
+    SUBDIR += sdrangel
     SUBDIR += ser2net
     SUBDIR += serialoverip
     SUBDIR += sigdigger
@@ -238,6 +240,5 @@
     SUBDIR += xnecview
     SUBDIR += yagiuda
     SUBDIR += yfklog
-    SUBDIR += zigbee2mqtt
 
 .include <bsd.port.subdir.mk>

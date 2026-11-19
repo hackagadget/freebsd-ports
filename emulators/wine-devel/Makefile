@@ -1,5 +1,5 @@
 PORTNAME=	wine
-DISTVERSION=	11.10
+DISTVERSION=	11.22
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	https://dl.winehq.org/wine/source/11.x/
@@ -13,9 +13,17 @@ LICENSE=	LGPL21 LGPL3
 LICENSE_COMB=	dual
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	amd64 i386
+ONLY_FOR_ARCHS=	amd64
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex
+
+.if exists(/usr/include/dev/ntsync/ntsync.h)
+HAS_NTSYNC=	yes
+.endif
+
+.if defined(HAS_NTSYNC)
+BUILD_DEPENDS+=	${LOCALBASE}/include/linuxapi/linux/ntsync.h:devel/linuxapi
+.endif
 LIB_DEPENDS=	libhwloc.so:devel/hwloc2
 
 FLAVORS=	default allaudio
@@ -34,6 +42,7 @@ SHEBANG_FILES=	tools/make_requests tools/winemaker/winemaker \
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--verbose \
+		--enable-archs=i386,x86_64 \
 		--disable-kerberos \
 		--disable-tests \
 		--without-capi \
@@ -54,10 +63,13 @@ CONFIGURE_ARGS=	--verbose \
 		--without-sane \
 		--with-sdl \
 		--without-udev \
-		--without-unwind \
 		--with-usb
 CONFIGURE_ENV=	CPPBIN="${CPP}" FLEX="${LOCALBASE}/bin/flex"
 
+.if defined(HAS_NTSYNC)
+CFLAGS+=	-I${WRKDIR}/include/linuxapi
+CXXFLAGS+=	-I${WRKDIR}/include/linuxapi
+.endif
 PIE_UNSAFE=	yes
 
 CONFLICTS_INSTALL=	wine
@@ -142,44 +154,24 @@ PLIST_SUB+=		GSTREAMER="@comment "
 .endif
 
 .if ${ARCH} == amd64
-# Wine is composed of three parts:
-#  - wine (aka this port on FreeBSD/i386) is the 32-bit component
-#       and runs 32-bit programs.
-#  - wine64 (aka this part of this port on FreeBSD/amd64) is the
-#       64-bit component and runs 64-bit programs.
-#  - wow64 (aka this port built on FreeBSD/i386) is a part of the
-#       64-bit component [wine64] that runs 32-bit programs on FreeBSD/amd64.
-
 # --libdir is required since Wine defaults to "${PREFIX}/lib64" on amd64.
 CONFIGURE_ARGS+=	--enable-win64 --libdir=${PREFIX}/lib
-PLIST_SUB+=		WINE32="@comment " WINE64="" WINEARCH="x86_64"
+PLIST_SUB+=		WINEARCH="x86_64"
+.endif
 
-# Wine assumes a WoW64 package is available, which is not the case on
-# FreeBSD yet.
-post-patch:
-	${REINPLACE_CMD} '/Exec/s|wine|wine64|g' ${WRKSRC}/loader/wine.desktop
-
-.else
-EXTRA_PATCHES=		${PATCHDIR}/extra-patch-tools-winebuild-res32
-PLIST_SUB+=		WINE32="" WINE64="@comment " WINEARCH="i386"
+.if defined(HAS_NTSYNC)
+pre-configure:
+	@${MKDIR} ${WRKDIR}/include/linuxapi/linux
+	@${CP} ${LOCALBASE}/include/linuxapi/linux/ntsync.h ${WRKDIR}/include/linuxapi/linux/
+	@${CP} ${LOCALBASE}/include/linuxapi/linux/types.h ${WRKDIR}/include/linuxapi/linux/
+	@${CP} ${LOCALBASE}/include/linuxapi/linux/stddef.h ${WRKDIR}/include/linuxapi/linux/
 .endif
 
 pre-build:
 	cd ${WRKSRC} && ${SETENVI} ${WRK_ENV} ${MAKE_CMD} depend
 
 post-install:
-.if ${ARCH} == i386
-	${MV} ${STAGEDIR}${PREFIX}/bin/wineserver	${STAGEDIR}${PREFIX}/bin/wineserver32
-	${MV} ${STAGEDIR}${PREFIX}/bin/wine		${STAGEDIR}${PREFIX}/bin/wine.bin
-	-${ELFCTL} -e +noaslr				${STAGEDIR}${PREFIX}/bin/wine.bin
-	${INSTALL_SCRIPT} ${FILESDIR}/wine.sh		${STAGEDIR}${PREFIX}/bin/wine
-.else
-	${MV} ${STAGEDIR}${PREFIX}/bin/wine		${STAGEDIR}${PREFIX}/bin/wine64.bin
-	-${ELFCTL} -e +noaslr				${STAGEDIR}${PREFIX}/bin/wine64.bin
-	${INSTALL_SCRIPT} ${FILESDIR}/wine.sh		${STAGEDIR}${PREFIX}/bin/wine64
-	${INSTALL_SCRIPT} ${FILESDIR}/wine-wow64.sh	${STAGEDIR}${PREFIX}/bin/wine
-	${INSTALL_SCRIPT} ${FILESDIR}/pkg32.sh		${STAGEDIR}${DATADIR}/pkg32.sh
-.endif
+	${ELFCTL} -e +noaslr				${STAGEDIR}${PREFIX}/bin/wine
 
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for i in ANNOUNCE.md AUTHORS README.md

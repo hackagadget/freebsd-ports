@@ -1,5 +1,6 @@
 PORTNAME=		Ice
-PORTVERSION=		3.7.10
+PORTVERSION=		3.7.11
+PORTREVISION=	2
 DISTVERSIONPREFIX=	v
 CATEGORIES=		devel
 PKGNAMESUFFIX?=		37
@@ -15,7 +16,7 @@ CONFLICTS=		Ice py*-Ice php*-Ice
 
 .if ${SLAVE_PORT} == "no"
 LIB_DEPENDS=		libexpat.so:textproc/expat2 \
-			liblmdb.so:databases/lmdb \
+			liblmdb0.so:databases/lmdb0 \
 			libmcpp.so:devel/mcpp
 .else
 LIB_VRS=		${PORTVERSION:R:S|.||g}
@@ -33,6 +34,7 @@ USE_CXXSTD=	c++14
 DEBUG_MAKE_ENV=		OPTIMIZE=no
 TEST_ALL_TARGET_OFF=	srcs
 MAKE_ARGS+=		V=1
+MAKE_ARGS+=		LMDB_HOME=${LOCALBASE}/lmdb0
 
 CONFIGS=		shared
 
@@ -127,7 +129,7 @@ do-test-TEST-on:
 .for CONFIG in ${CONFIGS}
 	@${ECHO} Testing configuration ${CONFIG}
 	cd ${BUILD_WRKSRC} && \
-		${SETENV} LC_ALL=en_US.UTF-8 ${PYTHON_CMD} ./allTests.py \
+		${PYTHON_CMD} ./allTests.py \
 		--config=${CONFIG} \
 		$$(${TEST} $$(${IS_JAILED_CMD}) -eq 1 \
 			&& ${ECHO} ${JAILED_FILTER})

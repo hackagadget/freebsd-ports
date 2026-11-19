@@ -1,37 +1,33 @@
 PORTNAME=	haskell-language-server
-DISTVERSION=	2.14.0.0
+DISTVERSION=	2.15.0.0
 CATEGORIES=	devel haskell
 
 MAINTAINER=	haskell@FreeBSD.org
 COMMENT=	LSP provider implementation for Haskell language
-WWW=		https://haskell-language-server.readthedocs.io/
+WWW=		https://hackage.haskell.org/package/haskell-language-server/ \
+		https://haskell-language-server.readthedocs.io/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BROKEN_aarch64=	compiler crashes
-NOT_FOR_ARCHS=	i386
-
-FLAVORS=	default ghc98 ghc96
+FLAVORS=	default ghc910 ghc98
 FLAVOR?=	${FLAVORS:[1]}
 .if ${FLAVOR:U} != default
 PKGNAMESUFFIX=	-${FLAVOR}
 .endif
 
 # Do not use a flavor helper to let Uses/cabal.mk machinery to kick in
-.if ${FLAVOR:U} == ghc96
-BUILD_DEPENDS=	ghc-${GHC_VERSION}:lang/ghc96
-GHC_VERSION=	9.6.7
-.endif
-
 .if ${FLAVOR:U} == ghc98
 BUILD_DEPENDS=	ghc-${GHC_VERSION}:lang/ghc98
 GHC_VERSION=	9.8.4
 .endif
 
-USES=		cabal
+.if ${FLAVOR:U} == ghc910
+BUILD_DEPENDS=	ghc-${GHC_VERSION}:lang/ghc910
+GHC_VERSION=	9.10.3
+.endif
 
-USE_LOCALE=	C.UTF-8
+USES=		cabal
 
 .for flavor in ${FLAVORS}
 .	include "Makefile.cabal.${flavor}"
@@ -55,15 +51,7 @@ USE_CABAL+=		${${flavor}_USE_CABAL}
 .endfor
 .endif
 
-post-patch:
-	${REINPLACE_CMD} 's|jobs: 1|jobs: 2|' ${CABAL_HOME}/.cabal/config
-
 .include <bsd.port.pre.mk>
-
-.if ${ARCH} == aarch64
-# compiler goes out of memory
-BUILD_ARGS+=	--disable-optimization
-.endif
 
 .if ${FLAVOR:U} != default
 post-install:

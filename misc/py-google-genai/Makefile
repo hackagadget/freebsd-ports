@@ -1,6 +1,6 @@
 PORTNAME=	google-genai
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.0.1
+DISTVERSION=	3.3.0
 CATEGORIES=	misc python # machine-learning
 #MASTER_SITES=	PYPI # no tests
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -21,49 +21,23 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}packaging>=24.2:devel/py-packaging@${PY_FL
 #from pyproject.toml
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}anyio>=4.8.0:devel/py-anyio@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}distro>=1.7.0:sysutils/py-distro@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}google-auth>0:security/py-google-auth@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}httpx>=0.28.1:www/py-httpx@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pydantic2>=2.9.0:devel/py-pydantic2@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}google-auth>=2.56.0:security/py-google-auth@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}httpx2>=2.0.0:www/py-httpx2@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pydantic2>=2.12.5:devel/py-pydantic2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=2.28.1:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sniffio>0:devel/py-sniffio@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tenacity>=8.2.3:devel/py-tenacity@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}typing-extensions>=4.11.0:devel/py-typing-extensions@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}typing-extensions>=4.14.0:devel/py-typing-extensions@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}websockets>=13.0.0:devel/py-websockets@${PY_FLAVOR}
-# from requirements.txt, see https://github.com/googleapis/python-genai/issues/1340
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}absl-py>=2.1.0:devel/py-absl-py@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}annotated-types>=0.7.0:devel/py-annotated-types@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}anyio>=4.8.0:devel/py-anyio@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}cachetools>=5.5.0:devel/py-cachetools@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}certifi>=2024.8.30:security/py-certifi@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}charset-normalizer>=3.4.0:textproc/py-charset-normalizer@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}coverage>=7.6.9:devel/py-coverage@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}distro>=1.9.0:sysutils/py-distro@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}google-auth>=2.47.0:security/py-google-auth@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}httpx>=0.28.1:www/py-httpx@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}idna>=3.10:dns/py-idna@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}iniconfig>=2.0.0:devel/py-iniconfig@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}mcp>=1.14.0:misc/py-mcp@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}packaging>=24.2:devel/py-packaging@${PY_FLAVOR} \
+# optional dependencies included in requirements.txt
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}mcp>=1.14.0:misc/py-mcp@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pillow>=11.0.0:graphics/py-pillow@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pluggy>=1.5.0:devel/py-pluggy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}protobuf>0:devel/py-protobuf@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}py>=1.11.0:devel/py-py@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyasn1>0:devel/py-pyasn1@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyasn1-modules>=0.4.1:devel/py-pyasn1-modules@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pydantic2>=2.12.0:devel/py-pydantic2@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pydantic-core>=2.41.1:devel/py-pydantic-core@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyopenssl>=24.2.1:security/py-pyopenssl@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}sentencepiece>=0.2.0:textproc/py-sentencepiece@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}httpx>=0.28.1:www/py-httpx@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-asyncio>=0.25.0:devel/py-pytest-asyncio@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-cov>0:devel/py-pytest-cov@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytest-xdist>=3.8.0:devel/py-pytest-xdist@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytest>=8.3.4:devel/py-pytest@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}requests>=2.32.4:www/py-requests@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}rsa>=4.9:security/py-rsa@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}sentencepiece>=0.2.0:textproc/py-sentencepiece@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}tenacity>=8.2.3:devel/py-tenacity@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}typing-extensions>=4.14.1:devel/py-typing-extensions@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}urllib3>=2.5.0:net/py-urllib3@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}websockets>=16.0:devel/py-websockets@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}pytest-xdist>=3.8.0:devel/py-pytest-xdist@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	pep517 autoplist pytest
@@ -75,5 +49,39 @@ GH_PROJECT=	python-genai
 NO_ARCH=	yes
 
 TEST_ENV=	GOOGLE_GENAI_REPLAYS_DIRECTORY=${WRKDIR}/replays
+PYTEST_BROKEN_TESTS=	test_aiohttp_retries_failed_request_retries_unsuccessfully_mtls \
+			test_auto_detected_backend_selects_matching_ssl_ctx \
+			test_ensure_httpx2_ssl_ctx_default_uses_truststore \
+			test_python_decisions_async_create \
+			test_python_decisions_create_routes_through_google_genai_client \
+			test_single_injected_client_other_client_still_gets_sdk_ssl_ctx
+TEST_ARGS=	--disable-plugin-autoload -p asyncio \
+		google/genai/tests/afc \
+		google/genai/tests/chats \
+		google/genai/tests/client \
+		google/genai/tests/common \
+		google/genai/tests/errors \
+		google/genai/tests/gaos \
+		google/genai/tests/imports \
+		google/genai/tests/interactions \
+		google/genai/tests/live \
+		google/genai/tests/local_tokenizer \
+		google/genai/tests/mcp \
+		google/genai/tests/transformers \
+		google/genai/tests/types \
+		--ignore=google/genai/tests/afc/test_generate_content_stream_afc_thoughts.py \
+		--ignore=google/genai/tests/afc/test_should_disable_afc.py \
+		--ignore=google/genai/tests/chats/test_send_message.py \
+		--ignore=google/genai/tests/chats/test_send_message_continuation_token.py \
+		--ignore=google/genai/tests/interactions/test_paths.py \
+		--ignore=google/genai/tests/live/test_live.py \
+		--ignore=google/genai/tests/live/test_live_music.py \
+		--ignore=google/genai/tests/live/test_send_client_content.py \
+		--ignore=google/genai/tests/live/test_send_context_update.py \
+		--ignore=google/genai/tests/live/test_send_realtime_input.py \
+		--ignore=google/genai/tests/live/test_send_tool_response.py \
+		--ignore=google/genai/tests/types/test_bytes_internal.py # the rest of tests require network access or API replays
+
+# tests as of 3.3.0: 1204 passed, 7 skipped, 10 deselected, 47 warnings in 89.29s (0:01:29)
 
 .include <bsd.port.mk>

@@ -1,5 +1,6 @@
 PORTNAME=	dalmp
 PORTVERSION=	3.1.0
+PORTREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	nbari@tequila.io
@@ -14,6 +15,7 @@ GH_ACCOUNT=	nbari
 GH_PROJECT=	${PORTNAME:tu}
 
 USES=		php
+IGNORE_WITH_PHP=	86
 
 NO_BUILD=	yes
 NO_ARCH=	yes

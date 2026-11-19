@@ -1,6 +1,6 @@
 PORTNAME=	google-perftools
 DISTVERSIONPREFIX=	gperftools-
-DISTVERSION=	2.18.1
+DISTVERSION=	2.19.3
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/gperftools/gperftools/releases/download/gperftools-${PORTVERSION}/
 DISTNAME=	gperftools-${PORTVERSION}
@@ -12,7 +12,6 @@ WWW=		https://github.com/gperftools/gperftools
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN_aarch64=	link fails: ld: error: undefined symbol: brk, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=278009
 BROKEN_armv7=	error: use of undeclared identifier '_URC_NO_REASON', see https://github.com/gperftools/gperftools/issues/1360
 BROKEN_riscv64=	error: Cannot calculate stack trace: will need to write for your environment, see https://github.com/gperftools/gperftools/issues/1359
 
@@ -92,6 +91,6 @@ post-build:
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so.*
 
-# tests as of 2.17.2: PASS:  48 (all pass)
+# tests as of 2.19.3: PASS:  49 (all pass)
 
 .include <bsd.port.post.mk>

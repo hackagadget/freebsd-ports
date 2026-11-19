@@ -1,11 +1,8 @@
 PORTNAME=	ejabberd
-PORTVERSION=	26.04
-PORTREVISION=	1
+PORTVERSION=	26.09
 CATEGORIES=	net-im
-MASTER_SITES=	https://code.jquery.com/:jquery \
-		https://github.com/twbs/bootstrap/releases/download/v5.3.8/:bootstrap
-DISTFILES=	jquery-${JQUERY_VER}.min.js:jquery \
-		bootstrap-${BOOTSTRAP_VER}-dist.zip:bootstrap
+MASTER_SITES=	https://github.com/twbs/bootstrap/releases/download/v5.3.8/:bootstrap
+DISTFILES=	bootstrap-${BOOTSTRAP_VER}-dist.zip:bootstrap
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	Free and Open Source distributed fault-tolerant XMPP server
@@ -30,7 +27,7 @@ USES=		compiler:c11 cpe gmake pkgconfig shebangfix ssl jpeg \
 
 USERS=		ejabberd
 GROUPS=		${USERS}
-EXTRACT_ONLY=	${DISTFILES:C/^.*:jquery//1:C/^.*:bootstrap//1:C/:.+$//}
+EXTRACT_ONLY=	${DISTFILES:C/^.*:bootstrap//1:C/:.+$//}
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
@@ -104,10 +101,10 @@ CACHE_TAB_VER=	1.0.34
 EIMP_VER=	1.0.27
 EPAM_VER=	1.0.14
 EREDIS_VER=	1.2.0
-ESIP_VER=	1.0.60
+ESIP_VER=	1.0.61
 EZLIB_VER=	1.0.16
 FAST_TLS_VER=	1.1.26
-FAST_XML_VER=	1.1.60
+FAST_XML_VER=	1.1.61
 FAST_YAML_VER=	1.0.40
 IDNA_VER=	7.1.0
 JOSE_VER=	1.11.12
@@ -121,11 +118,10 @@ P1_UTILS_VER=	1.0.29
 PKIX_VER=	1.0.10
 SQLITE3_VER=	1.1.15
 STRINGPREP_VER=	1.0.34
-STUN_VER=	1.2.22
-XMPP_VER=	1.13.3
+STUN_VER=	1.2.23
+XMPP_VER=	1.13.5
 YCONF_VER=	1.0.23
 ERLYDTL_VER=	0.15.0
-JQUERY_VER=	4.0.0
 BOOTSTRAP_VER=	5.3.8
 
 OPTIONS_SUB=		yes

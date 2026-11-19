@@ -1,5 +1,5 @@
 PORTNAME=	fastapi
-PORTVERSION=	0.136.1
+PORTVERSION=	0.162.7
 CATEGORIES=	www python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -16,7 +16,8 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}hatchling>=0:devel/py-hatchling@${PY_FLAVO
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pydantic2>=1.7.4:devel/py-pydantic2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}starlette>=0.26.1:www/py-starlette@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}uvicorn>=0:www/py-uvicorn@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}annotated-doc>=0:devel/py-annotated-doc@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}annotated-doc>=0:devel/py-annotated-doc@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}opentelemetry-api>=0:devel/py-opentelemetry-api@${PY_FLAVOR}
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}inline-snapshot>=0:devel/py-inline-snapshot@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}typer>=0:devel/py-typer@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ujson>=0:devel/py-ujson@${PY_FLAVOR} \

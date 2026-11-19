@@ -22,6 +22,7 @@
     SUBDIR += cmios9
     SUBDIR += cocot
     SUBDIR += convmv
+    SUBDIR += dejapdf
     SUBDIR += dos2ansi
     SUBDIR += dos2unix
     SUBDIR += dosunix
@@ -56,6 +57,7 @@
     SUBDIR += nomyso
     SUBDIR += o3read
     SUBDIR += ocaml-base64
+    SUBDIR += ocaml-hex
     SUBDIR += ocaml-jsonm
     SUBDIR += osm2mp
     SUBDIR += osm2pgrouting
@@ -137,6 +139,7 @@
     SUBDIR += p5-plutil
     SUBDIR += pear-Services_JSON
     SUBDIR += pecl-igbinary
+    SUBDIR += pecl-igbinary-session
     SUBDIR += php-bsdconv
     SUBDIR += php82-iconv
     SUBDIR += php82-mbstring
@@ -146,6 +149,8 @@
     SUBDIR += php84-mbstring
     SUBDIR += php85-iconv
     SUBDIR += php85-mbstring
+    SUBDIR += php86-iconv
+    SUBDIR += php86-mbstring
     SUBDIR += psiconv
     SUBDIR += py-bencode.py
     SUBDIR += py-bencoder

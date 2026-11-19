@@ -1,6 +1,6 @@
 PORTNAME=	kitty
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.47.4
+DISTVERSION=	0.50.0
 PORTREVISION=	0
 CATEGORIES=	x11 wayland
 
@@ -15,20 +15,27 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}furo>0:textproc/py-furo@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sphinx-autobuild>=2025.8.25:textproc/py-sphinx-autobuild@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sphinx-copybutton>0:textproc/py-sphinx-copybutton@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}sphinx-design>=0.7.0_1:textproc/py-sphinx-design@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sphinx-inline-tabs>0:textproc/py-sphinx-inline-tabs@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sphinxext-opengraph>0:textproc/py-sphinxext-opengraph@${PY_FLAVOR} \
+		evdev-proto>=5.8:devel/evdev-proto \
 		nerd-fonts-symbols>=3.1.1:x11-fonts/nerd-fonts-symbols \
 		roboto-fonts-ttf>=2.134:x11-fonts/roboto-fonts-ttf \
 		simde>=0.7.6:devel/simde \
+		slangc:graphics/linux-slang \
 		sphinx-build:textproc/py-sphinx@${PY_FLAVOR} \
 		urw-base35-fonts>=20200910:x11-fonts/urw-base35-fonts \
 		wayland-protocols>=0:graphics/wayland-protocols
 LIB_DEPENDS=	libcairo.so:graphics/cairo \
+		libcanberra.so:audio/libcanberra \
 		libdbus-1.so:devel/dbus \
 		libepoll-shim-interpose.so:devel/libepoll-shim \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libharfbuzz.so:print/harfbuzz \
 		liblcms2.so:graphics/lcms2 \
+		libpixman-1.so:x11/pixman \
+		libpng16.so:graphics/png \
+		libudev.so:devel/libudev-devd \
 		libwayland-client.so:graphics/wayland \
 		libwayland-cursor.so:graphics/wayland \
 		libxkbcommon.so:x11/libxkbcommon \
@@ -36,19 +43,23 @@ LIB_DEPENDS=	libcairo.so:graphics/cairo \
 
 # ncursesw and tinfo >= 6.1 seem to be needed
 USES=		compiler:c11 cpe desktop-file-utils gettext-runtime gl gmake \
-		go:modules,1.26 ncurses pkgconfig python shebangfix ssl \
+		go:modules ncurses pkgconfig python shebangfix ssl \
 		tar:xz terminfo xorg
 CPE_VENDOR=	kovidgoyal
 
 USE_GL=		gl
-USE_XORG=	x11 xcb xcursor xi xinerama xrandr
+USE_LINUX=	base
+USE_XORG=	pixman x11 xcb xcursor xi xinerama xrandr
 
 SHEBANG_FILES=	build-terminfo count-lines-of-code update-on-ox
 SHEBANG_GLOB=	*.py
 
 GO_MODULE=	github.com/kovidgoyal/kitty
 
-MAKE_ENV=	PYTHONDONTWRITEBYTECODE=1
+MAKE_ENV=	BUILD_MANPAGES=yes
+# see: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=291485#c13
+MAKE_ENV+=	TZ=UTC
+
 TEST_ENV=	PATH="${STAGEDIR}${PREFIX}/bin:${PATH}"
 TEST_TARGET=	test
 
@@ -68,7 +79,11 @@ _STRIP_TARGETS=	kitty/fast_data_types.so kitty/glfw-x11.so \
 
 _EMPTY_DIRS=	kittens/choose kittens/diff kittens/unicode_input kittens kitty
 
-OPTIONS_DEFINE=	DOCS
+OPTIONS_DEFINE=	CUSTOM_SHADERS DOCS
+
+CUSTOM_SHADERS_DESC=		Enable custom shaders
+CUSTOM_SHADERS_RUN_DEPENDS=	slangc:graphics/linux-slang
+
 DOCS_MAKE_ENV=	BUILD_DOCS=yes
 
 .include <bsd.port.options.mk>
@@ -81,20 +96,8 @@ CFLAGS+=	-Wno-error=invalid-utf8 -Winvalid-utf8
 MAKE_ENV+=	KITTY_NO_LTO=1
 .endif
 
-# PR291485
-# Temporarily disable build/installation of docs and man pages on FreeBSD >= 15.0
-# See:
-# https://pkg-status.freebsd.org/beefy23/data/150amd64-default/e05e2042985b/logs/kitty-0.44.0_1.log
-# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=291485
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
-MAKE_ENV+=	BUILD_MANPAGES=yes
-PLIST_SUB+=	PORTMANPAGES=""
-.else
-DOCS_MAKE_ENV=	BUILD_DOCS=no
-MAKE_ENV+=	BUILD_MANPAGES=no
-PLIST_SUB:=	${PLIST_SUB:S/PORTDOCS=""//1}
-PLIST_SUB+=	PORTDOCS="@comment " \
-		PORTMANPAGES="@comment "
+.if ${ARCH} == "i386" || ${ARCH} == "powerpc" || ${ARCH:Marmv?}
+EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-vendor_github.com_sgtdi_fswatcher_watcher__kqueue.go
 .endif
 
 post-patch:
@@ -103,7 +106,8 @@ post-patch:
 		-e "s:(dirs_exist_ok=True):\1, ignore=shutil.ignore_patterns('*.orig', '*.bak'):1" \
 		${WRKSRC}/setup.py
 	${REINPLACE_CMD} -e "s:%%DATADIR%%:${DATADIR}:1" \
-		${WRKSRC}/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish
+		${WRKSRC}/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish \
+		${WRKSRC}/kitty/shaders/custom/demo.py
 
 # For librsync, we need to set header and library path
 do-build:
@@ -127,20 +131,12 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/terminfo/kitty.terminfo \
 		${STAGEDIR}${PREFIX}/share/misc/
 	${STRIP_CMD} ${_STRIP_TARGETS:S|^|${STAGEDIR}${DATADIR}/|}
-# PR291485: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=291485
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
 	${INSTALL_MAN} ${BUILD_DIR}/share/man/man1/kitty.1 ${STAGEDIR}${PREFIX}/share/man/man1
 	${INSTALL_MAN} ${BUILD_DIR}/share/man/man5/kitty.conf.5 ${STAGEDIR}${PREFIX}/share/man/man5
-.endif
 
 do-install-DOCS-on:
-# PR291485: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=291485
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
 	cd ${BUILD_DIR}/share/doc/kitty/html && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} \
 			"-not ( -name .buildinfo -or -name .nojekyll )"
-.else
-	@${DO_NADA}
-.endif
 
 .include <bsd.port.mk>

@@ -1,5 +1,5 @@
 PORTNAME=	redis
-DISTVERSION=	6.2.22
+DISTVERSION=	6.2.24
 CATEGORIES=	databases
 MASTER_SITES=	https://download.redis.io/releases/
 PKGNAMESUFFIX=	62
@@ -11,7 +11,7 @@ WWW=		https://redis.io/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES+=		compiler:c11 cpe gmake tcl:test
+USES+=		compiler:c11 cpe gmake tcl:test,86
 CPE_VENDOR=	redislabs
 CPE_PRODUCT=	redis
 USE_RC_SUBR=	redis sentinel

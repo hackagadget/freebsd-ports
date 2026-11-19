@@ -1,6 +1,6 @@
 PORTNAME=	lmdb
-PORTVERSION=	0.97
-PORTREVISION=	1
+PORTVERSION=	2.2.0
+PORTREVISION=	2
 CATEGORIES=	databases python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -14,15 +14,21 @@ LICENSE_NAME=	OpenLDAP Public LIcense
 LICENSE_FILE=	${WRKSRC}/LICENSE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>0.8:devel/py-cffi@${PY_FLAVOR}
-LIB_DEPENDS=	liblmdb.so:databases/lmdb
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>0.8:devel/py-cffi@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}patch-ng>0:devel/py-patch-ng@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
+LIB_DEPENDS=	liblmdb0.so:databases/lmdb0
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR}
 
 USES=		localbase python
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	autoplist pep517
 
 MAKE_ENV=	LMDB_FORCE_SYSTEM=1 \
-		LMDB_FORCE_CFFI=1
+		LMDB_FORCE_CFFI=1 \
+		PKG_CONFIG_PATH="${LOCALBASE}/lmdb0/libdata/pkgconfig"
+CPPFLAGS+=	-I${LOCALBASE}/lmdb0/include
+LDFLAGS+=	-L${LOCALBASE}/lmdb0/lib
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/lmdb/lmdb_cffi*.so

@@ -10,6 +10,7 @@
     SUBDIR += cmdftp
     SUBDIR += coeurl
     SUBDIR += curl
+    SUBDIR += curl-impersonate
     SUBDIR += curlie
     SUBDIR += curlpp
     SUBDIR += dmachine
@@ -37,7 +38,6 @@
     SUBDIR += ncftp3
     SUBDIR += netdumpd
     SUBDIR += ocaml-ocurl
-    SUBDIR += oftpd
     SUBDIR += omi
     SUBDIR += p5-File-Fetch
     SUBDIR += p5-Net-FTP-Common
@@ -59,12 +59,16 @@
     SUBDIR += php84-ftp
     SUBDIR += php85-curl
     SUBDIR += php85-ftp
+    SUBDIR += php86-curl
+    SUBDIR += php86-ftp
     SUBDIR += phpwebftp
     SUBDIR += proftpd
     SUBDIR += proftpd-mod_vroot
     SUBDIR += profxp
     SUBDIR += pure-ftpd
     SUBDIR += py-aioftp
+    SUBDIR += py-curl-cffi
+    SUBDIR += py-ftpretty
     SUBDIR += py-ftputil
     SUBDIR += py-parfive
     SUBDIR += py-pycurl

@@ -1,5 +1,5 @@
 PORTNAME=	oslo.middleware
-PORTVERSION=	8.1.0
+PORTVERSION=	8.2.0
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -27,9 +27,18 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}bcrypt>=3.1.3:security/py-bcrypt@${PY_FLAVOR
 		${PYTHON_PKGNAMEPREFIX}typing-extensions>=4.11.0:devel/py-typing-extensions@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}webob>=1.8.0:www/py-webob@${PY_FLAVOR}
 
-USES=		python
+USES=		python:3.11+
 USE_PYTHON=	autoplist concurrent pep517
 
 NO_ARCH=	yes
+
+OPTIONS_DEFINE=	TRACING_GRPC TRACING_HTTP
+TRACING_GRPC_DESC=	OpenTelemetry HTTP tracing middleware
+TRACING_HTTP_DESC=	OpenTelemetry gRPC tracing middleware
+
+TRACING_GRPC_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}opentelemetry-exporter-otlp-proto-grpc>=1.0.0:devel/py-opentelemetry-exporter-otlp-proto-grpc@${PY_FLAVOR} \
+				${PYTHON_PKGNAMEPREFIX}opentelemetry-sdk>=1.0.0:devel/py-opentelemetry-sdk@${PY_FLAVOR}
+TRACING_HTTP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}opentelemetry-exporter-otlp-proto-http>=1.0.0:devel/py-opentelemetry-exporter-otlp-proto-http@${PY_FLAVOR} \
+				${PYTHON_PKGNAMEPREFIX}opentelemetry-sdk>=1.0.0:devel/py-opentelemetry-sdk@${PY_FLAVOR}
 
 .include <bsd.port.mk>

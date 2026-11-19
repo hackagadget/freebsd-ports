@@ -1,8 +1,8 @@
 Remove compile time information (reproducible builds)
 
---- perl.c.orig	2026-04-17 07:13:41 UTC
+--- perl.c.orig	2026-09-23 15:19:40 UTC
 +++ perl.c
-@@ -2117,23 +2117,7 @@ S_Internals_V(pTHX_ CV *cv)
+@@ -2151,23 +2151,7 @@ S_Internals_V(pTHX_ CV *cv)
      PUSHs(newSVpvn_flags(non_bincompat_options,
                           sizeof(non_bincompat_options) - 1, SVs_TEMP));
  

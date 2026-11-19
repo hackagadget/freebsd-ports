@@ -9,11 +9,15 @@ JARFILES=	integration jcl-over-slf4j jul-to-slf4j log4j-over-slf4j \
 DISTFILES=	${JARFILES:C|(.+)|slf4j/\1/${DISTVERSION}/\1-${DISTVERSION}.jar:source1|}
 EXTRACT_ONLY=
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	joneum@FreeBSD.org
 COMMENT=	Simple facade or abstraction for various logging frameworks
 WWW=		https://www.slf4j.org/
 
 LICENSE=	MIT
+
+# Kept on the 1.7 series: slf4j 2.x requires every logging binding to migrate
+# to the ServiceLoader mechanism, which affects all consumers in the tree at
+# once.  Debian and Fedora, rawhide included, still ship 1.7.x as well.
 
 USES=		cpe java
 CPE_VENDOR=	qos

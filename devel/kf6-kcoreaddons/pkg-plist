@@ -27,6 +27,7 @@ include/KF6/KCoreAddons/KProcess
 include/KF6/KCoreAddons/KProcessList
 include/KF6/KCoreAddons/KRandom
 include/KF6/KCoreAddons/KRuntimePlatform
+include/KF6/KCoreAddons/KSafeStringError
 include/KF6/KCoreAddons/KSandbox
 include/KF6/KCoreAddons/KSharedDataCache
 include/KF6/KCoreAddons/KShell
@@ -64,6 +65,7 @@ include/KF6/KCoreAddons/kprocess.h
 include/KF6/KCoreAddons/kprocesslist.h
 include/KF6/KCoreAddons/krandom.h
 include/KF6/KCoreAddons/kruntimeplatform.h
+include/KF6/KCoreAddons/ksafestringerror.h
 include/KF6/KCoreAddons/ksandbox.h
 include/KF6/KCoreAddons/kshareddatacache.h
 include/KF6/KCoreAddons/kshell.h
@@ -81,6 +83,7 @@ lib/cmake/KF6CoreAddons/KF6CoreAddonsTargets.cmake
 lib/libKF6CoreAddons.so
 lib/libKF6CoreAddons.so.6
 lib/libKF6CoreAddons.so.%%KDE_FRAMEWORKS_VERSION%%
+%%QT_LIBDIR%%/metatypes/qt6kf6coreaddons_metatypes.json
 %%QT_QMLDIR%%/org/kde/coreaddons/kcoreaddonsplugin.qmltypes
 %%QT_QMLDIR%%/org/kde/coreaddons/kde-qmlmodule.version
 %%QT_QMLDIR%%/org/kde/coreaddons/libkcoreaddonsplugin.so
@@ -88,6 +91,7 @@ lib/libKF6CoreAddons.so.%%KDE_FRAMEWORKS_VERSION%%
 libdata/pkgconfig/KF6CoreAddons.pc
 share/kf6/jsonschema/kpluginmetadata.schema.json
 share/locale/af/LC_MESSAGES/kcoreaddons6_qt.qm
+share/locale/am/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/ar/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/as/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/ast/LC_MESSAGES/kcoreaddons6_qt.qm
@@ -153,6 +157,8 @@ share/locale/ml/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/mr/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/ms/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/my/LC_MESSAGES/kcoreaddons6_qt.qm
+share/locale/nan_TW/LC_MESSAGES/kcoreaddons6_qt.qm
+share/locale/nan_TW@latin/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/nb/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/nds/LC_MESSAGES/kcoreaddons6_qt.qm
 share/locale/ne/LC_MESSAGES/kcoreaddons6_qt.qm

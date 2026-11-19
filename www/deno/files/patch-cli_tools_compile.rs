@@ -1,6 +1,6 @@
---- cli/tools/compile.rs.orig	2025-04-01 12:15:22 UTC
+--- cli/tools/compile.rs.orig	2026-09-16 15:45:55 UTC
 +++ cli/tools/compile.rs
-@@ -492,6 +492,32 @@ mod test {
+@@ -1459,6 +1459,32 @@ mod test {
    }
  
    #[tokio::test]
@@ -32,4 +32,4 @@
 +  #[tokio::test]
    async fn resolve_compile_executable_output_path_target_windows() {
      let http_client = HttpClientProvider::new(None, None);
-     let path = resolve_compile_executable_output_path(
+     let npm_api = TestNpmRegistryApi::default();

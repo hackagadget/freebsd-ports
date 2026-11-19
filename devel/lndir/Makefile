@@ -1,15 +1,15 @@
 PORTNAME=	lndir
-DISTVERSION=	1.0.5
+DISTVERSION=	1.0.6
 CATEGORIES=	devel
 
-MAINTAINER=	unixmania@gmail.com
+MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Create a shadow directory of symbolic links to another directory tree
 WWW=		https://gitlab.freedesktop.org/xorg/util/lndir/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:util
+USES=		xorg xorg-cat:util
 USE_XORG=	xorgproto
 
 PLIST_FILES=	bin/lndir \

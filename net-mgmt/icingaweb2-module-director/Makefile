@@ -1,6 +1,6 @@
 PORTNAME=	icingaweb2-module-director
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.11.8
+DISTVERSION=	1.12.1
 CATEGORIES=	net-mgmt www
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}
 
@@ -9,12 +9,13 @@ COMMENT=	Configuration frontend for Icinga 2, integrated automation
 WWW=		https://github.com/Icinga/icingaweb2-module-director
 
 LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/LICENSE
+LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 RUN_DEPENDS=	icingaweb2${PHP_PKGNAMESUFFIX}>=2.12.1:net-mgmt/icingaweb2@${PHP_FLAVOR}
 
 USES=		php:web,flavors
 USE_PHP=	pcntl
+IGNORE_WITH_PHP=	86
 USE_RC_SUBR=	icinga-director
 
 DIRECTOR_USER?=		icingadirector

@@ -1,6 +1,6 @@
 PORTNAME=	comfy-kitchen
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.2.10
+DISTVERSION=	0.2.41
 CATEGORIES=	misc python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -10,11 +10,11 @@ WWW=		https://github.com/Comfy-Org/comfy-kitchen
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}nanobind>0:devel/py-nanobind@${PY_FLAVOR} \
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}nanobind>=2.0.0:devel/py-nanobind@${PY_FLAVOR} \
 		${PY_SETUPTOOLS} \
 		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}packaging>0:devel/py-packaging@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytorch>=2.0.0:misc/py-pytorch@${PY_FLAVOR}
+BUILD_DEPENDS+=	cmake:devel/cmake
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytorch>=2.5.0:misc/py-pytorch@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	pep517 autoplist pytest
@@ -22,20 +22,22 @@ USE_PYTHON=	pep517 autoplist pytest
 USE_GITHUB=	yes
 GH_ACCOUNT=	Comfy-Org
 
-NO_ARCH=	yes
+NO_ARCH=	yes # it would have binaries when CUDA would be enabled
 
 # CUDA is not available on FreeBSD
 MAKE_ENV+=	COMFY_KITCHEN_NO_CUDA=1
 
-NO_ARCH=		yes # it would have binaries when CUDA would be enabled
+# importing torch fails with 'No space available for static Thread Local Storage' unless libc10 is preloaded
+TEST_ENV+=	LD_PRELOAD=${PYTHON_SITELIBDIR}/torch/lib/libc10.so
+
+# HIP/CUDA build-configuration tests are not applicable on FreeBSD
+TEST_ARGS=	--disable-plugin-autoload -p no:black -p no:ruff -p no:mypy \
+		--ignore=${WRKSRC}/tests/test_hip_dispatch.py
 
 do-test:
-	@cd ${WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} -m pytest -v -rs
+	@cd ${WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} -m pytest -v -rs \
+		${TEST_ARGS}
 
-tests as of 0.2.8:
-# Results (14.34s):
-#        574 passed
-#        203 skipped
-#          1 warning
+# tests as of 0.2.41: 724 passed, 3667 skipped, 1 warning
 
 .include <bsd.port.mk>

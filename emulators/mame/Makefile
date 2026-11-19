@@ -1,5 +1,5 @@
 PORTNAME=	mame
-DISTVERSION=	0.288
+DISTVERSION=	0.289
 PORTREVISION=	1
 CATEGORIES=	emulators games
 
@@ -70,8 +70,8 @@ MAKE_ENV=	FORCE_DRC_C_BACKEND=1 \
 		USE_TAPTUN=1
 
 # for LZMA AES support
-CFLAGS_armv7=	-march=armv8-a+aes
 CFLAGS_aarch64=	-march=armv8-a+crc+crypto
+CFLAGS_armv7=	-march=armv8-a+aes
 
 EXTRACT_AFTER_ARGS=	${_DIST_EXCLUDES:S,^,--exclude ,}
 
@@ -80,7 +80,7 @@ SUB_FILES=	mame.ini pkg-message plugin.ini ui.ini
 PORTDOCS=	*
 
 OPTIONS_DEFINE=			DOCS
-OPTIONS_DEFAULT=		MAME
+OPTIONS_DEFAULT=		MAME TOOLS
 OPTIONS_DEFAULT+=		${ARCH:Mamd64:C/.+/SSE2/}
 OPTIONS_GROUP=			EMULATORS EXTRATOOLS HARDWARE
 OPTIONS_GROUP_EMULATORS=	MAME MAMENL MAMEVIRTUAL NLS QTDEBUGGER
@@ -218,8 +218,7 @@ post-patch:
 		${WRKSRC}/src/frontend/mame/ui/icorender.cpp
 # Patch build to use GENie from Ports:
 	${REINPLACE_CMD} -e 's|%%GENIE_PREFIX%%|${PREFIX}/bin/|' \
-		${WRKSRC}/makefile \
-		${WRKSRC}/3rdparty/bx/makefile
+		${WRKSRC}/makefile
 
 do-build-DOCS-on:
 	(cd ${WRKSRC}/docs && \

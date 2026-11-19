@@ -1,6 +1,6 @@
 PORTNAME=	elixir
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.19.5
+DISTVERSION=	1.19.7
 CATEGORIES=	lang
 MASTER_SITES+=	https://github.com/elixir-lang/elixir/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}${DISTVERSIONSUFFIX}/:doc
 DISTFILES=	Docs.zip:doc
@@ -14,12 +14,12 @@ LICENSE=	APACHE20
 
 BUILD_DEPENDS=	erlang>26:lang/erlang
 
-USES=		gmake
+USES=		cpe gmake
+CPE_VENDOR=	elixir-lang
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	elixir-lang
 
-USE_LOCALE=	en_US.UTF-8
 MAKE_ENV+=	MAN_PREFIX=${PREFIX}/share/man \
 		PATH="${LOCALBASE}/lib/erlang${ERLANG_VER}/bin:${PATH}"
 ALL_TARGET=	# empty
@@ -52,6 +52,11 @@ post-install:
 		cd ${WRKSRC}/lib/$${lib}/lib && \
 		${COPYTREE_SHARE} \* ${STAGEDIR}${PREFIX}/lib/elixir/lib/$${lib}/lib; \
 		done
+
+post-stage-DOCS-on:
+	@cd ${STAGEDIR}${PREFIX} && \
+		${FIND} ${DOCSDIR_REL} -type f -o -type l | \
+		${SORT} >> ${TMPPLIST}
 
 do-test:
 	cd ${WRKSRC} && \

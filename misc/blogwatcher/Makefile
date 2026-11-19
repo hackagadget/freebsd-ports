@@ -1,7 +1,7 @@
 PORTNAME=	blogwatcher
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.0.3
-PORTREVISION=	2
+PORTREVISION=	9
 CATEGORIES=	misc
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -11,7 +11,10 @@ WWW=		https://github.com/Hyaxia/blogwatcher
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.24+,modules
+ONLY_FOR_ARCHS=	aarch64 amd64
+ONLY_FOR_ARCHS_REASON=	module modernc.org/sqlite only supported on aarch64 and amd64
+
+USES=		go:modules
 
 GO_MODULE=	github.com/Hyaxia/blogwatcher
 GO_TARGET=	./cmd/${PORTNAME}

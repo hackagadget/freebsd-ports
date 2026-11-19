@@ -1,6 +1,6 @@
 PORTNAME=	valentina
-DISTVERSION=	1.0.2
-PORTREVISION=	1
+DISTVERSIONPREFIX=	v
+DISTVERSION=	1.1.1
 CATEGORIES=	misc
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -11,8 +11,10 @@ WWW=		https://smart-pattern.com.ua/en/ \
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/LICENSE_GPL.txt
 
-BUILD_DEPENDS=	qbs:devel/qbs
+BROKEN_i386=	compilation fails: constructor cannot be redeclared
 
+BUILD_DEPENDS=	qbs:devel/qbs \
+		immer>0:devel/immer
 LIB_DEPENDS=	libxerces-c-3.3.so:textproc/xerces-c3
 
 USES=		compiler:c++11-lang desktop-file-utils dos2unix gl gmake qt:6
@@ -22,7 +24,6 @@ USE_LDCONFIG=	yes
 
 USE_GITLAB=	yes
 GL_ACCOUNT=	smart-pattern
-GL_TAGNAME=	54b3c6a47d7c81df864fae531396f19955ab1e22
 
 DOS2UNIX_FILES=	src/libs/vgeometry/vellipticalarc.cpp
 

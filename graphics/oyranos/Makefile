@@ -1,6 +1,6 @@
 PORTNAME=	oyranos
 PORTVERSION=	0.9.6
-PORTREVISION=	20
+PORTREVISION=	21
 CATEGORIES=	graphics
 
 MAINTAINER=	ports@FreeBSD.org
@@ -43,7 +43,6 @@ MAKE_JOBS_UNSAFE=yes
 OPTIONS_DEFINE=	DOCS DOXYGEN FLTK
 OPTIONS_SUB=	yes
 FLTK_DESC=	Build FLTK-based auxiliary programs
-FLTK_BROKEN=	fails to build, see https://github.com/oyranos-cms/oyranos/issues/62
 
 DOXYGEN_IMPLIES=	DOCS
 DOXYGEN_BUILD_DEPENDS=	${LOCALBASE}/bin/doxygen:devel/doxygen

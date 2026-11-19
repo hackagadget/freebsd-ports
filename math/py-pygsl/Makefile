@@ -1,8 +1,8 @@
 PORTNAME=	pygsl
-PORTVERSION=	2.6.4
-PORTREVISION=	3
+PORTVERSION=	2.6.7
 CATEGORIES=	math python
-MASTER_SITES=	PYPI
+MASTER_SITES=	PYPI \
+		https://github.com/pygsl/pygsl/releases/download/v${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org

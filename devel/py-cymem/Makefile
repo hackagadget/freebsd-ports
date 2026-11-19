@@ -1,6 +1,5 @@
 PORTNAME=	cymem
-DISTVERSION=	2.0.8
-PORTREVISION=	1
+DISTVERSION=	2.0.16
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,9 +12,6 @@ LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python
-USE_PYTHON=	distutils cython autoplist
-
-post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/cymem/cymem*.so
+USE_PYTHON=	distutils cython autoplist pytest
 
 .include <bsd.port.mk>

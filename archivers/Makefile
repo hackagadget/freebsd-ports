@@ -118,6 +118,7 @@
     SUBDIR += p5-Archive-Tar
     SUBDIR += p5-Archive-Tar-Wrapper
     SUBDIR += p5-Archive-Zip
+    SUBDIR += p5-Archive-Zip-SimpleZip
     SUBDIR += p5-Compress-Bzip2
     SUBDIR += p5-Compress-LZ4
     SUBDIR += p5-Compress-LZF
@@ -180,6 +181,10 @@
     SUBDIR += php85-phar
     SUBDIR += php85-zip
     SUBDIR += php85-zlib
+    SUBDIR += php86-bz2
+    SUBDIR += php86-phar
+    SUBDIR += php86-zip
+    SUBDIR += php86-zlib
     SUBDIR += pigz
     SUBDIR += pixz
     SUBDIR += plakar
@@ -187,6 +192,7 @@
     SUBDIR += ppmd
     SUBDIR += ppunpack
     SUBDIR += py-acefile
+    SUBDIR += py-arpy
     SUBDIR += py-bitshuffle
     SUBDIR += py-blosc
     SUBDIR += py-blosc2
@@ -215,13 +221,13 @@
     SUBDIR += py-python-lhafile
     SUBDIR += py-python-lzo
     SUBDIR += py-python-rpm-packaging
-    SUBDIR += py-python-snappy
     SUBDIR += py-pyunpack
     SUBDIR += py-pyzstd
     SUBDIR += py-rarfile
     SUBDIR += py-rcssmin
     SUBDIR += py-rjsmin
     SUBDIR += py-sozipfile
+    SUBDIR += py-unrardll
     SUBDIR += py-warctools
     SUBDIR += py-xopen
     SUBDIR += py-zipstream-ng
@@ -247,6 +253,7 @@
     SUBDIR += rubygem-rubyzip
     SUBDIR += rubygem-rubyzip-gitlab
     SUBDIR += rubygem-rubyzip13
+    SUBDIR += rubygem-rubyzip2
     SUBDIR += rubygem-snappy
     SUBDIR += rvm
     SUBDIR += rzip
@@ -276,6 +283,7 @@
     SUBDIR += unarr
     SUBDIR += undms
     SUBDIR += unfoo
+    SUBDIR += unhare
     SUBDIR += unlzx
     SUBDIR += unmakeself
     SUBDIR += unmass
@@ -298,7 +306,6 @@
     SUBDIR += zchunk
     SUBDIR += zim-tools
     SUBDIR += zip
-    SUBDIR += zipmix
     SUBDIR += zipper
     SUBDIR += zlib-ng
     SUBDIR += zoo

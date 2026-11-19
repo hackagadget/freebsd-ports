@@ -1,6 +1,6 @@
 PORTNAME=	piwigo
-DISTVERSION=	16.4.0
-PORTREVISION=	0
+DISTVERSION=	16.5.0
+PORTREVISION=	1
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}
 CATEGORIES=	www
 MASTER_SITES=	https://piwigo.org/download/dlcounter.php?code=${PORTVERSION}&/
@@ -14,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/doc/COPYING
 
 USES=		cpe php:web,flavors zip
 # php hash/json/openssl/pcre/spl extension is required but it's statically linked in default php
-USE_PHP=	ctype dom exif filter gd iconv json mbstring mysqli \
+USE_PHP=	ctype dom exif fileinfo filter gd iconv json mbstring mysqli \
 		pdo session simplexml sodium tokenizer \
 		xml zip zlib
 # sodium is needed for randomisation stuff (prefferred option),
@@ -50,6 +50,7 @@ OPT_DESC=	Optional dependencies
 EXIFTOOL_RUN_DEPENDS=	exiftool:graphics/p5-Image-ExifTool
 FFMPEG_RUN_DEPENDS=	ffmpeg:multimedia/ffmpeg
 IMAGICK_RUN_DEPENDS=	${PECL_PKGNAMEPREFIX}imagick>=2.2.2:graphics/pecl-imagick@${PHP_FLAVOR}
+IMAGICK_VARS=	IGNORE_WITH_PHP=86
 MEDIAINFO_RUN_DEPENDS=	mediainfo:multimedia/mediainfo
 
 .include <bsd.port.pre.mk>

@@ -1,10 +1,10 @@
 PORTNAME=	openjdk
 DISTVERSIONPREFIX=	jdk-
 DISTVERSION=	${JDK_FULL_VERSION:S/.0.0//}
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	java devel
-PKGNAMESUFFIX?=	${JDK_MAJOR_VERSION}
 MASTER_SITES=	LOCAL/openjdk:boot
+PKGNAMESUFFIX?=	${JDK_MAJOR_VERSION}
 DISTFILES=	${BOOTSTRAPJDKFILE}:boot
 
 MAINTAINER=	java@FreeBSD.org
@@ -18,21 +18,10 @@ WWW=		https://openjdk.java.net/projects/jdk/26/
 
 LICENSE=	GPLv2
 
+DEPRECATED=	No longer maintained by upstream, use latest or LTS versions instead
+EXPIRATION_DATE=	2026-12-01
+
 ONLY_FOR_ARCHS=	aarch64 amd64 powerpc64 powerpc64le
-
-# This port supports the following flavors:
-#
-# - jdk (default)	Full OpenJDK including dev tools and x11 support
-# - headless		Full OpenJDK including dev tools, but without x11 support
-# - jre			Java Runtime Environment including x11 support
-# - jre_headless	Jave Runtime Environment without x11 support
-FLAVORS=	jdk jre headless jre_headless
-
-headless_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-headless
-jre_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-jre
-jre_headless_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-jre-headless
-
-FLAVOR?=	${BUILD_JRE:?jre:${FLAVORS:[1]}}
 
 BUILD_DEPENDS=	${LOCALBASE}/include/cups/cups.h:print/cups \
 		bash:shells/bash \
@@ -48,11 +37,26 @@ LIB_DEPENDS=	libasound.so:audio/alsa-lib \
 		libpng.so:graphics/png
 
 RUN_DEPENDS=	javavm:java/javavmwrapper
+
+# This port supports the following flavors:
+#
+# - jdk (default)	Full OpenJDK including dev tools and x11 support
+# - headless		Full OpenJDK including dev tools, but without x11 support
+# - jre			Java Runtime Environment including x11 support
+# - jre_headless	Java Runtime Environment without x11 support
+FLAVORS=	jdk jre headless jre_headless
+FLAVOR?=	${BUILD_JRE:?jre:${FLAVORS:[1]}}
+
+headless_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-headless
+jre_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-jre
+jre_headless_PKGNAMESUFFIX=	${JDK_MAJOR_VERSION}-jre-headless
+
 .if ${FLAVOR:M*headless} == ""
 RUN_DEPENDS+=	xorg-fonts-truetype>0:x11-fonts/xorg-fonts-truetype
-.endif
-
 USES=		autoreconf:build compiler:features cpe gmake iconv jpeg pkgconfig xorg
+.else
+USES=		autoreconf:build compiler:features cpe gmake iconv jpeg pkgconfig
+.endif
 
 CPE_VENDOR=	oracle
 
@@ -128,8 +132,8 @@ NOPRECIOUSMAKEVARS=	yes
 
 JDK_MAJOR_VERSION=	26
 JDK_MINOR_VERSION=	0
-JDK_PATCH_VERSION=	0
-JDK_BUILD_NUMBER=	35
+JDK_PATCH_VERSION=	2
+JDK_BUILD_NUMBER=	10
 BSD_JDK_VERSION=	1
 JDK_FULL_VERSION=	${JDK_MAJOR_VERSION}.${JDK_MINOR_VERSION}.${JDK_PATCH_VERSION}+${JDK_BUILD_NUMBER}-${BSD_JDK_VERSION}
 
@@ -173,7 +177,7 @@ ICONV_LDFLAGS=	-L${LOCALBASE}/lib
 ICONV_LIBS=	${ICONV_LIB}
 .endif
 
-post-patch:
+pre-configure:
 	@${RM} ${WRKSRC}/src/hotspot/os_cpu/bsd_ppc/thread_bsd_ppc.cpp
 	@${MV} ${WRKSRC}/src/hotspot/os_cpu/bsd_ppc/thread_bsd_ppc.hpp \
 		${WRKSRC}/src/hotspot/os_cpu/bsd_ppc/javaThread_bsd_ppc.hpp

@@ -1,6 +1,5 @@
 PORTNAME=	suricata
-DISTVERSION=	8.0.5
-PORTREVISION=	1
+DISTVERSION=	8.0.8
 CATEGORIES=	security
 MASTER_SITES=	https://www.openinfosecfoundation.org/download/
 
@@ -20,7 +19,6 @@ LIB_DEPENDS=	libjansson.so:devel/jansson \
 
 USES=		autoreconf cpe gmake iconv:translit libtool localbase pathfix \
 		pkgconfig
-
 CPE_VENDOR=	openinfosecfoundation
 
 USE_LDCONFIG=	yes
@@ -30,8 +28,8 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-gccmarch-native \
 			--enable-bundled-htp \
 			--enable-gccprotect
-MAKE_ENV=		RUSTFLAGS="${RUSTFLAGS} -C linker=${CC:Q} ${LDFLAGS:C/.+/-C link-arg=&/}"
 
+MAKE_ENV=		RUSTFLAGS="${RUSTFLAGS} -C linker=${CC:Q} ${LDFLAGS:C/.+/-C link-arg=&/}"
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
 
@@ -111,6 +109,8 @@ post-install:
 .for f in suricata.yaml threshold.config
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${ETCDIR}/${f}.sample
 .endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/suricatactl
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/suricatasc
 
 post-install-PYTHON-on:
 	(cd ${STAGEDIR}${PREFIX} \

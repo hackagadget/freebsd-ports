@@ -1,8 +1,8 @@
---- chrome/browser/flag_descriptions.h.orig	2026-06-17 07:32:12 UTC
+--- chrome/browser/flag_descriptions.h.orig	2026-11-11 14:44:17 UTC
 +++ chrome/browser/flag_descriptions.h
-@@ -8588,6 +8588,18 @@ inline constexpr char kAndroidEntraSsoDescription[] =
-     "Enables native support for Entra SSO on Android provided by selected "
-     "Authentication Brokers.";
+@@ -8806,6 +8806,18 @@ inline constexpr char kAntivirusTelemetryForDownloadsD
+     "Enables antivirus product info to be included in Safe Browsing download "
+     "pings.";
  
 +#if BUILDFLAG(IS_BSD)
 +inline constexpr char kAudioBackendName[] =

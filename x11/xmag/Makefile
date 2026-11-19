@@ -1,5 +1,5 @@
 PORTNAME=	xmag
-DISTVERSION=	1.0.8
+DISTVERSION=	1.0.9
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -9,7 +9,7 @@ WWW=		https://gitlab.freedesktop.org/xorg/app/xmag
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:app
+USES=		xorg xorg-cat:app
 USE_XORG=	x11 xaw xmu xt xorgproto
 
 .include <bsd.port.mk>

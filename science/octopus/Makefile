@@ -1,5 +1,6 @@
 PORTNAME=	octopus
-DISTVERSION=	16.3
+DISTVERSION=	16.4
+PORTREVISION=	1
 CATEGORIES=	science # chemistry
 MASTER_SITES=	https://octopus-code.org/download/${DISTVERSION}/
 
@@ -9,10 +10,8 @@ WWW=		https://octopus-code.org/documentation/15/
 
 LICENSE=	GPLv2
 
-BROKEN_aarch64=	fails to build: Cannot find an intrinsic module named 'ieee_arithmetic'
-
 BUILD_DEPENDS=	bash:shells/bash
-LIB_DEPENDS=	libarpack.so:math/arpack-ng@mpich \
+LIB_DEPENDS=	libarpack.so:math/arpack-ng@nompi \
 		libblas.so:math/blas \
 		libfftw3.so:math/fftw3 \
 		libfontconfig.so:x11-fonts/fontconfig \
@@ -42,6 +41,7 @@ CONFIGURE_SHELL=	${PREFIX}/bin/bash
 CONFIGURE_ARGS=	--enable-shared --disable-static
 
 LDFLAGS+=	-lsymspg
+LDFLAGS+=	"-Wl,-z,execstack" # workaround for this error on 16: ld: error: scf/.libs/mixing_preconditioner.o: requires an executable stack, but -z execstack is not specified
 FCFLAGS+=	-I${LOCALBASE}/include -ffree-line-length-none
 FCFLAGS+=	-fallow-argument-mismatch # fix build on i386: Error: Type mismatch in argument 'dims' at (1); passed INTEGER(8) to INTEGER(4)
 

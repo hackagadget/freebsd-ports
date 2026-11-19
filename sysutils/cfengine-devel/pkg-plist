@@ -5,6 +5,7 @@ bin/cf-key
 bin/cf-monitord
 bin/cf-net
 bin/cf-promises
+bin/cf-reactor
 bin/cf-runagent
 bin/cf-secret
 bin/cf-serverd

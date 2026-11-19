@@ -1,7 +1,7 @@
 PORTNAME=	amazon-efs-utils
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.1.0
-PORTREVISION=	3
+DISTVERSION=	3.3.4
+PORTREVISION=	1
 CATEGORIES=	filesystems python
 
 MAINTAINER=	olivier@FreeBSD.org
@@ -16,7 +16,7 @@ ONLY_FOR_ARCHS_REASON=	aws-lc-fips-sys (FIPS static build via s2n-tls) supports 
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}botocore>0:devel/py-botocore@${PY_FLAVOR}
 
-USES=		cargo gmake go:no_targets llvm python:3.8+,run shebangfix
+USES=		cargo gmake go:no_targets llvm python:run shebangfix
 USE_PYTHON=	noflavors
 USE_RC_SUBR=	amazon-efs-mount-watchdog
 
@@ -29,7 +29,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	aws
 GH_PROJECT=	efs-utils
 
-CARGO_SRC_SUBDIR=	src/proxy
+CARGO_SRC_SUBDIR=	src
 CARGO_VENDOR_DIR=	${CARGO_WRKSRC}/cargo-crates
 CARGO_BUILD=	yes
 CARGO_INSTALL=	no
@@ -50,6 +50,8 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|mount\.efs|mount_efs|g' \
 		${WRKSRC}/src/efs_utils_common/file_utils.py \
 		${WRKSRC}/man/mount.efs.8
+	@${REINPLACE_CMD} -e 's|@@EFS_LIBDIR@@|${EFS_LIBDIR}|g' \
+		${WRKSRC}/src/mount_efs/__init__.py
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/target/release/efs-proxy \
@@ -82,4 +84,14 @@ post-install:
 	${MKDIR} ${STAGEDIR}/var/log/amazon/efs
 	${MKDIR} ${STAGEDIR}/var/run/efs
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+# The FIPS module exceeds the 1MiB adr reach on aarch64: delocate rewrites
+# adrp into adr, and the assembler rejects the out-of-range fixups.
+# OPENSSL_SMALL drops the precomputed curve25519 and P-256 tables, which
+# brings the module back into reach at the cost of slower ECC.
+.if ${ARCH} == aarch64
+MAKE_ENV+=	AWS_LC_FIPS_SYS_SMALL=1
+.endif
+
+.include <bsd.port.post.mk>

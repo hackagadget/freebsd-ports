@@ -1,6 +1,6 @@
 PORTNAME=	ispc
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.30.0
+DISTVERSION=	1.32.0
 CATEGORIES=	devel
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -11,15 +11,15 @@ WWW=		https://ispc.github.io/ \
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-ONLY_FOR_ARCHS=		aarch64 amd64 i386
+ONLY_FOR_ARCHS=		aarch64 amd64 i386 powerpc64le
 ONLY_FOR_ARCHS_REASON=	only available for these architectures
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex \
 		m4:devel/m4
-LIB_DEPENDS=	libLLVM.so:devel/llvm${LLVM_VERSION} \
+LIB_DEPENDS=	${LLVM_LIBLLVM}:devel/llvm${LLVM_VERSION} \
 		libtbb.so:devel/onetbb
 
-USES=		bison cmake compiler:c++17-lang llvm:lib,min=19,max=19 python:build,test shebangfix
+USES=		bison cmake compiler:c++17-lang llvm:lib,min=20,max=20 python:build,test shebangfix
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
@@ -64,6 +64,13 @@ XE_PLIST_FILES=		include/ispcrt/ispcrt.h \
 			lib/libispcrt_static.a
 XE_BROKEN=		Unknown architecture
 
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == powerpc64le
+CMAKE_ON+=	PPC64_ENABLED
+CMAKE_OFF+=	ARM_ENABLED
+.endif
+
 do-test: # all tests pass
 	@cd ${WRKSRC} && ISPC_HOME=${BUILD_WRKSRC}/bin ./scripts/run_tests.py
 
@@ -79,10 +86,10 @@ run-examples: build
 	./${e}
 .endfor
 
-# tests as of 1.30.0:
-# 752 / 759 tests PASSED
-# 0 / 759 tests FAILED compilation
-# 0 / 759 tests FAILED execution
-# 7 / 759 tests SKIPPED
+# tests as of 1.31.0:
+# 752 / 757 tests PASSED
+# 0 / 757 tests FAILED compilation
+# 0 / 757 tests FAILED execution
+# 5 / 757 tests SKIPPED
 
 .include <bsd.port.mk>

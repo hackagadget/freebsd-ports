@@ -1,6 +1,7 @@
 PORTNAME=	memtui
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.0.6
+PORTREVISION=	8
 CATEGORIES=	databases
 
 MAINTAINER=	olgeni@FreeBSD.org
@@ -13,6 +14,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 USES=		go:modules
 GO_MODULE=	github.com/nnnkkk7/memtui
 GO_TARGET=	./cmd/memtui
+GO_LDFLAGS=	-X main.version=${DISTVERSION}
 
 PLIST_FILES=	bin/memtui
 

@@ -1,5 +1,5 @@
 PORTNAME=	data.table
-DISTVERSION=	1.18.4
+DISTVERSION=	1.18.6.1
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
@@ -16,9 +16,9 @@ TEST_DEPENDS=	R-cran-bit64>0:devel/R-cran-bit64 \
 
 USES=		cran:auto-plist,compiles pkgconfig
 
-# Tests	needs /etc/locatime symlink defined to succeed
-# and C.UTF-8 env set:
-MAKE_ENV=	LC_ALL=C.UTF-8
+# Tests need a valid Sys.timezone(); poudriere jails have no /etc/localtime.
+# MAKE_ENV as cran.mk's do-test does not honour TEST_ENV
+MAKE_ENV+=	TZ=UTC
 
 NO_ARCH_IGNORE=	data_table.so
 

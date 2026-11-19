@@ -81,6 +81,9 @@ include/filament/Engine.h
 include/filament/Exposure.h
 include/filament/Fence.h
 include/filament/FilamentAPI.h
+include/filament/FrameHistoryStream.h
+include/filament/FramePacer.h
+include/filament/FramePipelineEstimator.h
 include/filament/Frustum.h
 include/filament/IndexBuffer.h
 include/filament/IndirectLight.h
@@ -182,6 +185,7 @@ include/utils/MonotonicRingMap.h
 include/utils/Mutex.h
 include/utils/NameComponentManager.h
 include/utils/PagedArenaBitset.h
+include/utils/PagedArenaBitsetPool.h
 include/utils/Panic.h
 include/utils/Path.h
 include/utils/PrivateImplementation-impl.h
@@ -198,6 +202,7 @@ include/utils/bitset.h
 include/utils/compiler.h
 include/utils/compressed_pair.h
 include/utils/debug.h
+include/utils/debug/Mutex.h
 include/utils/generic/Mutex.h
 include/utils/getopt.h
 include/utils/memalign.h
@@ -211,6 +216,7 @@ include/viewer/RemoteServer.h
 include/viewer/Settings.h
 include/viewer/ViewerGui.h
 lib/libabseil.a
+lib/libassimp.a
 lib/libbackend.a
 lib/libbasis_transcoder.a
 lib/libbluegl.a
@@ -224,6 +230,8 @@ lib/libfilamat.a
 lib/libfilament-generatePrefilterMipmap.a
 lib/libfilament-iblprefilter.a
 lib/libfilament.a
+%%SAMPLES%%lib/libfilamentapp-resources.a
+%%SAMPLES%%lib/libfilamentapp.a
 lib/libfilameshio.a
 lib/libgeometry.a
 lib/libgltfio.a

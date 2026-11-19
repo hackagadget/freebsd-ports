@@ -1,5 +1,5 @@
 PORTNAME=	hivex
-PORTVERSION=	1.3.24
+PORTVERSION=	1.3.25
 CATEGORIES=	devel
 MASTER_SITES=	https://download.libguestfs.org/hivex/
 
@@ -12,7 +12,6 @@ LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		cpe gettext-runtime gmake gnome iconv libtool perl5 pkgconfig readline shebangfix
-CPE_VENDOR=	redhat
 USE_GNOME=	libxml2
 USE_PERL5=	build
 
@@ -24,6 +23,8 @@ CONFIGURE_ARGS=	--disable-nls \
 CONFIGURE_ARGS_amd64=	--enable-year2038
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
+
+CPE_VENDOR=	redhat
 
 SHEBANG_FILES=	sh/hivexget
 bash_CMD=	/bin/sh

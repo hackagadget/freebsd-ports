@@ -1,12 +1,12 @@
 PORTNAME=	electrum
-DISTVERSION=	4.6.2
+DISTVERSION=	4.8.2
 CATEGORIES=	finance python
 MASTER_SITES=	https://download.electrum.org/${PORTVERSION}/ \
 		http://download.electrum.org/${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	Electrum-${PORTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mail@vchimishuk.org
 COMMENT=	Easy to use Bitcoin client
 WWW=		https://electrum.org/
 
@@ -20,7 +20,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}aiohttp-socks>=0.9.2:net/py-aiohttp-socks@${
 		${PYTHON_PKGNAMEPREFIX}bitstring>0:devel/py-bitstring@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}certifi>0:security/py-certifi@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}dnspython>=2.2:dns/py-dnspython@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}electrum-aionostr>=0.0.11,<0.1:devel/py-electrum-aionostr@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}electrum-aionostr>=0.0.11:devel/py-electrum-aionostr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}electrum-ecc>=0.0.4,<0.1:devel/py-electrum-ecc@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}httplib2>=0:www/py-httplib2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}jsonpatch>=1.21:devel/py-jsonpatch@${PY_FLAVOR} \

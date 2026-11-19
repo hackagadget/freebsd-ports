@@ -1,11 +1,10 @@
 PORTNAME=	capnproto
-DISTVERSION=	1.4.0
-PORTREVISION=	1
+DISTVERSION=	1.5.0
 CATEGORIES=	devel
 MASTER_SITES=	https://capnproto.org/
 DISTNAME=	${PORTNAME}-c++-${DISTVERSION}
 
-MAINTAINER=	diizzy@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Serialization/RPC system
 WWW=		https://capnproto.org/
 

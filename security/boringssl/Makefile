@@ -1,5 +1,6 @@
 PORTNAME=	boringssl
-DISTVERSION=	0.20260616.0
+DISTVERSION=	0.20261020.0
+PORTREVISION=	1
 CATEGORIES=	security
 EXTRACT_ONLY=	${GH_ACCOUNT}-${PORTNAME}-${DISTVERSION}_GH0.tar.gz
 
@@ -10,10 +11,9 @@ WWW=		https://boringssl.googlesource.com/boringssl/
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cmake:insource cpe go:1.25,no_targets localbase perl5
+USES=		cmake:insource cpe go:no_targets,1.27 localbase perl5
 
-CONFLICTS_INSTALL=	libressl libressl-devel openssl openssl111 \
-			openssl3[23456] openssl-quictls openssl33-quictls
+CONFLICTS_INSTALL=	aws-lc libressl libressl-devel openssl openssl[34][0456]
 
 CPE_VENDOR=	google
 
@@ -24,8 +24,11 @@ CMAKE_ARGS+=	-DBUILD_SHARED_LIBS=1
 CFLAGS_i386=	-msse2
 USE_LDCONFIG=	yes
 LDFLAGS+=	-Wl,-rpath,${LOCALBASE}/lib
+GO_VARS=	BINARY_ALIAS="go=go${GO_SUFFIX}"
 TEST_TARGET=	run_tests
 MAKE_ENV+=	GOFLAGS=-mod=readonly \
+		GOPROXY=file://${DISTDIR}
+TEST_ENV+=	GOFLAGS=-mod=readonly \
 		GOPROXY=file://${DISTDIR}
 
 .include <bsd.port.pre.mk>
@@ -34,12 +37,14 @@ MAKE_ENV+=	GOFLAGS=-mod=readonly \
 MASTER_SITES+=	https://proxy.golang.org/:gomods
 DISTFILES+=	filippo.io/edwards25519/@v/v1.2.0.zip:gomods \
 		filippo.io/edwards25519/@v/v1.2.0.mod:gomods \
-		filippo.io/mldsa/@v/v0.0.0-20260215214346-43d0283efc3e.zip:gomods \
-		filippo.io/mldsa/@v/v0.0.0-20260215214346-43d0283efc3e.mod:gomods \
-		golang.org/x/crypto/@v/v0.52.0.zip:gomods \
-		golang.org/x/crypto/@v/v0.52.0.mod:gomods \
-		golang.org/x/sys/@v/v0.45.0.zip:gomods \
-		golang.org/x/sys/@v/v0.45.0.mod:gomods
+		github.com/hexops/gotextdiff/@v/v1.0.3.zip:gomods \
+		github.com/hexops/gotextdiff/@v/v1.0.3.mod:gomods \
+		golang.org/x/crypto/@v/v0.55.0.zip:gomods \
+		golang.org/x/crypto/@v/v0.55.0.mod:gomods \
+		golang.org/x/sys/@v/v0.47.0.zip:gomods \
+		golang.org/x/sys/@v/v0.47.0.mod:gomods \
+		golang.org/x/term/@v/v0.45.0.zip:gomods \
+		golang.org/x/term/@v/v0.45.0.mod:gomods
 .endif
 
 post-install:

@@ -1,5 +1,5 @@
 PORTNAME=	opensearch
-DISTVERSION=	3.6.0
+DISTVERSION=	3.8.0
 DISTVERSIONSUFFIX=	-linux-${OPENSEARCH_ARCH}
 CATEGORIES=	textproc java devel
 MASTER_SITES=	https://artifacts.opensearch.org/releases/bundle/${PORTNAME}/${DISTVERSION}/
@@ -10,14 +10,14 @@ WWW=		https://opensearch.org
 
 LICENSE=	APACHE20
 
-ONLY_FOR_ARCHS=	aarch64 amd64
+ONLY_FOR_ARCHS=	aarch64 amd64 powerpc64 powerpc64le
 
 BUILD_DEPENDS=	jna>0:devel/jna
 RUN_DEPENDS=	bash>0:shells/bash \
 		jna>0:devel/jna
 
 USES=		cpe java shebangfix
-+JAVA_VERSION=  25 21
+JAVA_VERSION=	25 21
 USE_RC_SUBR=	${PORTNAME}
 
 SHEBANG_FILES=	bin/opensearch bin/opensearch-cli bin/opensearch-env \
@@ -38,7 +38,7 @@ OPTIONS_DEFAULT=	PLUGINS
 
 .include <bsd.port.options.mk>
 
-OPENSEARCH_ARCH?=	${ARCH:S|aarch64|arm64|:S|amd64|x64|}
+OPENSEARCH_ARCH?=	${ARCH:S|aarch64|arm64|:S|amd64|x64|:S|powerpc64le|x64|:S|powerpc64|x64|}
 
 CONFIG_FILES=	opensearch.yml jvm.options log4j2.properties
 

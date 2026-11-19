@@ -1,35 +1,27 @@
---- hermes_cli/uninstall.py.orig	2026-05-16 09:59:15 UTC
-+++ hermes_cli/uninstall.py	2026-05-19 11:13:44.570355000 +0200
-@@ -224,6 +224,32 @@
-                     log_warn(f"Could not fully uninstall Windows gateway: {e}")
-         except Exception as e:
-             log_warn(f"Could not check Windows gateway service: {e}")
+--- hermes_cli/uninstall.py.orig	2026-11-16 19:28:45 UTC
++++ hermes_cli/uninstall.py
+@@ -335,6 +335,16 @@ def _remove_launchd_gateway() -> bool:
+     return bool(plists)
+ 
+ 
++def _remove_freebsd_gateway() -> bool:
++    """FreeBSD: disable the rcvar via freebsd_rc_uninstall (delegates to sysrc/service).
++    The rc.d script itself is pkg-owned and is removed by `pkg delete hermes-agent`."""
++    from hermes_cli.gateway import supports_freebsd_rc, freebsd_rc_uninstall
++    if not supports_freebsd_rc():
++        return False
++    freebsd_rc_uninstall()
++    return True
 +
-+    # 4. FreeBSD: stop the rc.d service and remove its rcvar from rc.conf.
-+    #    The rc script itself (/usr/local/etc/rc.d/hermes_gateway) is owned
-+    #    by the FreeBSD package — `pkg delete hermes-agent` removes it.
-+    elif system == "FreeBSD":
-+        try:
-+            from hermes_cli.gateway import (
-+                supports_freebsd_rc,
-+                FREEBSD_RC_SCRIPT_NAME,
-+                FREEBSD_RC_VAR,
-+            )
-+            if supports_freebsd_rc():
-+                sudo = [] if os.geteuid() == 0 else (["sudo"] if shutil.which("sudo") else None)
-+                if sudo is None:
-+                    log_warn(f"  Need root to disable {FREEBSD_RC_SCRIPT_NAME}. "
-+                             f"Run: sudo service {FREEBSD_RC_SCRIPT_NAME} stop && "
-+                             f"sudo sysrc -x {FREEBSD_RC_VAR}")
-+                else:
-+                    subprocess.run(sudo + ["service", FREEBSD_RC_SCRIPT_NAME, "stop"],
-+                                   capture_output=True, check=False)
-+                    subprocess.run(sudo + ["sysrc", "-x", FREEBSD_RC_VAR],
-+                                   capture_output=True, check=False)
-+                    log_success(f"Stopped and disabled {FREEBSD_RC_SCRIPT_NAME}")
-+                    stopped_something = True
-+        except Exception as e:
-+            log_warn(f"Could not disable FreeBSD gateway service: {e}")
++
+ def _remove_windows_gateway() -> bool:
+     """Windows: uninstall Scheduled Task + Startup-folder entry via ``gateway_windows`` (it owns
+     schtasks /Delete, the .cmd unlink and stopping the detached pythonw gateway)."""
+@@ -358,6 +368,7 @@ _GATEWAY_SERVICE_REMOVERS = {
+ _GATEWAY_SERVICE_REMOVERS = {
+     "Linux": (_remove_systemd_gateway, "Could not check systemd gateway services"),
+     "Darwin": (_remove_launchd_gateway, "Could not remove launchd gateway service"),
++    "FreeBSD": (_remove_freebsd_gateway, "Could not remove FreeBSD gateway service"),
+     "Windows": (_remove_windows_gateway, "Could not check Windows gateway service")}
  
-     return stopped_something
- 
+ # Windows helpers. install.ps1 leaves four things no rc file covers: User-scope env vars

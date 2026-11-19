@@ -1,6 +1,5 @@
 PORTNAME=	krb5
-PORTVERSION=	1.2.4
-PORTREVISION=	1
+PORTVERSION=	1.3.0
 CATEGORIES=	security pear
 
 MAINTAINER=	girgen@FreeBSD.org
@@ -10,6 +9,7 @@ WWW=		https://pecl.php.net/package/krb5
 LICENSE=	BSD3CLAUSE
 
 USES=		php:pecl gssapi:mit
+IGNORE_WITH_PHP=	86
 
 CONFIGURE_ARGS=	--with-krb5config=${LOCALBASE}/bin/krb5-config
 

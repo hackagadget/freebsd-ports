@@ -1,5 +1,5 @@
 PORTNAME=	td-system-tools
-DISTVERSION=	2.7.4
+DISTVERSION=	2.7.15
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/system-tools/download/
 
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 RUN_DEPENDS=	bash:shells/bash \
 		getopt>=0:misc/getopt
 
-USES=		cmake shebangfix tar:xz
+USES=		cmake gettext-runtime shebangfix tar:xz
 
 CFLAGS+=	-std=c23
 
@@ -110,7 +110,8 @@ TRY_HARD_CMAKE_BOOL=			WITH_TRY_HARD
 UNIX_TIMESTAMP_TOOLS_CMAKE_BOOL=	WITH_UNIX_TIMESTAMP_TOOLS
 
 X509_TOOLS_IMPLIES=			PRINT_UTF8 \
-					TEXT_BLOCK
+					TEXT_BLOCK \
+					UNIX_TIMESTAMP_TOOLS
 X509_TOOLS_RUN_DEPENDS=			mbuffer:misc/mbuffer
 X509_TOOLS_USES=			python ssl:run
 X509_TOOLS_CMAKE_BOOL=			WITH_X509_TOOLS

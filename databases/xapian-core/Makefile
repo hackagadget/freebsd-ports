@@ -1,5 +1,5 @@
 PORTNAME=	xapian-core
-PORTVERSION=	2.0.0
+PORTVERSION=	2.1.0
 PORTEPOCH=	1
 CATEGORIES=	databases
 MASTER_SITES=	https://oligarchy.co.uk/xapian/${PORTVERSION}/ \
@@ -7,7 +7,9 @@ MASTER_SITES=	https://oligarchy.co.uk/xapian/${PORTVERSION}/ \
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Probabilistic text search database engine
-WWW=		https://xapian.org/
+WWW=		https://xapian.org/ \
+		https://github.com/xapian/xapian/tree/main/xapian-core \
+		https://github.com/xapian/xapian
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -22,14 +24,14 @@ USE_LDCONFIG=	yes
 
 CONFLICTS_INSTALL=	xapian-core14
 
+CPE_VENDOR=	xapian
+
 PORTSCOUT=	limitw:1,even
 
 OPTIONS_DEFINE=	DOCS SSE2
 SSE2_DESC=	Use SSE2 for floating point
 
 SSE2_CONFIGURE_ENABLE=	sse
-
-CPE_VENDOR=	xapian
 
 post-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/xapian-inspect ${STAGEDIR}${PREFIX}/bin/xapian-inspect

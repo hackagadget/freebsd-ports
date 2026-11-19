@@ -1,7 +1,7 @@
 PORTNAME=	openmodelica
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.25.7
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	science cad java
 DIST_SUBDIR=	${PORTNAME}-${PORTVERSION}
 
@@ -18,6 +18,7 @@ LICENSE_NAME=	Public license for OpenModelica
 LICENSE_TEXT=	See https://github.com/OpenModelica/OpenModelica/blob/master/OSMC-License.txt
 LICENSE_PERMS=	auto-accept dist-mirror dist-sell pkg-mirror pkg-sell
 
+BROKEN_FreeBSD_16=	compilation fails: invalid C++ code in OMCompiler/3rdParty/tbb/include/tbb/task.h, the next release has this fixed but it fails for other resone
 BROKEN_aarch64=	compilation fails: OpenModelica expects libquadmath.so, which does not exist on aarch64 (PR 285692)
 BROKEN_armv7=	link fails: ld: cannot find -lquadmath: No such file or directory
 BROKEN_i386=	compilation fails: /wrkdirs/usr/ports/science/openmodelica/work/OpenModelica-1.20.0/OMCompiler/3rdParty/libffi/src/x86/sysv.S:841:1: error: changed section flags for .eh_frame, expected: 0x2
@@ -71,12 +72,23 @@ CMAKE_ARGS+=	-DOM_USE_CCACHE:BOOL=${CCACHE_ENABLED:S/yes/ON/:S/no/OFF/} # if ref
 #CMAKE_ARGS+=	-DOM_QT_MAJOR_VERSION=6 # broken, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=287596
 CMAKE_ON=	OM_OMEDIT_ENABLE_QTWEBENGINE
 CMAKE_OFF=	OM_OMC_ENABLE_IPOPT # broken: omc::3rd::ipopt isn't found, see https://github.com/OpenModelica/OpenModelica/issues/14702
+CMAKE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 # CMake 4.5 compatibility, see https://github.com/OpenModelica/OpenModelica/issues/17154
 
 LDFLAGS+=	-lexecinfo -lintl -pthread
 
 BINARY_ALIAS=	make=${GMAKE}
 
 CONFLICTS_INSTALL=	cminpack # see https://github.com/OpenModelica/OpenModelica/issues/14701
+
+.include <bsd.port.options.mk>
+
+# CMinpack only builds libcminpackld when long double is wider than double,
+# which on powerpc64le is only the case since 16.0 (IEEE binary128).
+.if ${ARCH} == powerpc64le && ${OSVERSION} < 1600019
+PLIST_SUB+=	LONG_DOUBLE="@comment "
+.else
+PLIST_SUB+=	LONG_DOUBLE=""
+.endif
 
 post-extract:
 	# remove stray *.orig files

@@ -1,5 +1,5 @@
 PORTNAME=	ibus-typing-booster
-PORTVERSION=	2.30.10
+PORTVERSION=	2.31.4
 CATEGORIES=	textproc
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -45,7 +45,6 @@ SHEBANG_LANG=	sh
 sh_OLD_CMD=	/usr/bin/sh
 sh_CMD=		${SH}
 USE_GNOME=	gtk40
-USE_LOCALE=	en_US.UTF-8
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--libexecdir=${PREFIX}/libexec
 NO_ARCH=	yes

@@ -11,7 +11,6 @@ WWW=		https://www.dynare.org/
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN_aarch64=	cannot open module file 'ieee_arithmetic.mod' for reading at (1): No such file or directory
 .if !exists(/usr/include/omp.h)
 BROKEN=		requires OpenMP support that is missing on this architecture
 .endif
@@ -30,6 +29,8 @@ RUN_DEPENDS=	epstool:graphics/epstool \
 		xfig:graphics/xfig
 
 USES=		bison compiler:c++20-lang fortran localbase:ldflags meson pkgconfig tar:xz
+
+LDFLAGS+=	-Wl,-z,execstack # workaround for error on 16: ld.lld: error: libheterogeneity.a(libheterogeneity.a.p/mex_sources_heterogeneity_utils_time_iteration_tensor.f08.o): requires an executable stack, but -z execstack is not specified
 
 MESON_ARGS=	-Dbuild_for=octave \
 		-Dpardiso=disabled

@@ -1,5 +1,6 @@
 PORTNAME=	rsync
-DISTVERSION=	3.4.4
+DISTVERSION=	3.5.2
+
 CATEGORIES=	net
 MASTER_SITES=	https://www.mirrorservice.org/sites/rsync.samba.org/src/ \
 		http://rsync.mirror.garr.it/src/ \
@@ -13,11 +14,11 @@ WWW=		https://rsync.samba.org/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cmarkgfm>=0.8.0:textproc/py-cmarkgfm@${PY_FLAVOR} \
-		${PYTHON_VERSION}:lang/python${PYTHON_SUFFIX}
 LIB_DEPENDS=	liblz4.so:archivers/liblz4 \
 		libxxhash.so:devel/xxhash \
 		libzstd.so:archivers/zstd
+TEST_DEPENDS=	${PYTHON_VERSION}:lang/python${PYTHON_SUFFIX} \
+		bash:shells/bash
 
 USES=		autoreconf:build cpe python shebangfix ssl
 CPE_VENDOR=	samba
@@ -27,11 +28,16 @@ USE_RC_SUBR=	rsyncd
 
 SHEBANG_FILES=	runtests.py support/rrsync
 
-GNU_CONFIGURE=	yes
+GNU_CONFIGURE=		yes
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
-CONFIGURE_ARGS=	--disable-debug \
-		--enable-ipv6 \
-		--with-rsyncd-conf=${ETCDIR}/rsyncd.conf
+CONFIGURE_ARGS=		${CONFIGURE_ARGS_${ARCH}} \
+			--disable-debug \
+			--disable-md2man \
+			--enable-ipv6 \
+			--with-rsyncd-conf=${ETCDIR}/rsyncd.conf
+CONFIGURE_ARGS_amd64=	--enable-md5-asm \
+			--enable-roll-asm \
+			--enable-roll-simd
 
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
@@ -39,26 +45,26 @@ TEST_TARGET=	check
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-BINARY_ALIAS=	python3=${PYTHON_VERSION}
-
 SUB_LIST=	NAME=rsyncd
 
 PORTDOCS=	NEWS.md README.md csprotocol.txt tech_report.tex
 
 # define options
-OPTIONS_DEFINE=		DOCS ICONV POPT_PORT SSH ZLIB_BASE
-OPTIONS_DEFAULT=	ICONV SSH ZLIB_BASE
-OPTIONS_RADIO=		PTS
+OPTIONS_DEFINE=		DOCS FLAGS ICONV IDN POPT_PORT SSH ZLIB_BASE
+OPTIONS_DEFAULT=	FLAGS ICONV SSH ZLIB_BASE
 
 # options provided upstream
+FLAGS_DESC=	File system flags support patch, adds --file-flags
 POPT_PORT_DESC=	Use popt from devel/popt instead of bundled one
-PTS_DESC=	Functionality provided by third party patches
 SSH_DESC=	Use SSH instead of RSH
-
 ZLIB_BASE_DESC=	Use zlib from base instead of bundled one
 
+FLAGS_EXTRA_PATCHES=	${FILESDIR}/extra-patch-file-flags.diff
 ICONV_USES=		iconv:translit
 ICONV_CONFIGURE_ENABLE=	iconv iconv-open
+
+IDN_LIB_DEPENDS=	libidn2.so:dns/libidn2
+IDN_CONFIGURE_ENABLE=	idn
 
 POPT_PORT_LIB_DEPENDS=		libpopt.so:devel/popt
 POPT_PORT_CONFIGURE_OFF=	--with-included-popt
@@ -75,9 +81,10 @@ CONFIGURE_ARGS+=	ac_cv_search_libiconv_open=no
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's:/etc/r{1,2}sync:${ETCDIR}/:g' \
+	@${REINPLACE_CMD} -e 's:/etc/rsync/:${ETCDIR}/:g' \
+					  -e 's:/etc/rsyncd:${ETCDIR}/rsyncd:g' \
 					  -e 's:/etc/letsencrypt:${PREFIX}/etc/letsencrypt:g' \
-					  ${WRKSRC}/rsync.1.md ${WRKSRC}/rsyncd.conf.5.md
+					  ${WRKSRC}/rsync.1 ${WRKSRC}/rsyncd.conf.5
 	@${REINPLACE_CMD} -e 's|/usr/bin/rsync|${PREFIX}/bin/rsync|g' ${WRKSRC}/support/rrsync
 
 pre-configure:
@@ -92,5 +99,8 @@ post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/support/rrsync.1.md ${STAGEDIR}${DOCSDIR}
+
+pre-test:
+	${FIND} ${WRKSRC}/testsuite/ -type f -name '*.py' -exec ${REINPLACE_CMD} -e 's/python3/${PYTHON_VERSION}/g' {} \;
 
 .include <bsd.port.post.mk>

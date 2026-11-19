@@ -1,5 +1,6 @@
 PORTNAME=	handbrake
-DISTVERSION=	1.11.1
+DISTVERSION=	1.11.2
+PORTREVISION=	2
 CATEGORIES=	multimedia
 MASTER_SITES=	https://github.com/HandBrake/HandBrake/releases/download/${DISTVERSION}/
 MASTER_SITES+=	https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs/:contrib
@@ -23,7 +24,6 @@ ONLY_FOR_ARCHS=	amd64 powerpc powerpc64 powerpc64le
 
 BUILD_DEPENDS=	bash:shells/bash \
 		nasm:devel/nasm \
-		cmake:devel/cmake-core \
 		meson:devel/meson \
 		appstreamcli:devel/appstream \
 		git:devel/git@lite
@@ -42,12 +42,13 @@ LIB_DEPENDS=	libdrm.so:graphics/libdrm \
 		libopus.so:audio/opus \
 		libjansson.so:devel/jansson
 
-USES=		autoreconf:build compiler:c11 gmake iconv libtool:build \
-		localbase:ldflags ninja:build pkgconfig python:build
+USES=		autoreconf:build cmake:indirect compiler:c11 gmake iconv \
+		libtool:build localbase:ldflags ninja:build pkgconfig \
+		python:build
 
-CONTRIB_FILES=	SVT-AV1-v4.0.1.tar.gz \
+CONTRIB_FILES=	SVT-AV1-v4.1.0.tar.gz \
 		fdk-aac-2.0.3.tar.gz \
-		ffmpeg-8.0.1.tar.bz2 \
+		ffmpeg-8.0.2.tar.bz2 \
 		libbluray-1.4.0.tar.xz \
 		libdvdnav-7.0.0.tar.bz2 \
 		libdvdread-7.0.1.tar.bz2 \
@@ -89,13 +90,13 @@ OPTIONS_EXCLUDE_powerpc64le=	VPL
 OPTIONS_SUB=	yes
 
 FDK_AAC_DESC=	Enable non-free Fraunhofer FDK AAC codec
-VPL_DESC=	Intel oneVPL (aka Quick Sync Video)
+VPL_DESC=	Intel libvpl (aka Quick Sync Video)
 X11_DESC=	Build GTK 3 based GUI program
 
 FDK_AAC_CONFIGURE_ENABLE=	fdk-aac
 FDK_AAC_VARS=			LICENSE+=FDK_AAC LICENSE_COMB=multi
 
-VPL_LIB_DEPENDS=	libvpl.so:multimedia/onevpl \
+VPL_LIB_DEPENDS=	libvpl.so:multimedia/libvpl \
 			libmfx.so:multimedia/intel-media-sdk \
 			libva-drm.so:multimedia/libva
 VPL_CONFIGURE_ON=	--enable-qsv

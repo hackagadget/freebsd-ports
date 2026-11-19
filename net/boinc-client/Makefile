@@ -1,6 +1,6 @@
 PORTNAME=	boinc-client
 DISTVERSIONPREFIX=	client_release/8.2/
-DISTVERSION=	8.2.8
+DISTVERSION=	8.2.13
 CATEGORIES=	net
 
 MAINTAINER=	alven@FreeBSD.org
@@ -25,6 +25,7 @@ INSTALL_TARGET=	install-strip
 
 LDFLAGS+=	-lexecinfo
 
+DATADIR=	${PREFIX}/share/boinc
 PORTSCOUT=	limit:^8\.2\.\d+
 SUB_FILES=	pkg-deinstall pkg-install
 SUB_LIST=	BOINC_CLIENT_GROUP="${BOINC_CLIENT_GROUP}" \
@@ -39,15 +40,20 @@ GROUPS=		boinc
 PLIST_SUB=	SOVERSION=${DISTVERSION}
 
 OPTIONS_DEFINE=		CLIENT MANAGER NLS SKINS USER X11
-OPTIONS_DEFINE_aarch64=	LINUX
-OPTIONS_DEFINE_amd64=	LINUX
-OPTIONS_DEFINE_i386=	LINUX
-OPTIONS_DEFAULT=	CLIENT MANAGER USER X11
+OPTIONS_DEFINE_aarch64=	LINUX LINUXGL LINUXGLU
+OPTIONS_DEFINE_amd64=	LINUX LINUXGL LINUXGLU
+OPTIONS_DEFINE_i386=	LINUX LINUXGL LINUXGLU
+OPTIONS_DEFAULT=	CLIENT MANAGER NLS SKINS USER X11
+OPTIONS_DEFAULT_aarch64=CLIENT LINUX LINUXGL LINUXGLU MANAGER NLS SKINS USER X11
+OPTIONS_DEFAULT_amd64=	CLIENT LINUX LINUXGL LINUXGLU MANAGER NLS SKINS USER X11
+OPTIONS_DEFAULT_i386=	CLIENT LINUX LINUXGL LINUXGLU MANAGER NLS SKINS USER X11
 OPTIONS_GROUP=		SCRIPT
 OPTIONS_GROUP_SCRIPT=	NO_GUI_RPC NO_NET_INFO
 OPTIONS_SUB=		yes
 
 CLIENT_DESC=		Build BOINC client
+LINUXGLU_DESC=		Support OpenGL Utility Library (libGLU) for GNU/Linux science applications
+LINUXGL_DESC=		Support OpenGL (libGL) for GNU/Linux science applications
 LINUX_DESC=		Accept science applications for GNU/Linux
 MANAGER_DESC=		Build BOINC GUI manager
 NLS_DESC=		Install language translations for use in the GUI
@@ -64,6 +70,10 @@ CLIENT_RUN_DEPENDS=		${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_n
 CLIENT_USE=			RC_SUBR=boinc-client
 CLIENT_CONFIGURE_ENABLE=	client
 
+LINUXGLU_IMPLIES=		LINUXGL
+LINUXGLU_USE=			LINUX=dri
+LINUXGL_IMPLIES=		LINUX
+LINUXGL_USE=			LINUX=libglvnd
 LINUX_USES=			linux
 LINUX_CONFIGURE_ON=		${LINUX_CONFIGURE_ON_${ARCH}}
 # https://boinc.berkeley.edu/trac/wiki/BoincPlatforms
@@ -115,44 +125,28 @@ SUB_LIST+=	OPTION_USER=""
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|client/scripts||' \
-		${WRKSRC}/Makefile.am
+	@${REINPLACE_CMD} -e 's|client/scripts||' ${WRKSRC}/Makefile.am
 
 post-patch-X11-off:
-	@${REINPLACE_CMD} -e 's|enable_xss="yes"|enable_xss="no"|' \
-		${WRKSRC}/configure.ac
+	@${REINPLACE_CMD} -e 's|enable_xss="yes"|enable_xss="no"|' ${WRKSRC}/configure.ac
 
 post-install:
-.for name in config.h project_specific_defines.h api/reduce.h lib/keyword.h \
-	lib/opencl_boinc.h lib/shmem.h lib/std_fixes.h lib/str_replace.h
-	${INSTALL_DATA} ${WRKSRC}/${name} \
-		${STAGEDIR}${PREFIX}/include/boinc
-.endfor
+	cd ${WRKSRC} && ${INSTALL_DATA} *.h api/*.h lib/*.h ${STAGEDIR}${PREFIX}/include/boinc
 
 post-install-MANAGER-on:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/boinc
-.for size in 16 32 48
-	${INSTALL_DATA} ${WRKSRC}/packages/generic/sea/boincmgr.${size}x${size}.png \
-		${STAGEDIR}${PREFIX}/share/pixmaps
-.endfor
+	cd ${WRKSRC}/packages/generic/sea && \
+		${INSTALL_DATA} boincmgr.*.png ${STAGEDIR}${PREFIX}/share/pixmaps
+
 .if ${PORT_OPTIONS:MSKINS}
-	(cd ${WRKSRC}/clientgui && \
-		${COPYTREE_SHARE} skins ${STAGEDIR}${PREFIX}/share/boinc/ \
-		)
+	cd ${WRKSRC}/clientgui && ${COPYTREE_SHARE} skins ${STAGEDIR}${DATADIR}
 .else
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/boinc/skins
-	(cd ${WRKSRC}/clientgui/skins && \
-		${COPYTREE_SHARE} Default ${STAGEDIR}${PREFIX}/share/boinc/skins/ \
-		)
+	${MKDIR} ${STAGEDIR}${DATADIR}/skins
+	cd ${WRKSRC}/clientgui/skins && ${COPYTREE_SHARE} Default ${STAGEDIR}${DATADIR}/skins
 .endif
 
 post-install-X11-on:
-.for name in api/boinc_gl.h api/graphics_api.h api/graphics_data.h api/ttfont.h
-	${INSTALL_DATA} ${WRKSRC}/${name} \
-		${STAGEDIR}${PREFIX}/include/boinc
-.endfor
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/boinc/ttf
+	${MKDIR} ${STAGEDIR}${DATADIR}/ttf
 	cd ${WRKSRC}/api/ttf/liberation-fonts-ttf-2.00.0 && \
-		${COPYTREE_SHARE} \*.ttf ${STAGEDIR}${PREFIX}/share/boinc/ttf/
+		${INSTALL_DATA} *.ttf ${STAGEDIR}${DATADIR}/ttf
 
 .include <bsd.port.mk>

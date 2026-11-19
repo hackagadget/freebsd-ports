@@ -2,7 +2,7 @@ PORTNAME=	sddm
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.21.0-36
 DISTVERSIONSUFFIX=	-gc2b97dd
-PORTREVISION=	2
+PORTREVISION=	7
 CATEGORIES=	x11
 
 MAINTAINER=	kde@FreeBSD.org
@@ -24,7 +24,8 @@ RUN_DEPENDS=	consolekit2>1.2.5:sysutils/consolekit2 \
 		xauth:x11/xauth \
 		xmessage:x11/xmessage \
 		xrdb:x11/xrdb \
-		xsetroot:x11/xsetroot
+		xsetroot:x11/xsetroot \
+		setxkbmap:x11/setxkbmap
 
 USES=		cmake compiler:c++17-lang cpe gl pkgconfig python:build qt:6 xorg
 CPE_VENDOR=	${PORTNAME}_project
@@ -38,9 +39,10 @@ USE_XORG=	xau xcb
 CMAKE_ARGS=	-DACCOUNTSSERVICE_DATA_DIR:PATH=/var/db/AccountsService \
 		-DCMAKE_INSTALL_SYSCONFDIR:PATH=${LOCALBASE}/etc \
 		-DRST2MAN_EXECUTABLE=${LOCALBASE}/bin/rst2man \
-		-DSDDM_INITIAL_VT=7 \
+		-DSDDM_INITIAL_VT=9 \
 		-DUID_MIN=1000 \
-		-DUID_MAX=65000
+		-DUID_MAX=65000 \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 CMAKE_ON=	BUILD_MAN_PAGES \
 		BUILD_WITH_QT6
 
@@ -50,7 +52,7 @@ SUB_FILES=	xinit-session \
 		xinitrc.desktop
 
 USERS=		sddm
-GROUPS=		sddm
+GROUPS=		sddm video
 
 post-patch:
 	@${REINPLACE_CMD} -e 's#/etc/X11#${LOCALBASE}/etc/X11#' \

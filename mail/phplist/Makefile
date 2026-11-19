@@ -1,5 +1,5 @@
 PORTNAME=	phplist
-DISTVERSION=	3.6.16
+DISTVERSION=	3.7.0
 CATEGORIES=	mail www
 MASTER_SITES=	SF
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}
@@ -15,6 +15,7 @@ RUN_DEPENDS=	${PEARDIR}/HTTP/Request.php:www/pear-HTTP_Request@${PHP_FLAVOR}
 
 USES=		cpe tar:tgz php:web,flavors
 USE_PHP=	curl gd gettext iconv imap mbstring mysqli session simplexml xml zlib
+IGNORE_WITH_PHP=	86
 
 NO_ARCH=	yes
 NO_BUILD=	yes
@@ -39,6 +40,7 @@ do-install:
 	@${FIND} ${WRKSRC}/public_html/ -type f -name '*.md' -delete
 	@${FIND} ${WRKSRC}/public_html/ -type f -name '.doctrine-project.json' -delete
 	@${FIND} ${WRKSRC}/public_html/ -type f -name '.editorconfig' -delete
+	@${FIND} ${WRKSRC}/public_html/ -type f -name '.gitignore' -delete
 	@${FIND} ${WRKSRC}/public_html/ -type f -name '.gitkeep' -delete
 	@${FIND} ${WRKSRC}/public_html/ -type f -name '.travis.yml' -delete
 	@${FIND} ${WRKSRC}/public_html/ -type f -name 'composer.json' -delete

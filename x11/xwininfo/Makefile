@@ -1,5 +1,5 @@
 PORTNAME=	xwininfo
-DISTVERSION=	1.1.6
+DISTVERSION=	1.1.7
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -9,7 +9,7 @@ WWW=		https://gitlab.freedesktop.org/xorg/app/xwininfo
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		iconv tar:xz xorg xorg-cat:app
+USES=		iconv xorg xorg-cat:app
 USE_XORG=	x11 xcb xorgproto
 
 LIB_DEPENDS=	libxcb-errors.so:x11/xcb-util-errors \

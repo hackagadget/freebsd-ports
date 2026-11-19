@@ -1,5 +1,5 @@
 PORTNAME=	time
-PORTVERSION=	0.4.2
+PORTVERSION=	0.5.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -16,8 +16,8 @@ RUN_DEPENDS=	rubygem-date>=0:devel/rubygem-date
 
 USES=		cpe gem
 
-CPE_VENDOR=	ruby-lang
-
 NO_ARCH=	yes
+
+CPE_VENDOR=	ruby-lang
 
 .include <bsd.port.mk>

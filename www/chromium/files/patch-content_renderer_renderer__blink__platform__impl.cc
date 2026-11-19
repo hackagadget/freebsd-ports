@@ -1,13 +1,12 @@
---- content/renderer/renderer_blink_platform_impl.cc.orig	2026-06-04 10:12:25 UTC
+--- content/renderer/renderer_blink_platform_impl.cc.orig	2026-11-11 14:44:17 UTC
 +++ content/renderer/renderer_blink_platform_impl.cc
-@@ -121,14 +121,14 @@
+@@ -124,13 +124,13 @@
  #include "third_party/blink/public/web/win/web_font_rendering.h"
  #endif
  
 -#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
 +#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
  #include "content/child/font_data/font_data_manager.h"
- #include "skia/ext/font_utils.h"
  #endif
  
  #if BUILDFLAG(IS_MAC)
@@ -42,7 +41,7 @@
      // Create a FontDataManager if it's enabled, and if we're not in a
      // single-process environment. In single process, the SkFontMgr is already
      // installed by browser process code at this point.
-@@ -232,7 +232,7 @@ RendererBlinkPlatformImpl::RendererBlinkPlatformImpl(
+@@ -229,7 +229,7 @@ RendererBlinkPlatformImpl::RendererBlinkPlatformImpl(
    }
  
  #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_MAC) || \
@@ -51,7 +50,7 @@
    if (sandboxEnabled()) {
  #if BUILDFLAG(IS_MAC)
      sandbox_support_ = std::make_unique<WebSandboxSupportMac>();
-@@ -305,7 +305,7 @@ RendererBlinkPlatformImpl::GetWebUIBundledCodeCacheRes
+@@ -302,7 +302,7 @@ RendererBlinkPlatformImpl::GetWebUIBundledCodeCacheRes
  
  blink::WebSandboxSupport* RendererBlinkPlatformImpl::GetSandboxSupport() {
  #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_MAC) || \

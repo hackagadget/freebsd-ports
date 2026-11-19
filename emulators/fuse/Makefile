@@ -1,5 +1,5 @@
 PORTNAME=	fuse
-PORTVERSION=	1.8.0
+PORTVERSION=	1.10.1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}-emulator/${PORTNAME}/${PORTVERSION}
 
@@ -9,8 +9,7 @@ WWW=		https://fuse-emulator.sourceforge.net
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
-		libfreetype.so:print/freetype2 \
+LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libgcrypt.so:security/libgcrypt \
 		libpng.so:graphics/png \
 		libspectrum.so:emulators/libspectrum
@@ -23,7 +22,7 @@ USE_XORG=	x11
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
-CONFIGURE_ARGS+=--without-joystick # TODO needs libjsw for GTK
+CONFIGURE_ARGS+=--without-joystick
 
 OPTIONS_DEFINE=		ICONS ROMS DOCS
 OPTIONS_DEFAULT=	ICONS OSS GTK3
@@ -32,7 +31,7 @@ AUDIO_DESC=		Audio output interface
 UI_DESC=		User Interface
 ROMS_DESC=		Extra ROM images (128p, 256s, Gluck, IF1, Opus, TrDOS)
 OPTIONS_SINGLE_AUDIO=	ALSA AO OSS PULSEAUDIO
-OPTIONS_SINGLE_UI=	GTK3 SDL SDL2
+OPTIONS_SINGLE_UI=	GTK3 SDL2
 
 OPTIONS_SUB=		yes
 ALSA_CONFIGURE_ON=	--with-audio-driver=alsa
@@ -45,23 +44,17 @@ PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 ICONS_USES=		desktop-file-utils shared-mime-info
 ICONS_CONFIGURE_ENABLE=	desktop-integration
 GTK3_USE=		GNOME=cairo,gtk30
-GTK3_CONFIGURE_ENABLE=	gtk3
-SDL_USES=		sdl
-SDL_USE=		SDL=sdl XORG=ice,sm,xext
-SDL_CONFIGURE_WITH=	sdl
-SDL_CONFIGURE_ON=	--without-gtk
+GTK3_CONFIGURE_WITH=	gtk
+SDL2_DESC=		${SDL_DESC}, version 2
 SDL2_USES=		sdl
 SDL2_USE=		SDL=sdl2 XORG=ice,sm,xext
-SDL2_CONFIGURE_WITH=	sdl2
-SDL2_CONFIGURE_ON=	--without-gtk
+SDL2_CONFIGURE_WITH=	sdl
+SDL2_CONFIGURE_ENABLE=	sdl2
 ROMS_RUN_DEPENDS=	fuse-roms>0:emulators/fuse-roms
 
-PORTDOCS=	AUTHORS ChangeLog README THANKS README.copyright
+PORTDOCS=	AUTHORS ChangeLog README README.copyright THANKS
 
 .include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MICONS}
-.endif
 
 post-extract:
 	${CP} ${WRKSRC}/roms/README.copyright ${WRKSRC}

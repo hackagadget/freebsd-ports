@@ -1,6 +1,5 @@
 PORTNAME=	scs
-DISTVERSION=	3.2.9
-PORTREVISION=	1
+DISTVERSION=	3.3.2
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -16,7 +15,9 @@ USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	cvxgrp
 
-MAKE_ARGS=	BLASLDFLAGS="-lopenblas"
+# OPT: upstream defaults to -march=native, which packages must not use
+MAKE_ARGS=	BLASLDFLAGS="-lopenblas" \
+		OPT="-O3 -fno-math-errno"
 
 ALL_TARGET=	default
 

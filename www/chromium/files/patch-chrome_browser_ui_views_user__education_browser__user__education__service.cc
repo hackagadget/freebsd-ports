@@ -1,6 +1,15 @@
---- chrome/browser/ui/views/user_education/browser_user_education_service.cc.orig	2026-06-04 10:12:25 UTC
+--- chrome/browser/ui/views/user_education/browser_user_education_service.cc.orig	2026-11-11 14:44:17 UTC
 +++ chrome/browser/ui/views/user_education/browser_user_education_service.cc
-@@ -1293,7 +1293,7 @@ void MaybeRegisterChromeFeaturePromos(
+@@ -388,7 +388,7 @@ CreateNavigationAction(GURL target) {
+ }
+ 
+ #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || \
+-    BUILDFLAG(IS_CHROMEOS)
++    BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
+ void NavigateToSettingsPage(ContextPtr ctx,
+                             user_education::FeaturePromoHandle promo_handle) {
+   BrowserWindowInterface* const browser = GetBrowser(ctx);
+@@ -1666,7 +1666,7 @@ void MaybeRegisterChromeFeaturePromos(
                  "Triggered when a shared tab becomes the active tab.")));
    }
  
@@ -9,12 +18,21 @@
    // kIPHSupervisedUserProfileSigninFeature:
    registry.RegisterFeature(std::move(
        FeaturePromoSpecification::CreateForCustomAction(
-@@ -1581,7 +1581,7 @@ void MaybeRegisterChromeFeaturePromos(
-                        "Triggered to inform users of the availability of the "
-                        "new translate screen feature on the Lens Overlay.")));
+@@ -1995,7 +1995,7 @@ void MaybeRegisterChromeFeaturePromos(
+               "Omnibox Everywhere.")));
  
--#if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_WIN)
-+#if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_WIN) || BUILDFLAG(IS_BSD)
+ #if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_WIN) || \
+-    BUILDFLAG(IS_CHROMEOS)
++    BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
    // kIPHDesktopPWAsLinkCapturingLaunch:
    registry.RegisterFeature(std::move(
        FeaturePromoSpecification::CreateForCustomAction(
+@@ -2910,7 +2910,7 @@ void MaybeRegisterChromeNewBadges(user_education::NewB
+           157, "nguyenbryan@google.com",
+           "Shown on Ask Google about this page in context and app menus.")));
+ 
+-#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+   registry.RegisterFeature(user_education::NewBadgeSpecification(
+       switches::kCrossDeviceSigninFromDesktop,
+       user_education::Metadata(

@@ -1,14 +1,16 @@
 PORTNAME=	rustdesk-server
-DISTVERSION=	1.1.15
+DISTVERSION=	1.1.16
 PORTREVISION=	4
 CATEGORIES=	net
 
-MAINTAINER=	madpilot@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Self hosted RustDesk server
 WWW=		https://rustdesk.com/server/
 
 LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libzstd.so:archivers/zstd
 
 USES=		cargo ssl
 USE_GITHUB=	yes

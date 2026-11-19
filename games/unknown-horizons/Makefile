@@ -1,6 +1,6 @@
 PORTNAME=	unknown-horizons
 PORTVERSION=	2019.1
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	games
 
 MAINTAINER=	fiziologus@gmail.com
@@ -23,13 +23,9 @@ USE_PYTHON=	autoplist distutils noflavors
 SHEBANG_FILES=	run_uh.py
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=		ENET NLS
-OPTIONS_DEFAULT=	ENET
+OPTIONS_DEFINE=		NLS
 
-ENET_DESC=		Multipliplayer support through pyenet
-ENET_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyenet>0:net/py-pyenet@${PY_FLAVOR}
-
-post-patch-ENET-off:
+post-patch:
 	@${REINPLACE_CMD} -e 's|import enet|return None|' ${WRKSRC}/horizons/network/__init__.py
 
 post-patch-NLS-off:

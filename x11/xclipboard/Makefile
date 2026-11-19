@@ -1,5 +1,5 @@
 PORTNAME=	xclipboard
-DISTVERSION=	1.1.5
+DISTVERSION=	1.1.6
 PORTEPOCH=	1
 CATEGORIES=	x11
 
@@ -10,7 +10,7 @@ WWW=		https://gitlab.freedesktop.org/xorg/app/xclipboard
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:app
+USES=		xorg xorg-cat:app
 USE_XORG=	x11 xaw xkbfile xmu xorgproto xt
 
 .include <bsd.port.mk>

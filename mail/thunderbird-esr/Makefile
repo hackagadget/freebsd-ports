@@ -1,8 +1,9 @@
 PORTNAME=	thunderbird
-DISTVERSION=	140.12.0
+DISTVERSION=	153.7.0
+PORTREVISION=	2
 CATEGORIES=	mail news net-im wayland
 MASTER_SITES=	MOZILLA/${PORTNAME}/releases/${DISTVERSION}esr/source \
-		MOZILLA/${PORTNAME}/candidates/${DISTVERSION}esr-candidates/build1/source
+		MOZILLA/${PORTNAME}/candidates/${DISTVERSION}esr-candidates/build3/source
 PKGNAMESUFFIX=	-esr
 DISTFILES=	${DISTNAME}esr.source${EXTRACT_SUFX}
 
@@ -10,8 +11,11 @@ MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Mozilla Thunderbird is standalone mail and news that stands above
 WWW=		https://www.thunderbird.net/
 
+NOT_FOR_ARCHS=		i386
+NOT_FOR_ARCHS_REASON=	fails to build: rust needs more address space than platform can provide
+
 BUILD_DEPENDS=	nspr>=4.32:devel/nspr \
-		nss>=3.112:security/nss \
+		nss>=3.125:security/nss \
 		libevent>=2.1.8:devel/libevent \
 		harfbuzz>=10.1.0:print/harfbuzz \
 		graphite2>=1.3.14:graphics/graphite2 \
@@ -22,10 +26,7 @@ BUILD_DEPENDS=	nspr>=4.32:devel/nspr \
 		v4l_compat>0:multimedia/v4l_compat \
 		nasm:devel/nasm \
 		yasm:devel/yasm \
-		zip:archivers/zip \
-		${LOCALBASE}/share/wasi-sysroot/lib/wasm32-wasip1/libc++abi.a:devel/wasi-libcxx${LLVM_VERSION} \
-		${LOCALBASE}/share/wasi-sysroot/lib/wasm32-wasip1/libc.a:devel/wasi-libc@${LLVM_VERSION} \
-		wasi-compiler-rt${LLVM_VERSION}>0:devel/wasi-compiler-rt${LLVM_VERSION}
+		zip:archivers/zip
 LIB_DEPENDS=	libjson-c.so:devel/json-c
 
 USE_GECKO=	gecko
@@ -40,7 +41,6 @@ USES=		tar:xz
 
 MOZ_OPTIONS=	--enable-application=comm/mail --enable-official-branding
 MOZ_OPTIONS+=	--with-system-bz2 --with-system-jsonc
-MOZ_OPTIONS+=	--with-wasi-sysroot=${LOCALBASE}/share/wasi-sysroot
 MOZ_MK_OPTIONS=	MOZ_THUNDERBIRD=1 MAIL_PKG_SHARED=1
 MOZ_EXPORT=	MOZ_THUNDERBIRD=1 MAIL_PKG_SHARED=1
 
@@ -52,6 +52,15 @@ SYSTEM_PREFS=	${FAKEDIR}/lib/${PORTNAME}/defaults/pref/${PORTNAME}.js
 OPTIONS_DEFAULT=CANBERRA
 
 .include "${.CURDIR}/../../www/firefox/Makefile.options"
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} != powerpc64
+BUILD_DEPENDS+=	${LOCALBASE}/share/wasi-sysroot/lib/wasm32-wasip1/libc++abi.a:devel/wasi-libcxx${LLVM_VERSION} \
+		${LOCALBASE}/share/wasi-sysroot/lib/wasm32-wasip1/libc.a:devel/wasi-libc@${LLVM_VERSION} \
+		wasi-compiler-rt${LLVM_VERSION}>0:devel/wasi-compiler-rt${LLVM_VERSION}
+MOZ_OPTIONS+=	--with-wasi-sysroot=${LOCALBASE}/share/wasi-sysroot
+.endif
 
 post-extract:
 	@${SED} -e 's|@PORTNAME_ICON@|${PORTNAME_ICON:R}|;s|@MOZILLA@|${MOZILLA}|' \

@@ -1,5 +1,5 @@
 PORTNAME=	din
-PORTVERSION=	64.2
+PORTVERSION=	66.2
 CATEGORIES=	audio
 MASTER_SITES=	https://dinisnoise.org/files/
 
@@ -14,7 +14,7 @@ LIB_DEPENDS=	libasound.so:audio/alsa-lib \
 		libboost_thread.so:devel/boost-libs \
 		libjack.so:audio/jack
 
-USES=		autoreconf gl gnome sdl tcl:86+ xorg
+USES=		autoreconf gl gnome sdl tcl:86 xorg
 USE_GL=		gl
 USE_SDL=	sdl
 

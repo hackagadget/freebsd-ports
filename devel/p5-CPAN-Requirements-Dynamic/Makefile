@@ -1,8 +1,8 @@
 PORTNAME=	CPAN-Requirements-Dynamic
-PORTVERSION=	0.002
-PORTREVISION=	1
+PORTVERSION=	0.003
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:LEONT
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -18,11 +18,4 @@ USE_PERL5=	configure
 
 NO_ARCH=	yes
 
-.include <bsd.port.pre.mk>
-
-.if ${PERL_LEVEL} < 504000
-BUILD_DEPENDS+=	p5-CPAN-Meta-Requirements>=2.142:devel/p5-CPAN-Meta-Requirements
-RUN_DEPENDS+=	p5-CPAN-Meta-Requirements>=2.142:devel/p5-CPAN-Meta-Requirements
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

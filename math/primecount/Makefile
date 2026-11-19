@@ -1,6 +1,6 @@
 PORTNAME=	primecount
 DISTVERSIONPREFIX=	v
-DISTVERSION=	8.5
+DISTVERSION=	9.0
 CATEGORIES=	math
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -9,13 +9,12 @@ WWW=		https://github.com/kimwalisch/primecount
 
 LICENSE=	BSD2CLAUSE
 
-BUILD_DEPENDS=	libdivide>0:math/libdivide
 LIB_DEPENDS=	libprimesieve.so:math/primesieve
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	kimwalisch
 
-USES=		cmake compiler:c++11-lang
+USES=		cmake compiler:c++14-lang
 USE_LDCONFIG=	yes
 
 CMAKE_ON=	BUILD_SHARED_LIBS

@@ -1,6 +1,6 @@
 PORTNAME=	heyoka
 DISTVERSIONPREFIX=	v
-DISTVERSION=	7.11.0
+DISTVERSION=	7.14.0
 CATEGORIES=	math
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -11,7 +11,7 @@ WWW=		https://bluescarni.github.io/heyoka.py/
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	pybind11>0:devel/pybind11 \
+BUILD_DEPENDS=	pybind11>=3:devel/pybind11 \
 		${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR}
 LIB_DEPENDS=	libboost_serialization.so:devel/boost-libs \
 		libfmt.so:devel/libfmt \
@@ -26,9 +26,10 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}cloudpickle>0:devel/py-cloudpickle@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}mpmath>0:math/py-mpmath@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sympy>0:math/py-sympy@${PY_FLAVOR}
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR}
 
-USES=		cmake compiler:c++17-lang llvm:min=16,build,run python
+USES=		cmake compiler:c++17-lang llvm:min=19,build,run python
 USE_PYTHON=	flavors
 
 USE_GITHUB=	yes
@@ -39,12 +40,13 @@ CMAKE_ON=	HEYOKA_PY_ENABLE_IPO
 CMAKE_ARGS=	-DFREEBSD_PYTHON_DISTVERSION=${PYTHON_DISTVERSION:R} \
 		-DPython3_EXECUTABLE=${PYTHON_CMD}
 
-TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+TEST_ENV=	${MAKE_ENV} MPLBACKEND=Agg PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 
 do-test:
-	# testsuite based on instructions in https://bluescarni.github.io/heyoka.py/install.html#verifying-the-installation
-	@cd ${TEST_WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} -c "import heyoka; heyoka.test.run_test_suite();"
+	@cd ${WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} -m pytest --disable-plugin-autoload ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/heyoka/test
 	# integrate and plot an example
 	@cd ${TEST_WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} ${FILESDIR}/example-restricted-three-body-problem.py
+
+# tests as of 7.14.0: 137 passed, 8 skipped, 2 warnings in 7.42s
 
 .include <bsd.port.mk>

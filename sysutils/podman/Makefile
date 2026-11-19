@@ -1,7 +1,6 @@
 PORTNAME=	podman
 DISTVERSIONPREFIX=	v
-DISTVERSION=	5.8.2
-PORTREVISION=	2
+DISTVERSION=	5.8.10
 CATEGORIES=	sysutils
 
 MAINTAINER=	dfr@FreeBSD.org
@@ -18,16 +17,17 @@ BUILD_DEPENDS=	bash:shells/bash \
 LIB_DEPENDS=	libgpgme.so:security/gpgme
 RUN_DEPENDS=	conmon:sysutils/conmon \
 		containernetworking-plugins>=0:net/containernetworking-plugins \
-		containers-common>=0:sysutils/containers-common \
+		container-libs-common>=0:sysutils/containers-common \
 		ocijail:sysutils/ocijail
 
 USES=		gmake go:no_targets pkgconfig python:build shebangfix
 USE_GITHUB=	yes
-GH_ACCOUNT=	containers
+GH_ACCOUNT=	podman-container-tools
 USE_RC_SUBR=	podman podman_service
 
 SHEBANG_FILES=	${WRKSRC}/hack/markdown-preprocess
 MAKE_ARGS=	SHELL=${LOCALBASE}/bin/bash
+MAKE_ENV+=	GOTOOLCHAIN=local
 
 INSTALL_TARGET=	install install.completions
 

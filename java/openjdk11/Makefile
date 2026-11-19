@@ -14,6 +14,8 @@ WWW=		https://openjdk.java.net/
 
 LICENSE=	GPLv2
 
+BROKEN_armv6=	missing bootstrap-jdk
+BROKEN_armv7=	missing bootstrap-jdk
 ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386 powerpc powerpc64 powerpc64le
 
 BUILD_DEPENDS=	zip:archivers/zip \
@@ -31,7 +33,6 @@ RUN_DEPENDS=	javavm:java/javavmwrapper \
 
 USES=		compiler:features cpe gmake iconv jpeg pkgconfig xorg
 USE_XORG=	x11 xext xi xrandr xrender xt xtst
-USE_LDCONFIG=	${INSTALLDIR}/lib/server
 
 CPE_VENDOR=	oracle
 
@@ -44,9 +45,7 @@ NO_CCACHE=	yes
 # Suppress passing -j to do-build target via Mk/bsd.port.mk
 # In the JDK build the number of parallel jobs is passed in via configure --with-num-cores=N
 _MAKE_JOBS=	#
-MAKE_ENV=	LANG="C" \
-		LC_ALL="C" \
-		CLASSPATH="" \
+MAKE_ENV=	CLASSPATH="" \
 		JAVA_HOME="" \
 		LD_LIBRARY_PATH="" \
 		CC=${CC} \
@@ -71,8 +70,8 @@ NOPRECIOUSMAKEVARS=	yes
 
 JDK_MAJOR_VERSION=	11
 JDK_MINOR_VERSION=	0
-JDK_PATCH_VERSION=	30
-JDK_BUILD_NUMBER=	7
+JDK_PATCH_VERSION=	33.1
+JDK_BUILD_NUMBER=	1
 BSD_JDK_VERSION=	1
 
 JDK_BUG_URL=	https://bugs.freebsd.org/bugzilla/enter_bug.cgi?product=Ports%20%26%20Packages&component=Individual%20Port(s)&short_desc=java/${PORTNAME}${JDK_MAJOR_VERSION}%3A%20
@@ -158,12 +157,10 @@ CONFIGURE_ARGS+=--disable-precompiled-headers
 # it is up to upstream project to fix these or not
 CFLAGS+=	-Wno-deprecated-builtins -Wno-inline-asm -Wno-unknown-attributes
 MAKE_ENV+=	USE_CLANG=true
-.if ${ARCH:Mpowerpc64*}
-LLVM_VER=	12
-BUILD_DEPENDS+=	clang${LLVM_VER}:devel/llvm${LLVM_VER}
-CC=		${LOCALBASE}/bin/clang${LLVM_VER}
-CXX=		${LOCALBASE}/bin/clang++${LLVM_VER}
-.endif
+# clang >= 13 folds VMRegImpl::set_regName() (null Register this) into unreachable;
+# on PPC64 the empty function is just the traceback marker -> SIGILL at VM init
+CFLAGS_powerpc64=	-fno-delete-null-pointer-checks
+CFLAGS_powerpc64le=	-fno-delete-null-pointer-checks
 .endif
 
 .if ${ARCH} == aarch64 || ${ARCH:Marmv*}
@@ -184,7 +181,7 @@ ICONV_LDFLAGS=	-L${LOCALBASE}/lib
 ICONV_LIBS=	${ICONV_LIB}
 .endif
 
-post-patch:
+pre-configure:
 	@${FIND} ${WRKSRC} -name '*.orig' -delete
 	@${CHMOD} 755 ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \

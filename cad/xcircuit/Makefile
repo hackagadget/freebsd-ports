@@ -1,11 +1,12 @@
 PORTNAME=	xcircuit
-DISTVERSION=	3.10.44
+DISTVERSION=	3.10.46
 PORTEPOCH=	1
 CATEGORIES=	cad
 
-MAINTAINER=	danilo@FreeBSD.org
+MAINTAINER=	alven@FreeBSD.org
 COMMENT=	X11 circuit schematics drawing program
-WWW=		http://opencircuitdesign.com/xcircuit/
+WWW=		https://opencircuitdesign.com/xcircuit/ \
+		https://github.com/RTimothyEdwards/XCircuit/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
@@ -13,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
 
-USES=		ghostscript:x11,run gmake gnome pkgconfig tk:tea xorg
+USES=		ghostscript:x11,run gmake gnome pkgconfig tk:86,tea xorg
 USE_GITHUB=	yes
 GH_ACCOUNT=	RTimothyEdwards
 GH_PROJECT=	XCircuit
@@ -28,25 +29,26 @@ MAKE_ARGS+=	ACLOCAL="${TRUE}" AUTOCONF="${TRUE}" AUTOHEADER="${TRUE}" \
 
 DESKTOP_ENTRIES="Xcircuit" "${COMMENT}" "${DATADIR}/pixmaps/${PORTNAME}.gif" \
 		"${PORTNAME}" "" false
-# Restrict to stable (even) versions, indicated by the second component.
-PORTSCOUT=	limitw:1,even
 
-OPTIONS_DEFINE=	EXAMPLES
+OPTIONS_DEFINE=	DOCS EXAMPLES
 OPTIONS_SUB=	yes
 
 post-patch:
 	@${REINPLACE_CMD} -e '/test/s| == | = |g ; \
-		 s|TCL_LIB_NAME=.*$$|TCL_LIB_NAME="tcl${TCL_VER:S/.//}"|g ; \
-		 s|TK_LIB_NAME=.*$$|TK_LIB_NAME="tk${TK_VER:S/.//}"|g ; \
+		 s|TCL_LIB_NAME=.*$$|TCL_LIB_NAME="tcl${TCL_SHLIB_VER}"|g ; \
+		 s|TK_LIB_NAME=.*$$|TK_LIB_NAME="tk${TCL_SHLIB_VER}"|g ; \
 		 s|wish |${WISH:T} |g ; \
 		 s|-fpic|-fPIC|g' ${WRKSRC}/configure
 
 post-install:
 	cd ${STAGEDIR}${DATADIR} && ${STRIP_CMD} xcircdnull xcircexec xcircuit.so
 
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README* ${STAGEDIR}${DOCSDIR}
+
 post-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	cd ${WRKSRC}/examples && ${INSTALL_DATA} \
-		*.lgf *.lps *.ps *.sim .xcircuitrc ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
 
 .include <bsd.port.mk>

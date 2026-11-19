@@ -1,7 +1,7 @@
 PORTNAME=	gomplate
 DISTVERSIONPREFIX=	v
-DISTVERSION=	5.1.0
-PORTREVISION=	2
+DISTVERSION=	5.3.1
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	eduardo@FreeBSD.org
@@ -15,9 +15,7 @@ USES=		go:modules
 
 GO_MODULE=	github.com/hairyhenderson/gomplate/v5
 GO_TARGET=	./cmd/gomplate
-GO_BUILDFLAGS=	-ldflags "\
-		-w -s \
-		-X github.com/hairyhenderson/gomplate/v5/version.Version=${DISTVERSION}"
+GO_LDFLAGS=	-X github.com/hairyhenderson/gomplate/v5/version.Version=${DISTVERSION}
 
 PLIST_FILES=	bin/gomplate
 

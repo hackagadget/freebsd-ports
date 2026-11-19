@@ -1,5 +1,5 @@
 PORTNAME=	opensearch-dashboards
-DISTVERSION=	3.6.0
+DISTVERSION=	3.8.0
 DISTVERSIONSUFFIX=	-linux-${OPENSEARCH_ARCH}
 CATEGORIES=	textproc www
 MASTER_SITES=	https://artifacts.opensearch.org/releases/bundle/${PORTNAME}/${DISTVERSION}/
@@ -11,14 +11,11 @@ WWW=		https://opensearch.org
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-DEPRECATED=	Depends on expired www/npm-node20
-EXPIRATION_DATE=2026-09-02
+ONLY_FOR_ARCHS=	aarch64 amd64 powerpc64 powerpc64le
 
-ONLY_FOR_ARCHS=	aarch64 amd64
+BUILD_DEPENDS=	npm-node22>0:www/npm-node22
 
-BUILD_DEPENDS=	npm-node20>0:www/npm-node20
-
-USES=		nodejs:20,build,run python:build
+USES=		nodejs:22,build,run python:build
 USE_RC_SUBR=	${PORTNAME}
 
 CONFLICTS_INSTALL=	opensearch-dashboards219
@@ -36,7 +33,7 @@ _DEVDIR=	${WRKDIR}/.devdir
 
 .include <bsd.port.pre.mk>
 
-OPENSEARCH_ARCH=	${ARCH:S|aarch64|arm64|:S|amd64|x64|}
+OPENSEARCH_ARCH=	${ARCH:S|aarch64|arm64|:S|amd64|x64|:S|powerpc64le|x64|:S|powerpc64|x64|}
 
 post-patch:
 	${RM} ${WRKSRC}/bin/*.orig ${WRKSRC}/bin/*.bak

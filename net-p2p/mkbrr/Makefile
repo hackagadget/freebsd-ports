@@ -1,17 +1,17 @@
 PORTNAME=	mkbrr
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.23.0
-PORTREVISION=	2
+DISTVERSION=	1.27.0
+PORTREVISION=	3
 CATEGORIES=	net-p2p
 
-MAINTAINER=	diizzy@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Commmand-line utility to create, modify and inspect torrent files written in Go
 WWW=		https://github.com/autobrr/mkbrr
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.25+,modules
+USES=		go:1.27+,modules
 
 CGO_ENABLED=	0
 GO_MODULE=	github.com/autobrr/${PORTNAME}

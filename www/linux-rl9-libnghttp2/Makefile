@@ -1,7 +1,7 @@
 PORTNAME=	libnghttp2
 PORTVERSION=	1.43.0
-DISTVERSIONSUFFIX=	-6.el9
-PORTREVISION=	3
+DISTVERSIONSUFFIX=	-6.el9_7.1
+PORTREVISION=	4
 CATEGORIES=	www devel linux
 
 MAINTAINER=	emulation@FreeBSD.org
@@ -11,7 +11,8 @@ WWW=		https://nghttp2.org/ \
 
 LICENSE=	MIT
 
-USES=		linux:rl9
+USES=		cpe linux:rl9
+CPE_PRODUCT=	nghttp2
 USE_LDCONFIG=	yes
 USE_LINUX=	icu
 USE_LINUX_RPM=	yes

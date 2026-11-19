@@ -1,5 +1,5 @@
 PORTNAME=	chef-winrm-fs
-PORTVERSION=	1.4.2
+PORTVERSION=	1.4.4
 CATEGORIES=	filesystems rubygems
 MASTER_SITES=	RG
 
@@ -15,7 +15,7 @@ RUN_DEPENDS=	rubygem-benchmark>=0.5.0<0.6:benchmarks/rubygem-benchmark \
 		rubygem-csv>=3.3<4:devel/rubygem-csv \
 		rubygem-erubi>=1.7:www/rubygem-erubi \
 		rubygem-logging>=1.6.1<3.0:devel/rubygem-logging \
-		rubygem-rubyzip>=2.0<3:archivers/rubygem-rubyzip
+		rubygem-rubyzip>=3.4<4:archivers/rubygem-rubyzip
 
 USES=		gem
 

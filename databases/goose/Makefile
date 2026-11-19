@@ -1,13 +1,13 @@
 PORTNAME=	goose
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.27.1
-PORTREVISION=	2
+DISTVERSION=	3.30.1
 CATEGORIES=	databases
 PKGNAMESUFFIX=	-db-migration-tool
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Database migration tool
-WWW=		https://pressly.github.io/goose/
+WWW=		https://pressly.github.io/goose/ \
+		https://github.com/pressly/goose
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

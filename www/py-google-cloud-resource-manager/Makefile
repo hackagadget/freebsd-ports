@@ -1,5 +1,5 @@
 PORTNAME=	google-cloud-resource-manager
-DISTVERSION=	1.17.0
+DISTVERSION=	1.19.0
 CATEGORIES=	www python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,17 +12,24 @@ WWW=		https://github.com/googleapis/google-cloud-python
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}google-auth>=2.14.1:security/py-google-auth@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}google-api-core>=2.11.0:www/py-google-api-core@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}grpc-google-iam-v1>=0.14.0:devel/py-grpc-google-iam-v1@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}proto-plus>=1.22.3:devel/py-proto-plus@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}protobuf>=4.25.8:devel/py-protobuf@${PY_FLAVOR}
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}google-api-core>=2.28.0:www/py-google-api-core@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}google-auth>=2.14.1:security/py-google-auth@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}grpc-google-iam-v1>=0.14.2:devel/py-grpc-google-iam-v1@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}grpcio>=1.59.0:devel/py-grpcio@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}proto-plus>=1.26.1:devel/py-proto-plus@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}protobuf>=6.33.5:devel/py-protobuf@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest-asyncio>0:devel/py-pytest-asyncio@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	distutils autoplist pytest
+USE_PYTHON=	autoplist pep517 pytest
 
 NO_ARCH=	yes
 
-# tests as of 1.17.0: 2248 passed, 204 warnings in 5.12s
+TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+TEST_ARGS=	--disable-plugin-autoload -p asyncio -p pytest_asyncio
+
+# tests as of 1.19.0: 2182 passed, 204 warnings in 4.10s
 
 .include <bsd.port.mk>

@@ -1,6 +1,5 @@
 PORTNAME=	dolphin-emu
-PORTVERSION=	2603
-PORTREVISION=	1
+PORTVERSION=	2609
 CATEGORIES=	emulators
 
 MAINTAINER=	martymac@FreeBSD.org
@@ -20,10 +19,10 @@ BUILD_DEPENDS=	vulkan-headers>0:graphics/vulkan-headers \
 # Various problems that may be addressed in the future:
 # - freesurround comes from Externals/ as it is not available from ports yet
 # - cubeb comes from Externals/ as it is not available from ports yet
-# - gtest detection is missing (Externals/ version enforced by CMakeLists.txt)
 # - SFML comes from Externals/ as v3.0 is needed
 # - mbedtls2 comes from Externals/ as it has been deprecated in the ports tree
 # - mGBA comes from Externals/ as building with our ports' version fails
+# - gtest detection is missing (Externals/ version enforced by CMakeLists.txt)
 LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg \
 		libavdevice.so:multimedia/ffmpeg \
 		libavfilter.so:multimedia/ffmpeg \
@@ -67,6 +66,7 @@ USE_XORG=	ice sm x11 xext xi xrandr
 USE_QT=		base svg
 
 CMAKE_ARGS+=	-DUSE_UPNP:BOOL=ON \
+		-DENABLE_NOGUI:BOOL=ON \
 		-DENABLE_QT:BOOL=ON \
 		-DENABLE_ALSA:BOOL=OFF \
 		-DENABLE_PULSEAUDIO:BOOL=ON \

@@ -1,6 +1,6 @@
 PORTNAME=	mimalloc
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.3.2
+DISTVERSION=	3.7.0
 CATEGORIES=	devel
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -14,6 +14,10 @@ USES=		cmake:testing compiler:c++17-lang pathfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	microsoft
 USE_LDCONFIG=	yes
+
+EXTRACT_AFTER_ARGS=	--strip-components 1 --no-same-permission \
+			--no-same-owner
+NO_WRKSUBDIR=	yes
 
 CMAKE_ON=	MI_INSTALL_TOPLEVEL
 CMAKE_OFF=	MI_BUILD_OBJECT MI_BUILD_TESTS

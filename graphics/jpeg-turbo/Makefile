@@ -1,5 +1,5 @@
 PORTNAME=	jpeg-turbo
-DISTVERSION=	3.1.4.1
+DISTVERSION=	3.2.1
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/lib${PORTNAME}/lib${PORTNAME}/releases/download/${DISTVERSION}/
 DISTNAME=	lib${PORTNAME}-${DISTVERSION}
@@ -25,15 +25,13 @@ USES=		cmake cpe pathfix
 CPE_PRODUCT=	libjpeg-turbo
 USE_LDCONFIG=	yes
 
-# See https://github.com/libjpeg-turbo/libjpeg-turbo/issues/705
-CFLAGS+=	-ffp-model=strict
-
 TEST_TARGET=	test
 
 PORTDOCS=	*
 DOCSDIR=	${PREFIX}/share/doc/libjpeg-turbo
 
-CMAKE_ON=	WITH_JPEG8
+CMAKE_ON=	WITH_JPEG8 \
+		WITH_SYSTEM_ZLIB
 
 OPTIONS_DEFINE=		DOCS
 

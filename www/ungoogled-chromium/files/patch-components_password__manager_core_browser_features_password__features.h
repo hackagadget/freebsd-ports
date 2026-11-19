@@ -1,8 +1,8 @@
---- components/password_manager/core/browser/features/password_features.h.orig	2026-06-05 13:45:06 UTC
+--- components/password_manager/core/browser/features/password_features.h.orig	2026-11-17 11:49:09 UTC
 +++ components/password_manager/core/browser/features/password_features.h
-@@ -207,7 +207,7 @@ BASE_DECLARE_FEATURE(kProactivelyDownloadModelForPassw
- // This flag is only for the prototype version.
- BASE_DECLARE_FEATURE(kPasswordCheckupPrototype);
+@@ -211,7 +211,7 @@ BASE_DECLARE_FEATURE(kPreventPasswordManagerOnFederate
+ // vault passphrase type.
+ BASE_DECLARE_FEATURE(kRecordPasswordReadiness);
  
 -#if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
 +#if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)

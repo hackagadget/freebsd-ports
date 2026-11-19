@@ -1,8 +1,9 @@
 PORTNAME=	libretro-gambatte
-DISTVERSION=	0.20250918
+DISTVERSION=	0.20260515
+PORTREVISION=	1
 CATEGORIES=	games
 
-MAINTAINER=	tilde@ultros.pro
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Libretro Implementation of libgambatte, a Game Boy Color emulator
 WWW=		https://github.com/libretro/gambatte-libretro
 
@@ -12,7 +13,7 @@ USES=		compiler:c++11-lib gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	libretro
 GH_PROJECT=	gambatte-libretro
-GH_TAGNAME=	0092232a0aaef0ded0ead1c2003ccf7a85ccdfc0
+GH_TAGNAME=	3262c2aa4adae8dba4f6d51cdd931c15cb11569f
 USE_LDCONFIG=	yes
 
 PLIST_FILES=	lib/libretro/gambatte_libretro.so

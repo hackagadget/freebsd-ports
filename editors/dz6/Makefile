@@ -1,6 +1,6 @@
 PORTNAME=	dz6
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.7.0
+DISTVERSION=	0.8.0
 PORTREVISION=	1
 CATEGORIES=	editors
 
@@ -9,7 +9,7 @@ COMMENT=	TUI-based hexadecimal editor
 WWW=		https://github.com/mentebinaria/dz6
 
 LICENSE=	GPLv3
-LICENSE_FILE=	${WRKSRC}/LICENSE
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		cargo
 USE_GITHUB=	yes

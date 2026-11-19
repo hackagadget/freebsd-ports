@@ -1,6 +1,6 @@
---- torch/_inductor/ir.py.orig	2026-05-13 17:40:44 UTC
+--- torch/_inductor/ir.py.orig	2026-10-28 18:16:03 UTC
 +++ torch/_inductor/ir.py
-@@ -137,7 +137,7 @@ try:
+@@ -161,7 +161,7 @@ try:
  
      triton_version = triton.__version__
      has_triton = True

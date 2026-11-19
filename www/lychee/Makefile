@@ -1,10 +1,10 @@
 PORTNAME=	lychee
 DISTVERSIONPREFIX=	lychee-v
 DISTVERSION=	0.18.0
-PORTREVISION=	12
+PORTREVISION=	16
 CATEGORIES=	www net
 
-MAINTAINER=	pizzamig@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Link checker
 WWW=		https://github.com/lycheeverse/lychee
 

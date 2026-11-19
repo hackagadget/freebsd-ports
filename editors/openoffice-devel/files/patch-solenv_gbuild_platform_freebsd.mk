@@ -1,10 +1,12 @@
---- solenv/gbuild/platform/freebsd.mk.orig	2019-09-17 22:55:21 UTC
+--- solenv/gbuild/platform/freebsd.mk.orig	2026-11-08 23:41:08 UTC
 +++ solenv/gbuild/platform/freebsd.mk
-@@ -125,6 +125,7 @@ gb_LinkTarget_LDFLAGS += \
- 	-Wl,-rpath-link,$(SYSBASE)/lib:$(SYSBASE)/usr/lib \
- 	-Wl,-z,combreloc \
- 	-Wl,-z,defs \
-+	-Wl,--undefined-version \
- 	$(subst -L../lib , ,$(SOLARLIB)) \
- 	${FBSD_GCC_RPATH} \
- 	 \
+@@ -299,7 +299,8 @@ gb_CXXFLAGS += -fsanitize=address
+ ifeq ($(ENABLE_SANITIZER),TRUE)
+ gb_CFLAGS += -fsanitize=address
+ gb_CXXFLAGS += -fsanitize=address
+-gb_LinkTarget_LDFLAGS += -fsanitize=address
++#gb_LinkTarget_LDFLAGS += -fsanitize=address -shared-libasan -frtlib-add-rpath
++gb_LinkTarget_LDFLAGS += -fsanitize=address -shared-libasan
+ endif
+ 
+ gb_LinkTarget_INCLUDE := $(filter-out %/stl, $(subst -I. , ,$(SOLARINC)))

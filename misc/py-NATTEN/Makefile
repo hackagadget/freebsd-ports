@@ -1,6 +1,6 @@
 PORTNAME=	NATTEN
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.21.6
+DISTVERSION=	0.21.7
 CATEGORIES=	misc python # machine-learning
 #MASTER_SITES=	PYPI # no tests
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -32,6 +32,12 @@ TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 
 NO_ARCH=	yes # no arch w/out CUDA
 
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "aarch64"
+MAKE_ENV=	LD_STATIC_TLS_EXTRA=4096 # see pkg-message in misc/py-pytorch
+.endif
+
 post-install:
 	# delete stray files, see https://github.com/SHI-Labs/NATTEN/issues/152
 	@${RM} -r \
@@ -40,6 +46,6 @@ post-install:
 		${STAGEDIR}${PYTHON_SITELIBDIR}/cmake_install.cmake \
 		${STAGEDIR}${PYTHON_SITELIBDIR}/Makefile
 
-# tests as of 0.21.6: 20 passed, 97 skipped, 3 warnings in 6.64s
+# tests as of 0.21.7: 20 passed, 97 skipped, 1 warning in 1.68s
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

@@ -76,6 +76,9 @@ include/quic/common/events/FollyQuicEventBase.h
 include/quic/common/events/HighResQuicTimer.h
 include/quic/common/events/LibevQuicEventBase.h
 include/quic/common/events/QuicEventBase.h
+include/quic/common/events/QuicExecutor.h
+include/quic/common/events/QuicFollyExecutorImpl.h
+include/quic/common/events/QuicLibevExecutorImpl.h
 include/quic/common/events/QuicTimer.h
 include/quic/common/testutil/MockAsyncUDPSocket.h
 include/quic/common/third-party/enum.h
@@ -117,12 +120,14 @@ include/quic/fizz/client/handshake/FizzClientHandshake.h
 include/quic/fizz/client/handshake/FizzClientQuicHandshakeContext.h
 include/quic/fizz/client/handshake/QuicPskCache.h
 include/quic/fizz/client/handshake/QuicTokenCache.h
+include/quic/fizz/handshake/ContiguousAead.h
 include/quic/fizz/handshake/FizzBridge.h
 include/quic/fizz/handshake/FizzCryptoFactory.h
 include/quic/fizz/handshake/FizzOpenSSLPacketNumberCipher.h
 include/quic/fizz/handshake/FizzPacketNumberCipher.h
 include/quic/fizz/handshake/FizzRetryIntegrityTagGenerator.h
 include/quic/fizz/handshake/FizzTransportParameters.h
+include/quic/fizz/handshake/HaberdasheryAead.h
 include/quic/fizz/handshake/QuicFizzFactory.h
 include/quic/fizz/server/handshake/AppToken.h
 include/quic/fizz/server/handshake/FizzServerHandshake.h
@@ -196,6 +201,7 @@ include/quic/state/ConnectionOopsFields.h
 include/quic/state/DatagramHandlers.h
 include/quic/state/EarlyDataAppParamsHandler.h
 include/quic/state/LossState.h
+include/quic/state/LossEvent.h
 include/quic/state/OutstandingPacket.h
 include/quic/state/QuicAckFrequencyFunctions.h
 include/quic/state/QuicConnectionStats.h
@@ -209,6 +215,8 @@ include/quic/state/QuicTransportStatsCallback.h
 include/quic/state/SimpleFrameFunctions.h
 include/quic/state/StateData.h
 include/quic/state/StreamData.h
+include/quic/state/StreamSendBuffer.h
+include/quic/state/TimestampFrameFunctions.h
 include/quic/state/TransportSettings.h
 include/quic/state/TransportSettingsFunctions.h
 include/quic/state/stream/StreamReceiveHandlers.h
@@ -216,7 +224,9 @@ include/quic/state/stream/StreamSendHandlers.h
 include/quic/state/stream/StreamStateFunctions.h
 include/quic/tools/tperf/PacingObserver.h
 include/quic/tools/tperf/TperfClient.h
+include/quic/tools/tperf/TperfKnobsPatcher.h
 include/quic/tools/tperf/TperfServer.h
+include/quic/tools/tperf/TperfTcp.h
 include/quic/xsk/BaseXskContainer.h
 include/quic/xsk/HashingXskContainer.h
 include/quic/xsk/ThreadLocalXskContainer.h

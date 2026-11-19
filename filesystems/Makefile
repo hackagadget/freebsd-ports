@@ -17,6 +17,7 @@
     SUBDIR += curlftpfs
     SUBDIR += darling-dmg
     SUBDIR += davfs2
+    SUBDIR += diffsnap
     SUBDIR += dsbmc
     SUBDIR += dsbmc-cli
     SUBDIR += dsbmd
@@ -27,6 +28,7 @@
     SUBDIR += exfat
     SUBDIR += exfat-utils
     SUBDIR += ext2
+    SUBDIR += fatsort
     SUBDIR += fstyp
     SUBDIR += fswatch-mon
     SUBDIR += fusefs-libs
@@ -67,15 +69,8 @@
     SUBDIR += moosefs-master
     SUBDIR += moosefs-metalogger
     SUBDIR += moosefs-netdump
-    SUBDIR += moosefs3-cgi
-    SUBDIR += moosefs3-cgiserv
-    SUBDIR += moosefs3-chunkserver
-    SUBDIR += moosefs3-cli
-    SUBDIR += moosefs3-client
-    SUBDIR += moosefs3-master
-    SUBDIR += moosefs3-metalogger
-    SUBDIR += moosefs3-netdump
     SUBDIR += mp3fs
+    SUBDIR += ms-sys
     SUBDIR += mtools
     SUBDIR += mtpfs
     SUBDIR += nbd-client-kmod
@@ -107,6 +102,7 @@
     SUBDIR += py-pyfakefs
     SUBDIR += py-s3fs
     SUBDIR += py-tahoe-lafs
+    SUBDIR += py-universal-pathlib
     SUBDIR += py-zfs-autobackup
     SUBDIR += rar2fs
     SUBDIR += rubygem-chef-winrm-fs

@@ -12,7 +12,7 @@
 PORTNAME=	waveterm
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.14.5
-PORTREVISION=	13
+PORTREVISION=	34
 CATEGORIES=	x11
 DISTFILES=	tsunami/go.mod:prefetch
 
@@ -23,11 +23,14 @@ WWW=		https://www.waveterm.dev/
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+DEPRECATED=	Depends on expired devel/electron41
+EXPIRATION_DATE=2026-12-31
+
 BUILD_DEPENDS=	task:devel/task
 LIB_DEPENDS=	libvips.so:graphics/vips
 
-USES=		cargo electron:41 gmake go:1.25+,modules,no_targets \
-		nodejs:24,build python:build
+USES=		cargo electron:41 gmake go:modules,no_targets \
+		nodejs:24,build npm:npm python:build
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	wavetermdev
@@ -52,7 +55,7 @@ PORTDOCS=	CONTRIBUTING.md README.md SECURITY.md
 
 OPTIONS_DEFINE=	DOCS
 
-USE_ELECTRON=	npm:npm appbuilder:devel prefetch extract rebuild build:builder
+USE_ELECTRON=	appbuilder:devel rebuild build:builder
 
 ELECTRON_MAKE_FLAGS+=	-c electron-builder.config.cjs
 

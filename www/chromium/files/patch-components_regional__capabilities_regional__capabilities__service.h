@@ -1,7 +1,7 @@
---- components/regional_capabilities/regional_capabilities_service.h.orig	2026-04-09 06:05:42 UTC
+--- components/regional_capabilities/regional_capabilities_service.h.orig	2026-09-25 15:26:43 UTC
 +++ components/regional_capabilities/regional_capabilities_service.h
-@@ -117,7 +117,7 @@ class RegionalCapabilitiesService : public KeyedServic
-   static bool IsInSearchEngineChoiceScreenRegion(
+@@ -132,7 +132,7 @@ class RegionalCapabilitiesService : public KeyedServic
+   static bool IsInAnySearchEngineChoiceScreenRegion(
        const country_codes::CountryId& tested_country_id);
  
 -#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)

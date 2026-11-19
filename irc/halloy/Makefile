@@ -1,5 +1,5 @@
 PORTNAME=	halloy
-DISTVERSION=	2026.7.2
+DISTVERSION=	2026.10
 CATEGORIES=	irc
 
 MAINTAINER=	pokeysquirrel@gmail.com
@@ -16,6 +16,11 @@ USES=		cargo desktop-file-utils xorg
 USE_GITHUB=	yes
 GH_ACCOUNT=	squidowl
 USE_XORG=	xcb
+
+post-patch:
+	@${REINPLACE_CMD} -E \
+		-e 's|git = "https://github.com/squidowl/cosmic-text", rev = "[[:xdigit:]]+"|path = "${WRKSRC_crate_cosmic-text}"|' \
+			${WRKSRC}/Cargo.toml
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/halloy.desktop ${STAGEDIR}${DESKTOPDIR}

@@ -1,6 +1,6 @@
---- crates/remote/src/remote_client.rs.orig	2026-05-13 17:09:47 UTC
+--- crates/remote/src/remote_client.rs.orig	2026-10-23 12:50:45 UTC
 +++ crates/remote/src/remote_client.rs
-@@ -57,6 +57,7 @@ pub enum RemoteOs {
+@@ -58,6 +58,7 @@ pub enum RemoteOs {
      Linux,
      MacOs,
      Windows,
@@ -8,7 +8,7 @@
  }
  
  impl RemoteOs {
-@@ -65,6 +66,7 @@ impl RemoteOs {
+@@ -66,6 +67,7 @@ impl RemoteOs {
              RemoteOs::Linux => "linux",
              RemoteOs::MacOs => "macos",
              RemoteOs::Windows => "windows",
@@ -16,3 +16,11 @@
          }
      }
  
+@@ -80,6 +82,7 @@ impl RemoteOs {
+             RemoteOs::Linux => "Linux",
+             RemoteOs::MacOs => "macOS",
+             RemoteOs::Windows => "Windows",
++            RemoteOs::FreeBSD => "FreeBSD",
+         }
+     }
+ }

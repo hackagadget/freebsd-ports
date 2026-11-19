@@ -30,6 +30,7 @@ share/aclocal/libcurl.m4
 %%PORTDOCS%%%%DOCSDIR%%/CONTRIBUTE.md
 %%PORTDOCS%%%%DOCSDIR%%/CURL-DISABLE.md
 %%PORTDOCS%%%%DOCSDIR%%/CURLDOWN.md
+%%PORTDOCS%%%%DOCSDIR%%/DEPENDENCIES.md
 %%PORTDOCS%%%%DOCSDIR%%/DEPRECATE.md
 %%PORTDOCS%%%%DOCSDIR%%/DISTROS.md
 %%PORTDOCS%%%%DOCSDIR%%/EARLY-RELEASE.md
@@ -47,7 +48,6 @@ share/aclocal/libcurl.m4
 %%PORTDOCS%%%%DOCSDIR%%/INFRASTRUCTURE.md
 %%PORTDOCS%%%%DOCSDIR%%/INSTALL-CMAKE.md
 %%PORTDOCS%%%%DOCSDIR%%/INSTALL.md
-%%PORTDOCS%%%%DOCSDIR%%/INTERNALS.md
 %%PORTDOCS%%%%DOCSDIR%%/IPFS.md
 %%PORTDOCS%%%%DOCSDIR%%/KNOWN_BUGS.md
 %%PORTDOCS%%%%DOCSDIR%%/KNOWN_RISKS.md
@@ -77,6 +77,7 @@ share/aclocal/libcurl.m4
 %%PORTDOCS%%%%DOCSDIR%%/internals/CLIENT-WRITERS.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/CODE_STYLE.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/CONNECTION-FILTERS.md
+%%PORTDOCS%%%%DOCSDIR%%/internals/CREDENTIALS.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/CURLX.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/DYNBUF.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/HASH.md
@@ -85,6 +86,7 @@ share/aclocal/libcurl.m4
 %%PORTDOCS%%%%DOCSDIR%%/internals/MQTT.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/MULTI-EV.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/NEW-PROTOCOL.md
+%%PORTDOCS%%%%DOCSDIR%%/internals/PEERS.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/PORTING.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/RATELIMITS.md
 %%PORTDOCS%%%%DOCSDIR%%/internals/README.md
@@ -112,20 +114,28 @@ share/aclocal/libcurl.m4
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/address-scope.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/altsvc.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/anyauthput.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/aws-sigv4.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/block_ip.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/cacertinmem.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/cainfo-blob.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/certinfo.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/chkspeed.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/clientcert-blob.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/conditional.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/connect-to.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/cookie.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/cookie_interface.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/cookiejar.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/crawler.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/debug.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/default-scheme.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/doh.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ephiperfifo.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/evhiperfifo.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/externalsocket.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/fileupload.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ftp-delete.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/ftp-listonly.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ftp-wildcard.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ftpget.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ftpgetinfo.c
@@ -156,6 +166,7 @@ share/aclocal/libcurl.m4
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/httpput-postfields.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/httpput.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/https.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/httpsig.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/imap-append.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/imap-authzid.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/imap-copy.c
@@ -174,6 +185,7 @@ share/aclocal/libcurl.m4
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/interface.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ipv6.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/keepalive.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/limit-rate.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/localport.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/log_failed_transfers.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/maxconnects.c
@@ -186,8 +198,10 @@ share/aclocal/libcurl.m4
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/multi-post.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/multi-single.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/multi-uv.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/nagle.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/netrc.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/parseurl.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/path-as-is.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/persistent.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/pop3-authzid.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/pop3-dele.c
@@ -230,6 +244,7 @@ share/aclocal/libcurl.m4
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/sslbackend.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/synctime.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/threaded.c
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/trailer.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/unixsocket.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/url2file.c
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/urlapi.c
@@ -441,6 +456,10 @@ share/man/man3/CURLOPT_HTTPGET.3.gz
 share/man/man3/CURLOPT_HTTPHEADER.3.gz
 share/man/man3/CURLOPT_HTTPPOST.3.gz
 share/man/man3/CURLOPT_HTTPPROXYTUNNEL.3.gz
+share/man/man3/CURLOPT_HTTPSIG_ALGORITHM.3.gz
+share/man/man3/CURLOPT_HTTPSIG_HEADERS.3.gz
+share/man/man3/CURLOPT_HTTPSIG_KEY.3.gz
+share/man/man3/CURLOPT_HTTPSIG_KEYID.3.gz
 share/man/man3/CURLOPT_HTTP_CONTENT_DECODING.3.gz
 share/man/man3/CURLOPT_HTTP_TRANSFER_DECODING.3.gz
 share/man/man3/CURLOPT_HTTP_VERSION.3.gz

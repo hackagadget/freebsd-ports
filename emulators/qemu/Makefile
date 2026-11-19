@@ -1,5 +1,6 @@
 PORTNAME=	qemu
-DISTVERSION=	11.0.1
+DISTVERSION=	11.1.3
+PORTREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	https://download.qemu.org/
 DIST_SUBDIR=	qemu/${PORTVERSION}
@@ -16,6 +17,7 @@ ONLY_FOR_ARCHS=	aarch64 amd64 powerpc64 powerpc64le
 .endif
 
 BUILD_DEPENDS=	bash:shells/bash \
+		bison:devel/bison \
 		${PYTHON_PKGNAMEPREFIX}qemu.qmp>=0.0.5:emulators/py-qemu.qmp@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wheel>=0:devel/py-wheel@${PY_FLAVOR} \
 		${PY_SETUPTOOLS}
@@ -98,13 +100,13 @@ CONFIGURE_ARGS+=	--disable-attr \
 			--disable-curses \
 			--disable-fdt \
 			--disable-gcrypt \
-			--disable-glusterfs \
 			--disable-libnfs \
 			--disable-libusb \
 			--disable-lzo \
 			--disable-netmap \
 			--disable-nettle \
 			--disable-numa \
+			--disable-plugins \
 			--disable-rbd \
 			--disable-rdma \
 			--disable-seccomp \
@@ -277,6 +279,7 @@ post-install:
 
 post-install-DOCS-on:
 	@(cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${DOCSDIR}/)
+	@${RMDIR} ${STAGEDIR}${DOCSDIR}/_sources
 .endif
 
 .include <bsd.port.mk>

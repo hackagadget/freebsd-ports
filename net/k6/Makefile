@@ -1,6 +1,6 @@
 PORTNAME=	k6
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.7.1
+DISTVERSION=	2.3.0
 PORTREVISION=	2
 CATEGORIES=	net
 
@@ -11,14 +11,14 @@ WWW=		https://k6.io/
 LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-USES=		go:1.24+,modules
+USES=		go:modules
 
 NOT_FOR_ARCHS=	armv6 armv7 i386
 
 _BUILD_DATE=	$$(date -u +"%FT%T%z")
-_BUILD_HASH=	9f82e6f
+_BUILD_HASH=	e088784
 
-GO_MODULE=	github.com/grafana/${PORTNAME}
+GO_MODULE=	github.com/grafana/${PORTNAME}/v2
 GO_BUILDFLAGS=	-ldflags "\
 		-s -w \
 		-X go.k6.io/k6/lib/consts.VersionDetails=${_BUILD_DATE}/${_BUILD_HASH}"

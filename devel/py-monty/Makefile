@@ -1,13 +1,13 @@
 PORTNAME=	monty
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2026.5.18
+DISTVERSION=	2026.10.21
 CATEGORIES=	devel python
 #MASTER_SITES=	PYPI # no tests
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Monty is the missing complement to Python
-WWW=		https://github.com/materialsvirtuallab/monty
+WWW=		https://github.com/materialyzeai/monty
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.rst
@@ -17,8 +17,7 @@ BUILD_DEPENDS=	${PY_SETUPTOOLS} \
 		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ruamel.yaml>0:devel/py-ruamel.yaml@${PY_FLAVOR}
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}invoke>0:devel/py-invoke@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}msgpack>0:devel/py-msgpack@${PY_FLAVOR} \
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}msgpack>0:devel/py-msgpack@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}orjson>=3.6.1:devel/py-orjson@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pandas>0:math/py-pandas@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pydantic2>0:devel/py-pydantic2@${PY_FLAVOR} \
@@ -28,14 +27,17 @@ USES=		python
 USE_PYTHON=	pep517 autoplist pytest
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	materialsvirtuallab
+GH_ACCOUNT=	materialyzeai
 
 NO_ARCH=	yes
 
 TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 TEST_WRKSRC=	${WRKSRC}/tests
 
-# tests as of 2025.3.3: 3 failed, 197 passed, 4 skipped, 4 warnings in 34.20s, see https://github.com/materialsvirtuallab/monty/issues/765
-# tests as of 2026.2.18: 2 failed, 198 passed, 6 skipped, 5 warnings im in 5.30s, see https://github.com/materialyzeai/monty/issues/765#issuecomment-3941522044
+# 3 tests fail, see https://github.com/materialyzeai/monty/issues/804
+PYTEST_BROKEN_TESTS=	test_pandas test_extended_json test_command \
+			test_update_allowed
+
+# tests as of 2026.10.21: 309 passed, 29 warnings (broken tests skipped via PYTEST_BROKEN_TESTS)
 
 .include <bsd.port.mk>

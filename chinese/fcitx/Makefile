@@ -1,6 +1,6 @@
 PORTNAME=	fcitx
 DISTVERSION=	4.2.9.9
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	chinese x11
 MASTER_SITES=	http://download.fcitx-im.org/fcitx/:fcitx \
 		http://download.fcitx-im.org/data/:data
@@ -19,6 +19,9 @@ WWW=		https://fcitx-im.org/wiki/Fcitx
 
 LICENSE=	GPLv2
 
+DEPRECATED=	Abandoned, migrate to textproc/fcitx5
+EXPIRATION_DATE=2027-01-18
+
 BUILD_DEPENDS=	iso-codes>=0:misc/iso-codes \
 		bash:shells/bash \
 		${LOCALBASE}/libdata/pkgconfig/xkeyboard-config.pc:x11/xkeyboard-config
@@ -36,7 +39,7 @@ RUN_DEPENDS=	xdg-open:devel/xdg-utils \
 
 USES=		compiler:c++11-lang gnome tar:xz cmake:noninja desktop-file-utils \
 		gettext-tools:build,run gettext-runtime iconv:wchar_t \
-		kde:5 pkgconfig shared-mime-info compiler:c++14-lang xorg
+		kde pkgconfig shared-mime-info compiler:c++14-lang xorg
 USE_GNOME=	intltool introspection libxml2 pango
 USE_KDE=	ecm:build
 USE_LDCONFIG=	yes

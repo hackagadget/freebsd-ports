@@ -10,11 +10,14 @@ WWW=		https://www.phacility.com/phabricator/
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+DEPRECATED=	Discontinued, use devel/phorgeit-phorge instead
+EXPIRATION_DATE=2026-12-31
+
 RUN_DEPENDS=	arcanist-lib${PHP_PKGNAMESUFFIX}>=20210113_4:devel/arcanist-lib@${PHP_FLAVOR} \
 		git:devel/git
 
 USES=		cpe dos2unix php:cli,flavors shebangfix
-IGNORE_WITH_PHP=	85
+IGNORE_WITH_PHP=	85 86
 CPE_VENDOR=	phacility
 DOS2UNIX_FILES=	externals/phpmailer/class.smtp.php externals/phpqrcode/phpqrcode.php
 USE_GITHUB=	yes

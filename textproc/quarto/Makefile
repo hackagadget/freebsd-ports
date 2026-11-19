@@ -1,5 +1,5 @@
 PORTNAME=	quarto # quarto also requires some Linux base to be installed, for example linux_base-rl9
-DISTVERSION=	1.10.3
+DISTVERSION=	1.10.18
 CATEGORIES=	textproc
 MASTER_SITES=	https://github.com/quarto-dev/quarto-cli/releases/download/v${DISTVERSION}/
 DISTFILES=	quarto-${DISTVERSION}-linux-amd64.tar.gz # same for all architectures
@@ -28,7 +28,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pipenv>0:devel/py-pipenv@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR} \
 		okular:graphics/okular
 
-USES=		python
+USES=		linux:rl9 python # dart is a Linux binary, so we need linux_base-rl9 to run it
 
 USE_GITHUB=	nodefault
 GH_TUPLE=	quarto-dev:quarto-cli:v${DISTVERSION}:repo/repo # only for tests

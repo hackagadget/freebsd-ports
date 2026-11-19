@@ -1,12 +1,16 @@
 PORTNAME=	openblas
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.3.33
+DISTVERSION=	0.3.34
+PORTREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	NL/lapack/timing/:lapack_tmg
 PKGNAMESUFFIX=	64
 DISTFILES=	large.tgz:lapack_tmg \
 		timing.tgz:lapack_tmg
 DIST_SUBDIR=	openblas
+
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
+PATCHFILES=	76e12db33be8c5ae981b36ef924168e1b1248219.patch:-p1
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	OpenBLAS with 8 byte integers on 64-bits architectures
@@ -29,12 +33,13 @@ CMAKE_ARGS=	-DINTERFACE64:BOOL=on	\
 USE_GITHUB=	yes
 GH_ACCOUNT=	OpenMathLib
 GH_PROJECT=	OpenBLAS
+
 LARGE_FILE=	large.tgz
 TIMING_FILE=	timing.tgz
 CPE_VENDOR=	openblas_project
 
 USE_LDCONFIG=	yes
-
+TESTING_UNSAFE=	yes
 PLIST_SUB+=	PORTVERSION=${PORTVERSION}
 
 OPTIONS_DEFINE=			BENCHMARKS DYNAMIC_ARCH OPENMP
@@ -60,12 +65,6 @@ OPENMP_CMAKE_ON=	-DOpenMP_omp_LIBRARY="/usr/lib/libomp.so"
 
 .if ${ARCH} == powerpc64
 CMAKE_ARGS+=		-DTARGET=PPC970
-USE_GCC=		yes
-.endif
-
-.if ${ARCH} == powerpc64le
-CMAKE_ARGS+=		-DTARGET=POWER8
-USE_GCC=		yes
 .endif
 
 post-extract:

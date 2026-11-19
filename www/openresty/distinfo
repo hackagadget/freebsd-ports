@@ -1,3 +1,5 @@
-TIMESTAMP = 1779786843
-SHA256 (openresty-1.29.2.5.tar.gz) = 3195e665c97023419051dc51d195e9f774a3d00ed6e7cd8a3751c4722ea0a8c1
-SIZE (openresty-1.29.2.5.tar.gz) = 6507345
+TIMESTAMP = 1793344528
+SHA256 (openresty-1.31.8.1.tar.gz) = b569c63b420f80a4ac8466f2deffe73ed93ab760026532e039c3658409a997f4
+SIZE (openresty-1.31.8.1.tar.gz) = 6704565
+SHA256 (owasp-modsecurity-ModSecurity-nginx-9eb44fd_GH0.tar.gz) = 24981d81e119662acf3b949d132ba1afdd9845e7ba8c2fd084fcdf763c805802
+SIZE (owasp-modsecurity-ModSecurity-nginx-9eb44fd_GH0.tar.gz) = 1162429

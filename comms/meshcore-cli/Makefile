@@ -1,5 +1,5 @@
 PORTNAME=	meshcore_cli
-PORTVERSION=	1.5.7
+PORTVERSION=	1.6.9
 CATEGORIES=	comms python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -16,7 +16,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}meshcore>=2.3.2:comms/py-meshcore@${PY_FLAVO
 		${PYTHON_PKGNAMEPREFIX}prompt-toolkit>0:devel/py-prompt-toolkit@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR}
 
-USES=		python:3.10+
+USES=		python
 USE_PYTHON=	autoplist concurrent pep517
 NO_ARCH=	yes
 

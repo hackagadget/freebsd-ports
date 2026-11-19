@@ -1,11 +1,14 @@
 PORTNAME=	spidermonkey
 DISTVERSION=	128.14.0
-PORTREVISION=	5
+PORTREVISION=	10
 CATEGORIES=	lang
 MASTER_SITES=	MOZILLA/firefox/releases/${DISTVERSION}esr/source \
 		MOZILLA/firefox/candidates/${DISTVERSION}esr-candidates/build1/source
 PKGNAMESUFFIX=	${SP_VER}
 DISTNAME=	firefox-${DISTVERSION}esr.source
+
+PATCH_SITES=	https://github.com/mozilla-firefox/firefox/commit/
+PATCHFILES=	4f531ca86d24be5d4de673f6e652ed899151d20c.patch?full_index=1:-p1
 
 MAINTAINER=	vishwin@FreeBSD.org
 COMMENT=	Standalone JavaScript based from Mozilla 128-esr
@@ -53,8 +56,10 @@ PLIST_SUB=	SP_VER=${SP_VER}
 
 .include <bsd.port.pre.mk>
 
-.if ${ARCH} == amd64
-CONFIGURE_TARGET=	x86_64-portbld-freebsd${OSREL}
+.if ${ARCH} == powerpc64le && (${OSVERSION} < 1405000 || \
+	(${OSVERSION} >= 1500000 && ${OSVERSION} < 1501501) || \
+	(${OSVERSION} >= 1600000 && ${OSVERSION} < 1600019))
+MAKE_ENV+=	RUST_LIB_BACKTRACE=0
 .endif
 
 .if ${CHOSEN_COMPILER_TYPE} == gcc

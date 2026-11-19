@@ -1,6 +1,6 @@
 PORTNAME=	libXfont
 PORTVERSION=	1.5.4
-PORTREVISION=	3
+PORTREVISION=	4
 PORTEPOCH=	2
 CATEGORIES=	x11-fonts
 
@@ -12,9 +12,12 @@ LICENSE=	MIT BSD2CLAUSE BSD3CLAUSE
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+DEPRECATED=     Unmaintained, obsolete, and contains security vulnerabilities
+EXPIRATION_DATE=2026-12-20
+
 LIB_DEPENDS=	libfreetype.so:print/freetype2
 
-USES=		cpe xorg xorg-cat:lib
+USES=		cpe tar:bz2 xorg xorg-cat:lib
 USE_XORG=	xorgproto xtrans fontenc
 INSTALL_TARGET=	install-strip
 CPE_PRODUCT=	libxfont

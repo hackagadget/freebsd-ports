@@ -1,29 +1,20 @@
---- chrome/browser/ui/webui/cr_components/searchbox/searchbox_handler.cc.orig	2026-06-17 19:06:11 UTC
+--- chrome/browser/ui/webui/cr_components/searchbox/searchbox_handler.cc.orig	2026-11-17 11:49:09 UTC
 +++ chrome/browser/ui/webui/cr_components/searchbox/searchbox_handler.cc
-@@ -176,7 +176,7 @@ const char* kMacShareIconResourceName =
+@@ -243,7 +243,7 @@ constexpr char kMacShareIconResourceName[] =
  #elif BUILDFLAG(IS_WIN)
- const char* kWinShareIconResourceName =
-     "//resources/cr_components/searchbox/icons/win_share.svg";
+ constexpr char kWinShareIconResourceName[] =
+     "//resources/cr_components/searchbox/icons/win_share_cr23.svg";
 -#elif BUILDFLAG(IS_LINUX)
 +#elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
- const char* kLinuxShareIconResourceName =
-     "//resources/cr_components/searchbox/icons/share.svg";
+ constexpr char kLinuxShareIconResourceName[] =
+     "//resources/cr_components/searchbox/icons/share_cr23.svg";
  #else
-@@ -234,7 +234,7 @@ static void DefineChromeRefreshRealboxIcons() {
- #elif BUILDFLAG(IS_WIN)
-   kWinShareIconResourceName =
-       "//resources/cr_components/searchbox/icons/win_share_cr23.svg";
--#elif BUILDFLAG(IS_LINUX)
-+#elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
-   kLinuxShareIconResourceName =
-       "//resources/cr_components/searchbox/icons/share_cr23.svg";
- #else
-@@ -689,7 +689,7 @@ std::string SearchboxHandler::AutocompleteIconToResour
-   if (icon.name == omnibox::kShareWinChromeRefreshIcon.name) {
-     return kWinShareIconResourceName;
+@@ -770,7 +770,7 @@ std::string SearchboxHandler::AutocompleteIconToResour
+                         : omnibox::kShareWinChromeRefreshOldIcon.name)) {
+     resource_name = kWinShareIconResourceName;
    }
 -#elif BUILDFLAG(IS_LINUX)
 +#elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
-   if (icon.name == omnibox::kShareLinuxChromeRefreshIcon.name) {
-     return kLinuxShareIconResourceName;
-   }
+   if (icon.name == (features::IsRoundedIconsEnabled()
+                         ? omnibox::kSendIcon.name
+                         : omnibox::kShareLinuxChromeRefreshOldIcon.name)) {

@@ -1,11 +1,12 @@
---- solenv/inc/unxfbsd.mk.orig	2019-09-17 22:55:21 UTC
+--- solenv/inc/unxfbsd.mk.orig	2026-11-08 23:41:08 UTC
 +++ solenv/inc/unxfbsd.mk
-@@ -173,7 +173,7 @@ LINKFLAGSRUNPATH_NONE=
- LINKFLAGSRUNPATH_BOXT=-Wl,-z,origin -Wl,-rpath,\''$$ORIGIN'\'
- #LINKFLAGSRUNPATH_BOXT=-Wl,-z,origin -Wl,-rpath,\''$$ORIGIN/../../../basis-link/program'\'
- LINKFLAGSRUNPATH_NONE=
--LINKFLAGS=-Wl,-z,combreloc $(LDFLAGS) $(LINKFLAGSDEFS) $(LINKFLAGS_SYSBASE)
-+LINKFLAGS=-Wl,-z,combreloc -Wl,--undefined-version $(LDFLAGS) $(LINKFLAGSDEFS) $(LINKFLAGS_SYSBASE)
+@@ -211,7 +211,8 @@ LINKFLAGSOPT=
  
- # linker flags for linking applications
- LINKFLAGSAPPGUI= -Wl,-export-dynamic -Wl,--noinhibit-exec \
+ # Flag for enabling address sanitizer
+ .IF "$(ENABLE_SANITIZER)"=="TRUE"
+-LINKFLAGS += -fsanitize=address
++#LINKFLAGS += -fsanitize=address -shared-libasan -frtlib-add-rpath
++LINKFLAGS += -fsanitize=address -shared-libasan 
+ .ENDIF
+ 
+ # linker flags for optimization (symbol hashtable)

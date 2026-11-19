@@ -1,6 +1,5 @@
 PORTNAME=	dnsdist
-DISTVERSION=	2.0.6
-PORTREVISION=	1
+DISTVERSION=	2.1.3
 CATEGORIES=	dns net
 MASTER_SITES=	https://downloads.powerdns.com/releases/
 DISTFILES+=	${DISTNAME}${EXTRACT_SUFX}
@@ -58,23 +57,25 @@ TARGET_ORDER_OVERRIDE=	750:cargo-configure
 USERS=		_dnsdist
 GROUPS=		_dnsdist
 
-OPTIONS_DEFINE=		DNSTAP IPCIPHER SNMP
-OPTIONS_DEFAULT=	CDB GNUTLS IPCIPHER LMDB LUA OPENSSL
+OPTIONS_DEFINE=		DNSTAP IPCIPHER LMDB0 SNMP
+OPTIONS_DEFAULT=	CDB GNUTLS IPCIPHER LMDB LMDB0 LUA OPENSSL
 OPTIONS_GROUP=		KVSOPT
 OPTIONS_GROUP_KVSOPT=	CDB LMDB
 OPTIONS_MULTI=		TLS
 OPTIONS_MULTI_TLS=	GNUTLS OPENSSL
-OPTIONS_SINGLE=		EXTLUA
-OPTIONS_SINGLE_EXTLUA=	LUA LUAJIT
+OPTIONS_SINGLE=		SG1
+OPTIONS_SINGLE_SG1=	LUA LUAJIT
+OPTIONS_SUB=		yes
 
 CDB_DESC=	CDB backend
 DNSTAP_DESC=	dnstap support (see dnstap.info)
-EXTLUA_DESC=	Lua library
 IPCIPHER_DESC=	ipcipher support (requires OpenSSL)
 KVSOPT_DESC=	Key Value Stores
+LMDB0_DESC=	Use LMDB 0.9 library
 LMDB_DESC=	LMDB backend
 LUAJIT_DESC=	Use luajit
 LUA_DESC=	Use lang/lua
+SG1_DESC=	Lua implementation
 
 CDB_LIB_DEPENDS=	libcdb.so:databases/tinycdb
 CDB_MESON_ENABLED=	cdb
@@ -88,7 +89,6 @@ GNUTLS_MESON_ENABLED=	tls-gnutls
 IPCIPHER_IMPLIES=	OPENSSL
 IPCIPHER_MESON_ENABLED=	ipcipher
 
-LMDB_LIB_DEPENDS=	liblmdb.so:databases/lmdb
 LMDB_MESON_ENABLED=	lmdb
 
 LUAJIT_USES=		luajit
@@ -99,11 +99,25 @@ LUA_MESON_ON=	-Dlua=lua
 
 OPENSSL_USES=		ssl
 OPENSSL_MESON_ENABLED=	libcrypto tls-libssl
-OPENSSL_MESON_ON=	-Dlibcrypto-path=${OPENSSLBASE} -Dtls-libssl-engines=true
+OPENSSL_MESON_ON=	-Dlibcrypto-path=${OPENSSLBASE} \
+			-Dtls-libssl-engines=true
+
 SNMP_LIB_DEPENDS=	libnetsnmp.so:net-mgmt/net-snmp
 SNMP_MESON_ENABLED=	snmp
 
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MLMDB}
+. if ${PORT_OPTIONS:MLMDB0}
+LIB_DEPENDS+=	liblmdb0.so:databases/lmdb0
+CONFIGURE_ENV+=	PKG_CONFIG_PATH=${LOCALBASE}/lmdb0/libdata/pkgconfig
+.	else
+LIB_DEPENDS+=	liblmdb.so:databases/lmdb
+. endif
+.endif
+
 post-install:
 	${MV} ${STAGEDIR}${ETCDIR}/dnsdist.conf-dist ${STAGEDIR}${ETCDIR}/dnsdist.conf.sample
+	${MV} ${STAGEDIR}${ETCDIR}/dnsdist.yml-dist ${STAGEDIR}${ETCDIR}/dnsdist.yml.sample
 
 .include <bsd.port.mk>

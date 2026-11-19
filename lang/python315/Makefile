@@ -1,6 +1,5 @@
 PORTNAME=	python
 DISTVERSION=	${PYTHON_DISTVERSION}  # see Makefile.version
-PORTREVISION=	0
 CATEGORIES=	lang python
 MASTER_SITES=	PYTHON/ftp/python/${DISTVERSION:C/[a-z].*//}
 PKGNAMESUFFIX=	${PYTHON_SUFFIX}
@@ -66,7 +65,6 @@ OPTIONS_SUB=		yes
 
 LIBMPDEC_DESC=		Use libmpdec from ports instead of bundled version
 LTO_DESC=		Use Link-Time Optimization with -flto=thin
-LTOFULL_DESC=		Use -flto=full (not =thin) (faster build at more CPU time)
 NLS_DESC=		Enable gettext support for the locale module
 PYMALLOC_DESC=		Enable specialized mallocs
 

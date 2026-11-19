@@ -1,13 +1,12 @@
 PORTNAME=	tox-toml-fmt
-PORTVERSION=	1.9.3
-PORTREVISION=	1
+PORTVERSION=	1.11.3
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTFILES=	tox_toml_fmt-${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
-COMMENT=	Format your pyproject.toml file
+COMMENT=	Format tox.toml files
 WWW=		https://tox-toml-fmt.readthedocs.io/en/latest/ \
 		https://github.com/tox-dev/toml-fmt/tree/main/tox-toml-fmt \
 		https://github.com/tox-dev/toml-fmt
@@ -15,14 +14,14 @@ WWW=		https://tox-toml-fmt.readthedocs.io/en/latest/ \
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}maturin>=1.13.1:devel/py-maturin@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}toml-fmt-common>=0:devel/py-toml-fmt-common@${PY_FLAVOR}
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}maturin>=1.15:devel/py-maturin@${PY_FLAVOR}
 
 USES=		cargo python
 USE_PYTHON=	autoplist concurrent pep517
 
 CARGO_BUILD=	no
 CARGO_INSTALL=	no
+CARGO_TEST=	no
 WRKSRC=		${WRKDIR}/tox_toml_fmt-${PORTVERSION}
 
 .include <bsd.port.mk>

@@ -5,7 +5,6 @@ DISTNAME=	${PORTNAME}_${DISTVERSION}
 
 MAINTAINER=	uzsolt@FreeBSD.org
 COMMENT=	R Session Information
-WWW=		https://cran.r-project.org/package=sessioninfo
 
 LICENSE=	GPLv2
 
@@ -18,7 +17,5 @@ TEST_DEPENDS=	R-cran-callr>0:devel/R-cran-callr \
 		R-cran-withr>0:devel/R-cran-withr
 
 USES=		cran:auto-plist
-
-MAKE_ENV+=	LC_ALL="C.UTF-8"
 
 .include <bsd.port.mk>

@@ -1,7 +1,7 @@
 PORTNAME=	kanidm
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.10.3
-PORTREVISION=	1
+DISTVERSION=	1.11.0
+PORTREVISION=	2
 CATEGORIES=	security net
 
 # implicit-approval+: dtxdf
@@ -23,6 +23,10 @@ client_PLIST=	${.CURDIR}/pkg-plist.client
 server_PKGNAMESUFFIX=	-server
 server_COMMENT=		(server only)
 server_PLIST=	${.CURDIR}/pkg-plist.server
+
+.if ${FLAVOR} == client
+RUN_DEPENDS+=tpm2-tss>0:security/tpm2-tss
+.endif
 
 USES=		cargo llvm
 USE_GITHUB=	yes
@@ -53,6 +57,7 @@ SERVER_RUNDIR=/var/run/kanidmd
 USERS=		kanidmd
 GROUPS=		kanidmd
 
+SUB_FILES=	kanidm-server-newsyslog
 SUB_LIST=	USER=${USERS} \
 		GROUP=${GROUPS} \
 		ETCDIR=${PREFIX}/etc/kanidm \
@@ -65,6 +70,7 @@ SUB_LIST=	USER=${USERS} \
 USERS=		kanidm
 GROUPS=		kanidm
 
+SUB_FILES=	kanidm-client-newsyslog
 SUB_LIST=	USER=${USERS} \
 		GROUP=${GROUPS} \
 		ETCDIR=${PREFIX}/etc/kanidm \
@@ -74,12 +80,14 @@ SUB_LIST=	USER=${USERS} \
 .endif
 
 do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 .if ${FLAVOR} == server
 	${INSTALL_PROGRAM} ${WRKDIR}/target/release/kanidmd ${STAGEDIR}${PREFIX}/libexec
 	${MKDIR} ${STAGEDIR}${ETCDIR}
 	${MKDIR} ${STAGEDIR}${SERVER_LIBDIR}
 	${MKDIR} ${STAGEDIR}${SERVER_RUNDIR}
 	${MKDIR} ${STAGEDIR}${DATADIR}/ui/hpkg
+	${INSTALL_DATA} ${FILESDIR}/kanidm-server-newsyslog.in ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/kanidmd.conf.sample
 	(cd ${WRKSRC}/server/core/static/ && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}/ui/hpkg/)
 .endif
 
@@ -93,6 +101,7 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/target/release/kanidm_unixd_tasks ${STAGEDIR}${PREFIX}/libexec
 	${INSTALL_LIB} ${WRKDIR}/target/release/libnss_kanidm.so ${STAGEDIR}${PREFIX}/lib/nss_kanidm.so.1
 	${INSTALL_LIB} ${WRKDIR}/target/release/libpam_kanidm.so ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${FILESDIR}/kanidm-client-newsyslog.in ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/kanidm_unixd.conf.sample
 	${MKDIR} ${STAGEDIR}${ETCDIR}
 	${MKDIR} ${STAGEDIR}${CLIENT_CACHEDIR}
 	${MKDIR} ${STAGEDIR}${CLIENT_LIBDIR}

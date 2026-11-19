@@ -1,11 +1,8 @@
 PORTNAME=	newsboat
-DISTVERSION=	2.43
+DISTVERSION=	2.45.1
 CATEGORIES=	www
 MASTER_SITES=	https://newsboat.org/releases/${DISTVERSION}/
 DISTFILES+=	${DISTNAME}${EXTRACT_SUFX}
-
-PATCH_SITES=	https://github.com/newsboat/newsboat/commit/
-PATCHFILES+=	6c6685303ed8c88052395cf0faaceca5038d58ba.patch:-p1
 
 MAINTAINER=	mt-bugs@markoturk.info
 COMMENT=	RSS feed reader for the text console
@@ -36,6 +33,8 @@ CARGO_INSTALL=		no
 CARGO_TARGET_DIR=	${WRKSRC}/target
 
 MAKE_ENV=	${CARGO_ENV}
+
+CXXFLAGS+=	-DNCURSES_WIDECHAR
 
 TESTING_UNSAFE=	tests fail if run as root
 

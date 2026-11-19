@@ -23,7 +23,8 @@ USE_LDCONFIG=	yes
 USE_SDL=	sdl2 mixer2
 USE_XORG=	x11 sm ice xext xrandr xxf86vm
 USE_QT=		buildtools:build core gui network widgets qmake:build opengl x11extras
-CMAKE_ARGS+=	-DDENG_ENABLE_COTIRE=OFF -DDENG_ASSIMP_EMBEDDED=OFF
+CMAKE_ARGS+=	-DDENG_ENABLE_COTIRE=OFF -DDENG_ASSIMP_EMBEDDED=OFF \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 LDFLAGS+=	-lexecinfo
 
 WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}/${PORTNAME}
@@ -31,9 +32,6 @@ WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}/${PORTNAME}
 PORTSCOUT=	limit:^\d+\.\d+\.\d+$$
 
 post-patch:
-	# Removing (three) non-ascii bytes from the beginning of the file
-	@${REINPLACE_CMD} '1s,^...,,' \
-		${WRKSRC}/apps/client/src/client/cl_sound.cpp
 	@${REINPLACE_CMD} -E -e 's|(DENG_DISTRIB_DIR /usr)|\1/local|' \
 		-e 's|python3|${PYTHON_VERSION}|' \
 		${WRKSRC}/cmake/Config.cmake

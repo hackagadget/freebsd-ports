@@ -1,5 +1,5 @@
 PORTNAME=	bitset
-PORTVERSION=	3.2.0
+PORTVERSION=	3.2.1
 CATEGORIES=	math
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -11,5 +11,6 @@ LICENSE=	PHP301
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		php:pecl
+IGNORE_WITH_PHP=	86
 
 .include <bsd.port.mk>

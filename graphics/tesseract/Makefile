@@ -1,6 +1,5 @@
 PORTNAME=	tesseract
-PORTVERSION=	5.5.2
-PORTREVISION=	1
+PORTVERSION=	5.5.4
 CATEGORIES=	graphics
 
 MAINTAINER=	pkubaj@FreeBSD.org
@@ -9,7 +8,7 @@ WWW=		https://github.com/tesseract-ocr/tesseract
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	asciidoc:textproc/asciidoc \
+BUILD_DEPENDS=	asciidoctor:textproc/rubygem-asciidoctor \
 		xsltproc:textproc/libxslt \
 		${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl:textproc/docbook-xsl
 LIB_DEPENDS=	liblept.so:graphics/leptonica \
@@ -17,7 +16,6 @@ LIB_DEPENDS=	liblept.so:graphics/leptonica \
 		libharfbuzz.so:print/harfbuzz \
 		libfreetype.so:print/freetype2 \
 		libcurl.so:ftp/curl
-
 RUN_DEPENDS=	tesseract-data>=0:graphics/tesseract-data
 
 USES=		autoreconf compiler:c++20-lang cpe gnome libarchive libtool \
@@ -48,7 +46,6 @@ TOOLS_LIB_DEPENDS=libicui18n.so:devel/icu \
 TOOLS_USE=	GNOME=cairo,glib20,pango
 
 .if exists(/usr/include/omp.h)
-CMAKE_ON=	OPENMP_BUILD
 LDFLAGS+=	-lomp
 .endif
 

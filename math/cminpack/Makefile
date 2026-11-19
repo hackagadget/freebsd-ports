@@ -1,6 +1,5 @@
 PORTNAME=	cminpack
-PORTVERSION=	1.3.11
-PORTREVISION=	2
+PORTVERSION=	1.3.14
 DISTVERSIONPREFIX=	v
 CATEGORIES=	math
 
@@ -18,13 +17,16 @@ GH_ACCOUNT=	devernay
 CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_OFF=	USE_BLAS
 
+PLIST_SUB=	SHLIB_VER=${PORTVERSION}
+
 OPTIONS_DEFINE=	EXAMPLES
 
 .include <bsd.port.options.mk>
 
 # libcminpackld is only built on platforms where
-# sizeof(long double) > sizeof(double)
-.if ${ARCH:Mpowerpc*} || ${ARCH:Marmv?}
+# sizeof(long double) > sizeof(double), which powerpc64le only has since 16.0
+.if (${ARCH:Mpowerpc*} || ${ARCH:Marmv?}) && \
+    !(${ARCH} == powerpc64le && ${OSVERSION} >= 1600019)
 PLIST_SUB+=	LONG_DOUBLE="@comment "
 .else
 PLIST_SUB+=	LONG_DOUBLE=""

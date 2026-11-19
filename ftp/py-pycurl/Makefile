@@ -1,13 +1,12 @@
 PORTNAME=	pycurl
-PORTVERSION=	7.46.0
+PORTVERSION=	7.49.0
 CATEGORIES=	ftp python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Python interface to libcurl
-WWW=		http://pycurl.io/ \
-		https://github.com/pycurl/pycurl
+WWW=		https://github.com/pycurl/pycurl
 
 LICENSE=	LGPL21 MIT
 LICENSE_COMB=	dual

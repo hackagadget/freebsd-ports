@@ -1,12 +1,9 @@
 PORTNAME=	bouncycastle
-DISTVERSION=	1.71
-PORTREVISION=	5
+DISTVERSION=	1.86.2
 CATEGORIES=	java security
-MASTER_SITES=	http://www.bouncycastle.org/download/ \
-		http://polydistortion.net/bc/download/
-DISTNAME=	crypto-${DVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Cleanroom build of Java Cryptography Extensions
 WWW=		https://www.bouncycastle.org/
 
@@ -15,20 +12,20 @@ LICENSE=	APACHE20 MIT
 LICENSE_COMB=	multi
 LICENSE_FILE_MIT=	${WRKSRC}/LICENSE.html
 
-BUILD_DEPENDS=	${JAVALIBDIR}/junit.jar:java/junit \
-		${JAVALIBDIR}/mail.jar:java/javamail
-RUN_DEPENDS=	${JAVALIBDIR}/mail.jar:java/javamail
+BUILD_DEPENDS=	${JAVALIBDIR}/junit.jar:java/junit
 
 USES=		cpe java:ant,run
 CPE_VENDOR=	${PORTNAME}
 CPE_PRODUCT=	bc-java
+USE_GITHUB=	yes
+GH_ACCOUNT=	bcgit
+GH_PROJECT=	bc-java
+GH_TAGNAME=	r1rv86v2
 
 MAKE_ARGS=	-f \
 		ant/jdk${JDKNVERSION}+.xml
 MAKE_ENV=	ANT_INCLUDE_SHARED_JARS=YES
 ALL_TARGET=	build-provider build
-
-CONFLICTS_INSTALL=	bouncycastle-1.4*
 
 NO_ARCH=	yes
 
@@ -40,11 +37,10 @@ ZIPSRC_DESC=		Install bundled ZIP source files
 ZIPSRC_ALL_TARGET=	zip-src
 
 ARTIFACTSDIR=	${WRKSRC}/build/artifacts/jdk${JDKMVERSION}
-DVERSION=	${PORTVERSION:S/.//}
 JDKMVERSION=	1.8
 JDKNVERSION=	18
 # matches target.prefix property in WRKSRC/ant/jdk18+.xml
-JARSUFFIX=	-jdk${JDKNVERSION}on-${DVERSION}.jar
+JARSUFFIX=	-jdk${JDKNVERSION}on-${PORTVERSION}.jar
 
 .include <bsd.port.options.mk>
 
@@ -53,15 +49,18 @@ JARSUFFIX=	-jdk${JDKNVERSION}on-${DVERSION}.jar
 EXTRA_PATCHES+=	${FILESDIR}/armv6-patch-bc+-build.xml
 .endif
 
+post-extract:
+	@${MKDIR} ${WRKSRC}/core/src/main/resources
+
 do-install:
 	for src in $$(${FIND} ${ARTIFACTSDIR}/jars -name "*${JARSUFFIX}"); do \
 		dst="$${src##*/}"; \
 		dst="$${dst%%-jdk*}.jar"; \
-		${INSTALL_DATA} "$$src" "${STAGEDIR}/${JAVAJARDIR}/$${dst}"; \
+		${INSTALL_DATA} "$$src" "${STAGEDIR}${JAVAJARDIR}/$${dst}"; \
 	done
 # Install the bundlded version of bcprov.jar because we need a signed JAR.
 # See bfca5d2c6e01d757f1f37c141c22645c2835104b for details.
-	${INSTALL_DATA} ${WRKSRC}/jars/bcprov${JARSUFFIX} \
+	${INSTALL_DATA} ${WRKSRC}/build/artifacts/jdk${JDKMVERSION}/jars/bcprov${JARSUFFIX} \
 		${STAGEDIR}${JAVAJARDIR}/bcprov.jar
 
 do-install-DOCS-on:

@@ -1,6 +1,7 @@
 PORTNAME=	xrdp
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.10.80.b20260203
+DISTVERSION=	0.10.80.b20260702
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-devel
@@ -25,10 +26,9 @@ USES=		autoreconf:build compiler:c11 cpe jpeg libtool localbase \
 CPE_VENDOR=	neutrinolabs
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_TAGNAME=	4d9dde8
-GH_TUPLE=	neutrinolabs:librfxcodec:962b3a3:librfxcodec/librfxcodec \
-		neutrinolabs:libpainter:379b8fb:libpainter/libpainter \
-		neutrinolabs:ulalaca-xrdp:f683d17:ulalaca/ulalaca
+GH_TAGNAME=	3af31df3
+GH_TUPLE=	neutrinolabs:librfxcodec:0badc06:librfxcodec/librfxcodec \
+		neutrinolabs:libpainter:379b8fb:libpainter/libpainter
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_XORG=	ice pixman sm x11 xfixes xkbfile xrandr
 
@@ -81,8 +81,8 @@ X264_CONFIGURE_ENABLE=		x264
 
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
 
-GROUP=		_xrdp
-USER=		_xrdp
+GROUPS=		_xrdp
+USERS=		_xrdp
 
 .include <bsd.port.pre.mk>
 

@@ -1,20 +1,20 @@
-%%DATADIR%%/emacs-mode/agda-input.el
-%%DATADIR%%/emacs-mode/agda-input.elc
-%%DATADIR%%/emacs-mode/agda2-abbrevs.el
-%%DATADIR%%/emacs-mode/agda2-abbrevs.elc
-%%DATADIR%%/emacs-mode/agda2-highlight.el
-%%DATADIR%%/emacs-mode/agda2-highlight.elc
-%%DATADIR%%/emacs-mode/agda2-mode-pkg.el
-%%DATADIR%%/emacs-mode/agda2-mode.el
-%%DATADIR%%/emacs-mode/agda2-mode.elc
-%%DATADIR%%/emacs-mode/agda2-queue.el
-%%DATADIR%%/emacs-mode/agda2-queue.elc
-%%DATADIR%%/emacs-mode/agda2.el
-%%DATADIR%%/emacs-mode/agda2.elc
-%%DATADIR%%/emacs-mode/annotation.el
-%%DATADIR%%/emacs-mode/annotation.elc
-%%DATADIR%%/emacs-mode/eri.el
-%%DATADIR%%/emacs-mode/eri.elc
+@comment %%DATADIR%%/emacs-mode/agda-input.el
+@comment %%DATADIR%%/emacs-mode/agda-input.elc
+@comment %%DATADIR%%/emacs-mode/agda2-abbrevs.el
+@comment %%DATADIR%%/emacs-mode/agda2-abbrevs.elc
+@comment %%DATADIR%%/emacs-mode/agda2-highlight.el
+@comment %%DATADIR%%/emacs-mode/agda2-highlight.elc
+@comment %%DATADIR%%/emacs-mode/agda2-mode-pkg.el
+@comment %%DATADIR%%/emacs-mode/agda2-mode.el
+@comment %%DATADIR%%/emacs-mode/agda2-mode.elc
+@comment %%DATADIR%%/emacs-mode/agda2-queue.el
+@comment %%DATADIR%%/emacs-mode/agda2-queue.elc
+@comment %%DATADIR%%/emacs-mode/agda2.el
+@comment %%DATADIR%%/emacs-mode/agda2.elc
+@comment %%DATADIR%%/emacs-mode/annotation.el
+@comment %%DATADIR%%/emacs-mode/annotation.elc
+@comment %%DATADIR%%/emacs-mode/eri.el
+@comment %%DATADIR%%/emacs-mode/eri.elc
 %%DATADIR%%/lib/prim/Agda/Builtin/Bool.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Char.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Char/Properties.agda
@@ -27,6 +27,11 @@
 %%DATADIR%%/lib/prim/Agda/Builtin/Equality.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Equality/Erase.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Equality/Rewrite.agda
+%%DATADIR%%/lib/prim/Agda/Builtin/Erased/Box-cong.agda
+%%DATADIR%%/lib/prim/Agda/Builtin/Erased/Erased.agda
+%%DATADIR%%/lib/prim/Agda/Builtin/Erased/Funext.agda
+%%DATADIR%%/lib/prim/Agda/Builtin/Erased/Propext.agda
+%%DATADIR%%/lib/prim/Agda/Builtin/Erased/Quotient.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Float.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/Float/Properties.agda
 %%DATADIR%%/lib/prim/Agda/Builtin/FromNat.agda
@@ -63,6 +68,11 @@
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Equality.agdai
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Equality/Erase.agdai
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Equality/Rewrite.agdai
+%%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Erased/Box-cong.agdai
+%%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Erased/Erased.agdai
+%%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Erased/Funext.agdai
+%%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Erased/Propext.agdai
+%%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Erased/Quotient.agdai
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Float.agdai
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/Float/Properties.agdai
 %%DATADIR%%/lib/prim/_build/%%AGDA_VER%%/agda/Agda/Builtin/FromNat.agdai

@@ -1,5 +1,6 @@
 PORTNAME=	base
 DISTVERSION=	${QT6_VERSION}
+PORTREVISION=	1
 CATEGORIES=	devel
 PKGNAMEPREFIX=	qt6-
 
@@ -40,7 +41,6 @@ USES=		cmake compiler:c++17-lang gl gnome jpeg perl5 pkgconfig python \
 USE_GL=		egl opengl
 USE_GNOME=	cairo gdkpixbuf glib20 gtk30 pango
 USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
-USE_LOCALE=	C.UTF-8
 
 SHEBANG_FILES=	${WRKSRC}/libexec/qt-android-runner.py \
 		${WRKSRC}/mkspecs/features/uikit/device_destinations.sh \
@@ -50,6 +50,7 @@ SHEBANG_FILES=	${WRKSRC}/libexec/qt-android-runner.py \
 
 CMAKE_ARGS=	-DOPENSSL_ROOT_DIR="${OPENSSLBASE}"
 CMAKE_ON=	CMAKE_DISABLE_FIND_PACKAGE_LTTngUST \
+		CMAKE_DISABLE_FIND_PACKAGE_md4c \
 		QT_AVOID_CMAKE_ARCHIVING_API \
 		QT_FIND_ALL_PACKAGES_ALWAYS \
 		QT_FEATURE_openssl_linked

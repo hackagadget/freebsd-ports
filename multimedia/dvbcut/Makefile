@@ -1,14 +1,11 @@
 PORTNAME=	dvbcut
-PORTVERSION=	0.7.4
+PORTVERSION=	0.7.5
 DISTVERSIONPREFIX=	v
-PORTREVISION=	7
 CATEGORIES=	multimedia
 
 MAINTAINER=	se@FreeBSD.org
 COMMENT=	Qt application for cutting of MPEG PS and MPEG TS streams (DVB)
 WWW=		https://github.com/bernhardu/dvbcut-deb/
-
-BROKEN=		Does not build with ffmpeg > 6
 
 LICENSE=	GPLv2
 
@@ -24,11 +21,9 @@ USES=		compiler:c++11-lang desktop-file-utils gl pkgconfig \
 USE_GITHUB=	yes
 GH_ACCOUNT=	bernhardu
 GH_PROJECT=	dvbcut-deb
-GH_TAGNAME=	d7c8fad
 USE_GL=		gl
 USE_QT=		core gui widgets xml buildtools:build linguisttools:build
 
-QMAKE_ARGS=		LRELEASE="${LRELEASE}"
 QMAKE_SOURCE_PATH=	${WRKSRC}/src
 
 CXXFLAGS+=	-I${LOCALBASE}/include \

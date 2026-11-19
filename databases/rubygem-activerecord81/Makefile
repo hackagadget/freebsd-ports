@@ -1,5 +1,5 @@
 PORTNAME=	activerecord
-PORTVERSION=	8.1.3
+PORTVERSION=	8.1.4.1
 CATEGORIES=	databases rubygems
 MASTER_SITES=	RG
 PKGNAMESUFFIX=	81
@@ -18,8 +18,9 @@ RUN_DEPENDS=	rubygem-activemodel81>=${PORTVERSION}<${PORTVERSION}_99:databases/r
 
 USES=		cpe gem
 
-CPE_VENDOR=	activerecord_project
 NO_ARCH=	yes
+
+CPE_VENDOR=	activerecord_project
 
 PORTSCOUT=	limit:^8\.1\.
 

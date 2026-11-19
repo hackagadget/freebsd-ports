@@ -1,11 +1,10 @@
 PORTNAME=	exams2forms
-DISTVERSION=	0.2-1
+DISTVERSION=	0.2-2
 CATEGORIES=	deskutils education
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
 MAINTAINER=	uzsolt@FreeBSD.org
 COMMENT=	Embedding exams exercises in rmarkdown or quarto documents
-WWW=		https://cran.r-project.org/package=exams2forms
 
 LICENSE=	GPLv3
 

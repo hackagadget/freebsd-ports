@@ -1,5 +1,6 @@
 PORTNAME=	slurm
-DISTVERSION=	26.05.1
+DISTVERSION=	26.05.4
+PORTREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://download.schedmd.com/slurm/
 PKGNAMESUFFIX=	-wlm
@@ -17,6 +18,7 @@ NOT_FOR_ARCHS_REASON=	32-bit support is deprecated
 LIB_DEPENDS=	libhttp_parser.so:www/http-parser \
 		libjson-c.so:devel/json-c \
 		libjwt.so:www/libjwt \
+		libllhttp.so:www/llhttp \
 		liblz4.so:archivers/liblz4 \
 		libmunge.so:security/munge \
 		librdkafka.so:net/librdkafka \
@@ -35,9 +37,7 @@ SHEBANG_FILES=	doc/html/shtml2html.py doc/man/man2html.py
 
 GNU_CONFIGURE=	yes
 # FreeBSD Infiniband support is still experimental
-# slurmrestd does not build on FreeBSD
 CONFIGURE_ARGS=	--disable-dependency-tracking \
-		--disable-slurmrestd \
 		--docdir=${DOCSDIR} \
 		--htmldir=${DOCSDIR} \
 		--sysconfdir=${ETCDIR} \

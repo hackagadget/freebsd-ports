@@ -4,7 +4,7 @@
     SUBDIR += aspell
     SUBDIR += d1489
     SUBDIR += emkatic
-    SUBDIR += eric6
+    SUBDIR += freebsd-man
     SUBDIR += gd
     SUBDIR += hunspell
     SUBDIR += hyphen
@@ -21,13 +21,6 @@
     SUBDIR += py-pytils
     SUBDIR += rubygem-russian
     SUBDIR += rux
-    SUBDIR += stardict-bars
-    SUBDIR += stardict-computer
-    SUBDIR += stardict-dal
-    SUBDIR += stardict-engcom
-    SUBDIR += stardict-mueller7
-    SUBDIR += stardict-mueller7accent
-    SUBDIR += stardict-pc
     SUBDIR += wordpress
     SUBDIR += xcode
     SUBDIR += xruskb

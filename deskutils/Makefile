@@ -30,6 +30,7 @@
     SUBDIR += calibre
     SUBDIR += calindori
     SUBDIR += cartotheque
+    SUBDIR += cfait
     SUBDIR += cfiles
     SUBDIR += chart
     SUBDIR += cherrytree
@@ -40,6 +41,7 @@
     SUBDIR += coolreader
     SUBDIR += copyq
     SUBDIR += coregarage
+    SUBDIR += cosmic-screenshot
     SUBDIR += countdown
     SUBDIR += crengine-ng
     SUBDIR += crqt-ng
@@ -69,8 +71,8 @@
     SUBDIR += ganttproject
     SUBDIR += gcal
     SUBDIR += genius
-    SUBDIR += glabels
     SUBDIR += gitte
+    SUBDIR += glabels
     SUBDIR += gnome-calendar
     SUBDIR += gnome-characters
     SUBDIR += gnome-clocks
@@ -93,7 +95,6 @@
     SUBDIR += gnome-shell-extension-simple-weather
     SUBDIR += gnome-shell-extra-extensions
     SUBDIR += gnome-sound-recorder
-    SUBDIR += gnome-todo
     SUBDIR += gnome-tweaks
     SUBDIR += gnome-utils
     SUBDIR += gnome-weather
@@ -130,10 +131,10 @@
     SUBDIR += jot
     SUBDIR += just
     SUBDIR += kaddressbook
+    SUBDIR += kaichat
     SUBDIR += kalarm
     SUBDIR += kanbanapp
     SUBDIR += kcharselect
-    SUBDIR += kchmviewer
     SUBDIR += kdeconnect-kde
     SUBDIR += kdepim
     SUBDIR += kdepim-addons
@@ -154,7 +155,6 @@
     SUBDIR += ktimetracker
     SUBDIR += kweather
     SUBDIR += kweathercore
-    SUBDIR += latte-dock
     SUBDIR += lazycli
     SUBDIR += libcprime
     SUBDIR += libkdepim
@@ -173,6 +173,7 @@
     SUBDIR += lumina-photo
     SUBDIR += lumina-screenshot
     SUBDIR += lumina-textedit
+    SUBDIR += lxqt-clip
     SUBDIR += lxqt-notificationd
     SUBDIR += maliit-framework
     SUBDIR += maliit-keyboard
@@ -184,7 +185,6 @@
     SUBDIR += menumaker
     SUBDIR += merkuro
     SUBDIR += meteo
-    SUBDIR += mindforger
     SUBDIR += moregroupware
     SUBDIR += mozo
     SUBDIR += mybee-qt
@@ -200,10 +200,8 @@
     SUBDIR += notification-daemon
     SUBDIR += notify-osd
     SUBDIR += orage
-    SUBDIR += owncloudclient
     SUBDIR += p5-Data-ICal
     SUBDIR += p5-Data-ICal-DateTime
-    SUBDIR += p5-Goo
     SUBDIR += pal
     SUBDIR += parcellite
     SUBDIR += peaclock
@@ -218,6 +216,9 @@
     SUBDIR += plasma6-milou
     SUBDIR += plasma6-sddm-kcm
     SUBDIR += plasma6-xdg-desktop-portal-kde
+    SUBDIR += plasma6lts-milou
+    SUBDIR += plasma6lts-sddm-kcm
+    SUBDIR += plasma6lts-xdg-desktop-portal-kde
     SUBDIR += plopfolio
     SUBDIR += podman-desktop
     SUBDIR += preferences
@@ -257,7 +258,6 @@
     SUBDIR += rubygem-shellplay
     SUBDIR += rubygem-taskjuggler
     SUBDIR += rwpspread
-    SUBDIR += semantik
     SUBDIR += sigi
     SUBDIR += sigye
     SUBDIR += simpleagenda
@@ -274,7 +274,6 @@
     SUBDIR += sysctlview
     SUBDIR += systempreferences
     SUBDIR += taskd
-    SUBDIR += tasksh
     SUBDIR += taskwarrior
     SUBDIR += taskwarrior-tui
     SUBDIR += tatuin
@@ -325,6 +324,7 @@
     SUBDIR += zanshin
     SUBDIR += zim
     SUBDIR += zk
+    SUBDIR += znotes
     SUBDIR += zorro
 
 .include <bsd.port.subdir.mk>

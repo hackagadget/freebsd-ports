@@ -1,7 +1,10 @@
 #!/bin/sh
-SIGNAL_VERS=v8.14.0
+SIGNAL_VERS=8.35.0
 
-fetch -qo /tmp/package.json https://raw.githubusercontent.com/signalapp/Signal-Desktop/${SIGNAL_VERS}/package.json
+printf "DISTVERSION=\t${SIGNAL_VERS}\n" | portedit merge -i Makefile
+printf "DISTVERSION=\t${SIGNAL_VERS}\n" | portedit merge -i Makefile.online
+
+fetch -qo /tmp/package.json https://raw.githubusercontent.com/signalapp/Signal-Desktop/v${SIGNAL_VERS}/package.json
 
 ############ NODE ############
 node_version=$(awk /'"node":'/'{print $2}' /tmp/package.json | head -n 1 | sed 's/"//g')
@@ -65,7 +68,7 @@ echo "version installed: ${signal_sqlcipher_installed_version}"
 echo
 
 ############ PNPM ############
-pnpm_version=$(grep '"packageManager":' /tmp/package.json | awk -F ":" '{print $2}' | sed -E 's#("|,| )##g' | sed 's#pnpm@##')
+pnpm_version=$(grep -A 2 '"packageManager":' /tmp/package.json | awk "/version/"'{print $2}' | sed 's#"##g')
 echo "requires: PNPM_VERS ${pnpm_version}"
 
 ############ WEBRTC ############

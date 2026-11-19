@@ -1,6 +1,5 @@
 PORTNAME=	simsimd
-DISTVERSION=	6.0.4
-PORTREVISION=	1
+DISTVERSION=	6.5.16
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,7 +12,8 @@ WWW=		https://ashvardanian.com/posts/simsimd-faster-scipy/ \
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	aarch64 amd64 i386
+ONLY_FOR_ARCHS=	aarch64 amd64 i386 powerpc64 powerpc64le
+BROKEN_i386=	fails to compile: error: _Float16 is not supported on this target
 
 USES=		python
 USE_PYTHON=	distutils autoplist

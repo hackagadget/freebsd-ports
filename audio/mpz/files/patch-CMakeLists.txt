@@ -1,25 +1,34 @@
---- CMakeLists.txt.orig	2026-06-07 05:11:46 UTC
+--- CMakeLists.txt.orig	2026-09-02 19:12:58 UTC
 +++ CMakeLists.txt
-@@ -329,10 +329,9 @@ endif()
+@@ -460,6 +460,7 @@ endif()
  # ENDOF TAGLIB
  
- # QHOTKEY
--target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE qhotkey)
--set(QHOTKEY_DIR 3rdparty/QHotkey-1.5.0)
--add_subdirectory(${QHOTKEY_DIR})
--message(STATUS "using vendored qhotkey from ${QHOTKEY_DIR}")
-+find_library(QHOTKEY_LIB qhotkey REQUIRED)
-+message(STATUS "using system-wide qhotkey")
-+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${QHOTKEY_LIB})
- # ENDOF QHOTKEY
+ # LIBEBUR128
++if (ENABLE_GAPLESS)
+ option(USE_SYSTEM_LIBEBUR128 "Use libebur128 provided by the OS" OFF)
+ if (USE_SYSTEM_LIBEBUR128)
+   find_library(EBUR128_LIBRARY ebur128 REQUIRED)
+@@ -501,7 +502,6 @@ endif()
+     target_include_directories(ebur128 PRIVATE ${EBUR128_SOURCE_DIR})
+   endif()
+ endif()
+-if (ENABLE_GAPLESS)
+   target_link_libraries(${MPZ_LIB} PUBLIC ebur128)
+ endif()
+ # ENDOF LIBEBUR128
+@@ -551,6 +551,7 @@ endif()
+ # ENDOF LIBMPDCLIENT
  
- # QTWAITINGSPINNER
-@@ -362,7 +361,7 @@ endif()
- # demangled function names from STRIPPED release binaries (no DWARF shipped).
- # Skipped on Windows: PE has no .dynsym equivalent for executables, so the
- # same trick can't work there without shipping DWARF or PDBs.
--if(UNIX AND NOT APPLE)
-+if(LINUX AND NOT APPLE)
-   set(CPPTRACE_DIR 3rdparty/cpptrace-1.0.4)
-   set(CPPTRACE_BUILD_TESTING OFF CACHE BOOL "" FORCE)
-   set(CPPTRACE_GET_SYMBOLS_WITH_LIBDL ON CACHE BOOL "" FORCE)
+ # SQLITE3
++if (ENABLE_GAPLESS)
+ option(USE_SYSTEM_SQLITE3 "Use sqlite3 provided by the OS" OFF)
+ if (USE_SYSTEM_SQLITE3)
+   message(STATUS "using system-wide sqlite3")
+@@ -566,7 +567,6 @@ endif()
+ else()
+   include(3rdparty/sqlite3.cmake)
+ endif()
+-if (ENABLE_GAPLESS)
+   target_link_libraries(${MPZ_LIB} PUBLIC sqlite3)
+ endif()
+ # ENDOF SQLITE3

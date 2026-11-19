@@ -21,7 +21,6 @@ bin/tsd2a32
 bin/tsin2gtab-phrase
 bin/tslearn
 bin/txt2gtab-phrase
-%%ANTHY%%lib/gcin/anthy-module.so
 lib/gcin/gcin1.so
 lib/gcin/gcin2.so
 lib/gcin/intcode-module.so
@@ -68,6 +67,7 @@ share/applications/gcin-tools.desktop
 %%DATADIR%%/table/phrase-ctrl.table
 %%DATADIR%%/table/phrase.table
 %%DATADIR%%/table/pin-juyin.xlt
+%%DATADIR%%/table/pin-juyin2.xlt
 %%DATADIR%%/table/pinyin-no-tone.kbm
 %%DATADIR%%/table/pinyin.gtab
 %%DATADIR%%/table/pinyin.kbm

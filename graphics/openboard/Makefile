@@ -3,6 +3,9 @@ DISTVERSIONPREFIX=	v
 DISTVERSION=	1.7.7
 CATEGORIES=	graphics education
 
+PATCH_SITES=	https://github.com/OpenBoard-org/OpenBoard/commit/
+PATCHFILES=	41ba5bdcb2d6d10106eccec579e0e2db93c5e9e5.patch:-p1
+
 MAINTAINER=	larone426@gmail.com
 COMMENT=	Open source interactive whiteboard application
 WWW=		https://www.openboard.org/
@@ -14,7 +17,7 @@ LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg \
 		libavutil.so:multimedia/ffmpeg \
 		libpoppler.so:graphics/poppler \
 		libpoppler-cpp.so:graphics/poppler \
-		libquazip1-qt6.so:archivers/quazip@qt6 \
+		libquazip1-qt6.so:archivers/quazip \
 		libswresample.so:multimedia/ffmpeg \
 		libswscale.so:multimedia/ffmpeg
 

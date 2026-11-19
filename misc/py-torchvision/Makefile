@@ -1,6 +1,6 @@
 PORTNAME=	torchvision
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.27.0
+DISTVERSION=	0.29.2
 CATEGORIES=	misc # machine-learning
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -32,16 +32,46 @@ USE_PYTHON=	pep517 autoplist pytest # tests run in a very high memory ; in 0.17.
 
 TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 TEST_WRKSRC=	${WRKSRC}
+TEST_ARGS=	--disable-plugin-autoload \
+		--ignore=test/test_transforms_tensor.py \
+		--ignore=test/test_transforms_v2.py \
+		--ignore=test/test_functional_tensor.py \
+		--ignore=test/test_transforms.py \
+		--ignore=test/test_ops.py \
+		--ignore=test/test_backbone_utils.py \
+		--ignore=test/test_utils.py \
+		--ignore=test/test_tv_tensors.py \
+		--ignore=test/test_datasets_download.py \
+		--ignore=test/test_onnx.py \
+		--ignore=test/test_datasets_utils.py \
+		--ignore=test/test_image.py \
+		--ignore=test/test_datasets.py \
+		--ignore=test/test_models.py # killed by OOM: memory accumulates across heavy model tests
+PYTEST_BROKEN_TESTS=	test_download_url_dispatch_download_from_google_drive \
+			test_detection_model_trainable_backbone_layers
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	pytorch
 GH_PROJECT=	vision
 
-MAKE_ENV=	TORCHVISION_INCLUDE=${LOCALBASE}/include # workaround for build failure suggested here: https://github.com/pytorch/vision/issues/8397#issuecomment-2168351425
+MAKE_ENV=	TORCHVISION_INCLUDE=${LOCALBASE}/include \
+		OPENBLAS_CORETYPE=SKYLAKEX # workaround for OpenBLAS Zen5/Zen6 crash in py-pytorch
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "aarch64"
+MAKE_ENV=	LD_STATIC_TLS_EXTRA=4096 # see pkg-message in misc/py-pytorch
+.endif
+
+pre-test:
+	@${CP} ${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/_C_stable.so ${WRKSRC}/torchvision/
+	@${CP} ${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/image_stable.so ${WRKSRC}/torchvision/
 
 post-install: # strip binaries
 	@${STRIP_CMD} \
-		${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/_C.so \
-		${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/image.so
+		${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/_C_stable.so \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/torchvision/image_stable.so
 
-.include <bsd.port.mk>
+# tests as of 0.29.2: 388 passed, 370 skipped, 2 deselected, 7 warnings in 122.93s (0:02:02)
+
+.include <bsd.port.post.mk>

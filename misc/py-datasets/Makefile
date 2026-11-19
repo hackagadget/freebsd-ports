@@ -1,6 +1,5 @@
 PORTNAME=	datasets
-DISTVERSION=	4.8.5
-PORTREVISION=	1
+DISTVERSION=	5.2.0
 CATEGORIES=	misc python # machine-learning
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -16,19 +15,16 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyproject-hooks>0:devel/py-pyproject-hooks@${PY_FLAVOR} \
 		${PY_SETUPTOOLS} \
 		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}aiohttp>0:www/py-aiohttp@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}dill>0.3.0:devel/py-dill@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dill>0.3.0:devel/py-dill@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}filelock>0:sysutils/py-filelock@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}fsspec>=2023.1.0:filesystems/py-fsspec@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}httpx>0:www/py-httpx@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}huggingface-hub>=0.25.0:misc/py-huggingface-hub@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}huggingface-hub>=1.31.0:misc/py-huggingface-hub@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}multiprocess>0:devel/py-multiprocess@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}numpy>=1.17:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}packaging>0:devel/py-packaging@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pandas>0:math/py-pandas@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyarrow>=21.0.0:databases/py-pyarrow@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pyarrow>=24.0.0:databases/py-pyarrow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyyaml>=5.1:devel/py-pyyaml@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}requests>=2.32.2:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tqdm>=4.66.3:misc/py-tqdm@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}xxhash>0:devel/py-xxhash@${PY_FLAVOR}
 RUN_DEPENDS_AUDIO=	${PYTHON_PKGNAMEPREFIX}torchcodec>=0.6.0:multimedia/py-torchcodec@${PY_FLAVOR} \
@@ -37,6 +33,7 @@ RUN_DEPENDS_VISION=	${PY_PILLOW}
 RUN_DEPENDS+=	${RUN_DEPENDS_AUDIO} \
 		${RUN_DEPENDS_VISION}
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}absl-py>=0:devel/py-absl-py@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}aiohttp>0:www/py-aiohttp@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}elasticsearch>0:textproc/py-elasticsearch@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}faiss>=1.6.4:math/py-faiss@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}jax>=0.3.14:math/py-jax@${PY_FLAVOR} \
@@ -62,6 +59,13 @@ USE_PYTHON=	pep517 concurrent autoplist pytest
 TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR} \
 		DATASETS_TEST_SKIP_TF=yes
 PYTEST_ARGS=	tests/
+TEST_ARGS=	--disable-plugin-autoload -p pytest_datadir \
+		-k "not (parquet or torch or tensor_batched or estimate_nbytes \
+		or save_to_disk_batch_size or push_to_hub_uploads_every_row \
+		or to_iterable_dataset or categorical_dataset \
+		or iterable_dataset_dict_push_to_hub or test_iterable_filter \
+		or test_iterable_map or _private or locally_with_extra_files \
+		or locally_or_remote_hashing or embed_local_files)"
 
 NO_ARCH=	yes
 
@@ -81,5 +85,7 @@ pre-test: # skip tests requiring unavailable dependencies/data
 	@${RM} ${WRKSRC}/tests/test_iterable_dataset.py
 	@${RM} ${WRKSRC}/tests/test_upstream_hub.py
 	@${RM} ${WRKSRC}/tests/test_fingerprint.py
+
+# tests as of 5.2.0: 1181 passed, 50 skipped, 83 deselected, 181 warnings in 52.39s
 
 .include <bsd.port.mk>

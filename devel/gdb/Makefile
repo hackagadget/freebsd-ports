@@ -1,10 +1,10 @@
 PORTNAME=	gdb
 DISTVERSION=	15.1
-PORTREVISION=	4
+PORTREVISION=	7
 CATEGORIES=	devel
 MASTER_SITES=	GNU
 
-MAINTAINER=	pizzamig@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	GNU Project Debugger
 WWW=		https://www.gnu.org/software/gdb/
 
@@ -125,8 +125,10 @@ PLIST_SUB+=	LIBCXX="@comment "
 EXCLUDE+=	zlib
 .endif
 
-.if ${ARCH} == amd64
-CONFIGURE_TARGET=	x86_64-portbld-freebsd${OSREL}
+# powerpc64le switched long double to IEEE-128 in FreeBSD 16; apply the gdb
+# long-double format fix only there so 14/15 packages keep the 64-bit format.
+.if ${ARCH} == powerpc64le && ${OSVERSION} >= 1600019
+EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-gdb_ppc-fbsd-tdep.c
 .endif
 
 post-patch:

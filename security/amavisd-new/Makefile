@@ -1,5 +1,5 @@
 PORTNAME=	amavisd-new
-DISTVERSION=	2.14.0
+DISTVERSION=	2.15.0
 PORTEPOCH=	1
 CATEGORIES=	security
 
@@ -23,7 +23,7 @@ USE_PERL5=	run
 USE_GITLAB=	yes
 GL_ACCOUNT=	amavis
 GL_PROJECT=	amavis
-GL_TAGNAME=	fc0e86edb3fd4fb779e4e906fb1cc61fdf7e6e7f
+GL_TAGNAME=	5cd43bdfb1b83e299471e179ff7c13d733ed3c43
 
 SHEBANG_FILES=	bin/amavisd bin/amavisd-agent bin/amavisd-nanny \
 		bin/amavisd-release bin/amavisd-snmp-subagent \
@@ -148,7 +148,9 @@ RUN_DEPENDS+=	file>=4.21:sysutils/file
 # at that port, therefore we will block instantly here if the platform does
 # not suit rar.
 .if ${PORT_OPTIONS:MRAR}
-.if ${ARCH} == "i386" || ${ARCH} == "amd64"
+.if ${ARCH} == "i386"
+RUN_DEPENDS+=	${LOCALBASE}/bin/rar:archivers/rar-i386
+.elif ${ARCH} == "amd64"
 RUN_DEPENDS+=	${LOCALBASE}/bin/rar:archivers/rar
 .else
 IGNORE=		archivers/rar is a x86 binary port and is not compatible with ${ARCH}

@@ -1,7 +1,7 @@
 PORTNAME=	hebcal
 DISTVERSIONPREFIX=	v
-DISTVERSION=	5.9.2.20250725
-PORTREVISION=	13
+DISTVERSION=	5.14.0
+PORTREVISION=	6
 CATEGORIES=	deskutils
 
 MAINTAINER=	rtd24@columbia.edu
@@ -13,7 +13,6 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		go:modules
 USE_GITHUB=	yes
-GH_TAGNAME=	16a4dbad70c5fd10
 
 PLIST_FILES=	bin/hebcal \
 		share/man/man1/hebcal.1.gz

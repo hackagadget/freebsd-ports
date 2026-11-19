@@ -10,7 +10,9 @@
     SUBDIR += aranym
     SUBDIR += ares
     SUBDIR += atari800
+    SUBDIR += azahar
     SUBDIR += bfe
+    SUBDIR += bobbin
     SUBDIR += bochs
     SUBDIR += bsvc
     SUBDIR += cannonball
@@ -34,6 +36,7 @@
     SUBDIR += emulationstation
     SUBDIR += emutos
     SUBDIR += es-de
+    SUBDIR += fab-agon-emulator
     SUBDIR += fbneo
     SUBDIR += fbsd-duckstation
     SUBDIR += fceux
@@ -63,9 +66,11 @@
     SUBDIR += libc6-shim
     SUBDIR += libdsk
     SUBDIR += libmt32emu
+    SUBDIR += libretro-azahar
     SUBDIR += libretro-bsnes
     SUBDIR += libretro-flycast
     SUBDIR += libretro-kronos
+    SUBDIR += libretro-np2kai
     SUBDIR += libretro-pcsx2
     SUBDIR += libretro-ppsspp
     SUBDIR += libretro-reicast
@@ -123,7 +128,6 @@
     SUBDIR += qemu-powernv
     SUBDIR += qemu-user-static
     SUBDIR += qemu-user-static-devel
-    SUBDIR += qmc2
     SUBDIR += quasi88
     SUBDIR += reicast
     SUBDIR += ripes
@@ -141,6 +145,7 @@
     SUBDIR += spim
     SUBDIR += stella
     SUBDIR += stonx
+    SUBDIR += supermodel
     SUBDIR += teo
     SUBDIR += tic-80
     SUBDIR += tiemu3
@@ -192,8 +197,10 @@
     SUBDIR += x49gp
     SUBDIR += xbraitenberg
     SUBDIR += xcpc
+    SUBDIR += xemu
     SUBDIR += xen-kernel
     SUBDIR += xhomer
+    SUBDIR += xroar
     SUBDIR += xsystem35
     SUBDIR += xzx
     SUBDIR += yaze-ag

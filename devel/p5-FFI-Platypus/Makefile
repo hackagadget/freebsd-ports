@@ -1,5 +1,5 @@
 PORTNAME=	FFI-Platypus
-PORTVERSION=	2.11
+PORTVERSION=	2.12
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:PLICEASE
@@ -21,6 +21,8 @@ TEST_DEPENDS=	p5-Test-Simple>=1.302200:devel/p5-Test-Simple
 
 USES=		gmake perl5 pkgconfig
 USE_PERL5=	configure
+
+PORTSCOUT=	limit:^[0-9\.]*$$
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/FFI/Platypus/Platypus.so

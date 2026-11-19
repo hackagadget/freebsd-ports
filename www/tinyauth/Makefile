@@ -1,7 +1,7 @@
 PORTNAME=	tinyauth
 DISTVERSIONPREFIX=	v
-DISTVERSION=	5.0.7
-PORTREVISION=	2
+DISTVERSION=	5.1.3
+PORTREVISION=	4
 CATEGORIES=	www
 MASTER_SITES=	LOCAL/dtxdf/${PORTNAME}/:assets
 # For instructions on how to create assets:
@@ -19,7 +19,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 ONLY_FOR_ARCHS=	aarch64 amd64
 ONLY_FOR_ARCHS_REASON=	module modernc.org/sqlite only supported on aarch64 and amd64
 
-USES=		go:1.26+,modules
+USES=		go:modules
 USE_GITHUB=	yes
 GH_ACCOUNT=	steveiliop56
 
@@ -39,11 +39,12 @@ USERS=		${TINYAUTH_USER}
 GROUPS=		${TINYAUTH_GROUP}
 
 PLIST_FILES=	bin/${PORTNAME} \
-		"@dir(${TINYAUTH_USER},${TINYAUTH_GROUP},0750) /var/db/${PORTNAME}"
+		"@dir(${TINYAUTH_USER},${TINYAUTH_GROUP},0750) /var/db/${PORTNAME}" \
+		"@sample etc/newsyslog.conf.d/${PORTNAME}.conf.sample"
 
 # Run 'git checkout ${DISTVERSIONPREFIX}${DISTVERSION} && git rev-parse HEAD'
 # in the Tinyauth repository to get the value of GITID.
-GITID=		479f1657812b7bf01438607464dedaa148155301
+GITID=		ad700e75e065e7d966f0ba4cb16fc851cad224c6
 
 BUILD_DATE=	$$(date -u '+%Y-%m-%dT%H:%M:%S')
 
@@ -58,5 +59,7 @@ post-extract:
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/db/${PORTNAME}
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
+	${INSTALL_DATA} ${FILESDIR}/newsyslog.conf ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/${PORTNAME}.conf.sample
 
 .include <bsd.port.mk>

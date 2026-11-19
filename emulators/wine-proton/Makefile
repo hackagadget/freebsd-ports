@@ -1,7 +1,8 @@
 PORTNAME=	wine-proton
-DISTVERSION=	9.0-3
+DISTVERSION=	11.0-2
 PORTREVISION=	1
 CATEGORIES=	emulators
+PKGNAMESUFFIX=	${FLAVOR:N${FLAVORS:[1]}:C/.+/-${FLAVOR}/}
 
 MAINTAINER=	monwarez@mailoo.org
 COMMENT=	Wine with a bit of extra spice
@@ -11,15 +12,17 @@ LICENSE=	LGPL21 LGPL3
 LICENSE_COMB=	dual
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	amd64 i386
+ONLY_FOR_ARCHS=	amd64
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex \
+		${LOCALBASE}/ffmpeg4/include/libavformat/avformat.h:multimedia/ffmpeg4 \
 		${LOCALBASE}/include/linux/input.h:devel/evdev-proto
 
 LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
 		libgnutls.so:security/gnutls \
-		libvulkan.so:graphics/vulkan-loader
+		libvulkan.so:graphics/vulkan-loader \
+		libhwloc.so:devel/hwloc2
 
 # amd_ags_x64.so
 LIB_DEPENDS+=	libdrm.so:graphics/libdrm \
@@ -30,14 +33,22 @@ LIB_DEPENDS+=	libwayland-client.so:graphics/wayland \
 		libxkbcommon.so:x11/libxkbcommon \
 		libxkbregistry.so:x11/libxkbcommon
 
-USES=		autoreconf bison desktop-file-utils gl gmake gnome gstreamer llvm:${_LLVM_VERSION},build localbase perl5 pkgconfig python:build sdl shebangfix tar:xz xorg
+# we are avoiding LIB_DEPENDS because find-lib.sh brings ffmpeg 6
+RUN_DEPENDS=	ffmpeg4>=0:multimedia/ffmpeg4
+
+FLAVORS=	default pulse
+FLAVOR?=	default
+
+USES=		autoreconf bison desktop-file-utils gl gmake gnome gstreamer \
+		llvm:min=17,build,noexport localbase perl5 pkgconfig \
+		python:build sdl shebangfix tar:xz xorg
 USE_CSTD=	gnu11
 USE_GCC=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	ValveSoftware
 GH_PROJECT=	wine
-GH_TAGNAME=	488fb296dda334a1e8555a9dd8f5cbe09be2afe5
+GH_TAGNAME=	proton-wine-${DISTVERSION}
 
 USE_GL=		gl
 USE_GNOME=	glib20
@@ -53,8 +64,8 @@ GNU_CONFIGURE=		yes
 GNU_CONFIGURE_PREFIX=	${PREFIX}/${PORTNAME}
 
 CONFIGURE_ARGS=	--verbose \
-		--enable-archs=${ARCH:S|amd64|x86_64|} \
-		--with-mingw CROSSCC="clang" CROSSCFLAGS="-isystem ${FILESDIR}/clang" \
+		--enable-archs=i386,x86_64 \
+		--with-mingw CROSSCC="clang" \
 		--libdir=${PREFIX}/${PORTNAME}/lib \
 		--disable-kerberos \
 		--disable-tests \
@@ -62,6 +73,7 @@ CONFIGURE_ARGS=	--verbose \
 		--with-freetype \
 		--with-gnutls \
 		--with-gstreamer \
+		--with-hwloc \
 		--with-opengl \
 		--with-oss \
 		--with-pthread \
@@ -86,7 +98,6 @@ CONFIGURE_ARGS=	--verbose \
 		--without-krb5 \
 		--without-netapi \
 		--without-opencl \
-		--without-osmesa \
 		--without-pcap \
 		--without-pcsclite \
 		--without-sane \
@@ -95,45 +106,37 @@ CONFIGURE_ARGS=	--verbose \
 		--without-usb \
 		--without-v4l2
 
-CONFIGURE_ENV=	CPPBIN="false" CPPFLAGS="" FLEX="${LOCALBASE}/bin/flex" JXRLIB_CFLAGS="-I${LOCALBASE}/include/jxrlib"
+CONFIGURE_ENV=	CPPBIN="false" CPPFLAGS="" FLEX="${LOCALBASE}/bin/flex" \
+		JXRLIB_CFLAGS="-I${LOCALBASE}/include/jxrlib" \
+		PKG_CONFIG_PATH="${LOCALBASE}/ffmpeg4/libdata/pkgconfig"
 
 CFLAGS+=	-D__NR_futex="-1" -Werror=implicit-function-declaration -Wno-int-conversion
 CFLAGS_i386+=	-mpreferred-stack-boundary=4 -mstackrealign
 PIE_UNSAFE=	yes
 
-BINARY_ALIAS+=	clang=${LOCALBASE}/bin/clang${_LLVM_VERSION} \
-		lld-link=${LOCALBASE}/bin/lld-link${_LLVM_VERSION}
+CONFLICTS_INSTALL=	${PORTNAME}*
 
-OPTIONS_DEFINE=	PULSEAUDIO
-OPTIONS_DEFAULT=PULSEAUDIO
-OPTIONS_SUB=	yes
+BINARY_ALIAS+=	clang=${LOCALBASE}/bin/clang${LLVM_VERSION} \
+		lld-link=${LOCALBASE}/bin/lld-link${LLVM_VERSION}
 
-PULSEAUDIO_DESC=		Build winepulse.drv
+OPTIONS_DEFINE=		PULSEAUDIO
+OPTIONS_DEFAULT=	${OPTIONS_DEFAULT_${FLAVOR}}
+OPTIONS_DEFAULT_pulse=	PULSEAUDIO
+OPTIONS_SUB=		yes
 
-PULSEAUDIO_BUILD_DEPENDS=	${LOCALBASE}/include/pulse/pulseaudio.h:audio/pulseaudio
-PULSEAUDIO_CONFIGURE_ON=	--with-pulse
-PULSEAUDIO_CONFIGURE_OFF=	--without-pulse
+PULSEAUDIO_LIB_DEPENDS=		libpulse.so:audio/pulseaudio
+PULSEAUDIO_CONFIGURE_WITH=	pulse
 
 .include <bsd.port.pre.mk>
 
-.if ${LLVM_DEFAULT} == 11
-_LLVM_VERSION=	15
-.else
-_LLVM_VERSION=	${LLVM_DEFAULT}
-.endif
-
 .if ${ARCH} == amd64
-PLIST_SUB+=	WINE32="@comment " WINE64="" WINEARCH="x86_64"
-CONFIGURE_ARGS+=--enable-win64
-.else
-PLIST_SUB+=	WINE32="" WINE64="@comment " WINEARCH="i386"
+CONFIGURE_ARGS+=	--enable-win64
+PLIST_SUB+=		WINEARCH="x86_64"
 .endif
-
-post-patch:
-	${REINPLACE_CMD} 's/CFLAGS="$$llvm_extra_cflags $$llvm_cflags"/CFLAGS="$$CROSSCFLAGS $$llvm_extra_cflags $$llvm_cflags"/g' ${WRKSRC}/configure.ac
 
 pre-configure:
-	cd ${WRKSRC} && ${PYTHON_CMD} dlls/winevulkan/make_vulkan --xml vk.xml
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PYTHON_CMD} \
+		dlls/winevulkan/make_vulkan --xml vk.xml --video-xml video.xml
 	cd ${WRKSRC} && ${PERL5} tools/make_specfiles
 
 pre-build:
@@ -141,22 +144,11 @@ pre-build:
 	cd ${WRKSRC} && ${PERL5} tools/make_requests
 
 post-install:
-.if ${ARCH} == i386
-	${MV} ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wineserver ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wineserver32
-	${MV} ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine       ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine.bin
-	-${ELFCTL} -e +noaslr                                 ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine.bin
-	${INSTALL_SCRIPT} ${FILESDIR}/wine.sh                 ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine
-.else
-	${INSTALL_SCRIPT} ${FILESDIR}/pkg32.sh                ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/pkg32.sh
-	${MV} ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine64     ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine64.bin
-	${INSTALL_SCRIPT} ${FILESDIR}/wine.sh                 ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine64
-	${INSTALL_SCRIPT} ${FILESDIR}/wine-wow64.sh           ${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine
-.endif
-	${RM} -r ${STAGEDIR}${PREFIX}/${PORTNAME}/include
-	${RM} -r ${STAGEDIR}${PREFIX}/share/man
+	${ELFCTL} -e +noaslr	${STAGEDIR}${PREFIX}/${PORTNAME}/bin/wine
+	${RM} -r ${STAGEDIR}${PREFIX}/${PORTNAME}/include \
+		 ${STAGEDIR}${PREFIX}/share/man
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
-.for i in README.md ANNOUNCE.md AUTHORS
-	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
-.endfor
+	${INSTALL_DATA} ${ANNOUNCE.md AUTHORS README.md:L:S|^|${WRKSRC}/|} \
+		${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.post.mk>

@@ -1,5 +1,5 @@
 PORTNAME=	xdpyinfo
-DISTVERSION=	1.3.4
+DISTVERSION=	1.4.0
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -9,7 +9,7 @@ WWW=		https://gitlab.freedesktop.org/xorg/app/xdpyinfo
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:app
+USES=		xorg xorg-cat:app
 USE_XORG=	x11 xcb xcomposite xext xi xinerama xorgproto xrender \
 		xtst xxf86dga xxf86vm
 

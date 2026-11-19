@@ -1,11 +1,7 @@
 PORTNAME=	simbody
 DISTVERSIONPREFIX=	Simbody-
-DISTVERSION=	3.7
-PORTREVISION=	9
+DISTVERSION=	3.9
 CATEGORIES=	science biology
-
-PATCH_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/commit/
-PATCHFILES=	1b306f66bcd15e9bf6b27882e2daa6375ac4cd2e.patch:-p1
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Multibody dynamics library for (bio)mechanical systems simulation
@@ -14,9 +10,7 @@ WWW=		https://simtk.org/projects/simbody
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-LIB_DEPENDS=	libopenblas.so:math/openblas
-
-USES=		blaslapack:openblas cmake compiler:c++11-lang fortran # fortran only for openblas
+USES=		blaslapack:openblas cmake compiler:c++20-lang fortran localbase # fortran only for openblas
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 
@@ -48,5 +42,7 @@ do-test:
 		${SETENV} ${CONFIGURE_ENV} ${CMAKE_BIN} ${CMAKE_ARGS} -DBUILD_TESTING=ON ${CMAKE_SOURCE_PATH} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} test
+
+# tests as of 3.9: 100% tests passed, 0 tests failed out of 115
 
 .include <bsd.port.mk>

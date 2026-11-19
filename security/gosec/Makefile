@@ -1,6 +1,6 @@
 PORTNAME=	gosec
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.27.1
+DISTVERSION=	2.30.0
 PORTREVISION=	1
 CATEGORIES=	security devel
 
@@ -16,6 +16,8 @@ USES=		go:modules
 
 GO_MODULE=	github.com/securego/gosec/v2
 GO_TARGET=	./cmd/${PORTNAME}
+# TestRules uses sample Go code that imports modules not vendored in the project
+GO_TESTFLAGS+=	-skip TestRules
 
 PLIST_FILES=	bin/${PORTNAME}
 

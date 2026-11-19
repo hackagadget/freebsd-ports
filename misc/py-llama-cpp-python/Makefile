@@ -1,6 +1,6 @@
 PORTNAME=	llama-cpp-python
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.3.29
+DISTVERSION=	0.3.37
 CATEGORIES=	misc # machine-learning
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -37,12 +37,12 @@ TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	abetlen
-GH_TUPLE=	ggerganov:llama.cpp:f05cf46:cpp/vendor/llama.cpp
+GH_TUPLE=	ggml-org:llama.cpp:a956a852c9c8bc1fb07206364838ddef299178c0:cpp/vendor/llama.cpp
 
 SHEBANG_GLOB=	*.py
 
 CONFLICTS_BUILD=	llama-cpp
 
-# tests as of 0.3.28: 66 passed in 364.39s (0:06:04)
+# tests as of 0.3.37: 6 passed in 0.12s (tests/test_llama.py ignored because it downloads models from Hugging Face)
 
 .include <bsd.port.mk>

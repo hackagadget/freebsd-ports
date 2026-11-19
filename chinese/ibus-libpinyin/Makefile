@@ -1,5 +1,6 @@
 PORTNAME=	ibus-libpinyin
 DISTVERSION=	1.15.4
+PORTREVISION=	1
 CATEGORIES=	chinese
 MASTER_SITES=	SF/libpinyin/${PORTNAME}
 
@@ -10,11 +11,10 @@ WWW=		https://github.com/libpinyin/ibus-libpinyin
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libsqlite3.so:databases/sqlite3 \
-		libibus-1.0.so:textproc/ibus \
+LIB_DEPENDS=	libibus-1.0.so:textproc/ibus \
 		libpinyin.so:chinese/libpinyin
 
-USES=		compiler:c++11-lib gmake gnome python pkgconfig gettext
+USES=		compiler:c++11-lib gmake gnome python pkgconfig gettext sqlite
 USE_GNOME=	glib20
 GLIB_SCHEMAS=	com.github.libpinyin.ibus-libpinyin.gschema.xml
 

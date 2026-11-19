@@ -1,5 +1,5 @@
 PORTNAME=	stdlib-normalize
-PORTVERSION=	2.0.3
+PORTVERSION=	5.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
 PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
@@ -11,24 +11,26 @@ WWW=		https://github.com/lua-stdlib/normalize
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-RUN_DEPENDS=	${LUA_PKGNAMEPREFIX}stdlib-debug>=0:devel/lua-stdlib-debug@${LUA_FLAVOR}
-
-NO_ARCH=	yes
 USES=		lua:module
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	lua-stdlib
 GH_PROJECT=	normalize
 
+DOCSDIR=	${LUA_DOCSDIR}
+NO_ARCH=	yes
+NO_BUILD=	yes
+
 OPTIONS_DEFINE=	DOCS
 
-DOCSDIR=	${LUA_DOCSDIR}
+post-patch:
+	${SED} 's|@version@|${PORTVERSION}|' \
+		${WRKSRC}/lib/std/normalize/version.lua.in \
+		> ${WRKSRC}/lib/std/normalize/version.lua
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_base.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_strict.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_typecheck.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
+	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_core.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
 	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/init.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
 	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/version.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
 

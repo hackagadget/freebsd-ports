@@ -1,5 +1,5 @@
 PORTNAME=	xbitmaps
-DISTVERSION=	1.1.3
+DISTVERSION=	1.1.4
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -9,8 +9,6 @@ WWW=		https://gitlab.freedesktop.org/xorg/data/bitmaps
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		pathfix tar:xz xorg-cat:data
-
-NO_ARCH=	yes
+USES=		xorg-cat:data
 
 .include <bsd.port.mk>

@@ -1,7 +1,7 @@
 PORTNAME=	concourse
 DISTVERSIONPREFIX=	v
-DISTVERSION=	8.2.3
-PORTREVISION=	1
+DISTVERSION=	8.2.4
+PORTREVISION=	7
 CATEGORIES=	misc
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -12,7 +12,7 @@ WWW=		https://concourse-ci.org/ \
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-USES=		cpe go:1.26+,modules
+USES=		cpe go:modules
 USE_GITHUB=	yes
 
 CONFLICTS_INSTALL=	concourse-fly fly # bin/fly
@@ -403,5 +403,7 @@ post-extract:
 
 PLIST_FILES=	bin/concourse \
 	bin/fly
+
+# tests as of 8.2.4: web and baggageclaim tests pass, worker/runtime/runtimefakes fails to compile, atc tests fail to initialize database
 
 .include <bsd.port.mk>

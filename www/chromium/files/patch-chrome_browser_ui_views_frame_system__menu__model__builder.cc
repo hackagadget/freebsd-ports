@@ -1,26 +1,26 @@
---- chrome/browser/ui/views/frame/system_menu_model_builder.cc.orig	2026-05-07 17:02:56 UTC
+--- chrome/browser/ui/views/frame/system_menu_model_builder.cc.orig	2026-11-11 14:44:17 UTC
 +++ chrome/browser/ui/views/frame/system_menu_model_builder.cc
-@@ -87,7 +87,7 @@ void SystemMenuModelBuilder::BuildMenu(ui::SimpleMenuM
+@@ -139,7 +139,7 @@ void SystemMenuModelBuilder::BuildSystemMenuForBrowser
+   }
+ #endif  // BUILDFLAG(IS_WIN)
  
- void SystemMenuModelBuilder::BuildSystemMenuForBrowserWindow(
-     ui::SimpleMenuModel* model) {
 -#if BUILDFLAG(IS_LINUX)
 +#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
-   model->AddItemWithStringId(IDC_MINIMIZE_WINDOW, IDS_MINIMIZE_WINDOW_MENU);
-   model->AddItemWithStringId(IDC_MAXIMIZE_WINDOW, IDS_MAXIMIZE_WINDOW_MENU);
-   model->AddItemWithStringId(IDC_RESTORE_WINDOW, IDS_RESTORE_WINDOW_MENU);
-@@ -177,7 +177,7 @@ void SystemMenuModelBuilder::BuildSystemMenuForBrowser
-     model->AddSeparator(ui::NORMAL_SEPARATOR);
-     model->AddItemWithStringId(IDC_TASK_MANAGER_CONTEXT_MENU, IDS_TASK_MANAGER);
+   AddItemWithIconMaybe(model, IDC_MINIMIZE_WINDOW, IDS_MINIMIZE_WINDOW_MENU,
+                        views::kChromeMinimizeIcon);
+   AddItemWithIconMaybe(model, IDC_MAXIMIZE_WINDOW, IDS_MAXIMIZE_WINDOW_MENU,
+@@ -263,7 +263,7 @@ void SystemMenuModelBuilder::BuildSystemMenuForBrowser
+     model->AddItemWithStringId(IDC_TASK_MANAGER_CONTEXT_MENU,
+                                task_manager_string_id);
    }
 -#if BUILDFLAG(IS_LINUX)
 +#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
    model->AddSeparator(ui::NORMAL_SEPARATOR);
    bool supports_server_side_decorations = true;
  #if BUILDFLAG(IS_OZONE) && !BUILDFLAG(IS_CHROMEOS)
-@@ -252,7 +252,7 @@ void SystemMenuModelBuilder::BuildSystemMenuForAppOrPo
-     model->AddSeparator(ui::NORMAL_SEPARATOR);
-     model->AddItemWithStringId(IDC_TASK_MANAGER, IDS_TASK_MANAGER);
+@@ -356,7 +356,7 @@ void SystemMenuModelBuilder::BuildSystemMenuForAppOrPo
+ #endif
+     model->AddItemWithStringId(IDC_TASK_MANAGER, task_manager_string_id);
    }
 -#if BUILDFLAG(IS_LINUX)
 +#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)

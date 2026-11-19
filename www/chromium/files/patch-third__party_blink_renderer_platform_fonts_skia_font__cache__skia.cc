@@ -1,6 +1,6 @@
---- third_party/blink/renderer/platform/fonts/skia/font_cache_skia.cc.orig	2026-06-04 10:12:25 UTC
+--- third_party/blink/renderer/platform/fonts/skia/font_cache_skia.cc.orig	2026-10-18 13:29:39 UTC
 +++ third_party/blink/renderer/platform/fonts/skia/font_cache_skia.cc
-@@ -303,7 +303,7 @@ const FontPlatformData* FontCache::CreateFontPlatformD
+@@ -318,7 +318,7 @@ const FontPlatformData* FontCache::CreateFontPlatformD
    std::string name;
  
    sk_sp<SkTypeface> typeface;

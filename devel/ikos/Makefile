@@ -1,7 +1,7 @@
 PORTNAME=	ikos
 DISTVERSIONPREFIX=	v
 DISTVERSION=	3.5
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	devel
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -11,7 +11,11 @@ WWW=		https://github.com/NASA-SW-VnV/ikos
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.pdf
 
+DEPRECATED=	Requires LLVM 14 and broken with libc++ 21
+EXPIRATION_DATE=	2027-03-31
+
 BROKEN_armv7=	configure fails: error when running a program linked with GMP: Segmentation fault
+BROKEN_FreeBSD_16=	requires LLVM 14 which is incompatible with FreeBSD 16's libc++ headers, see https://github.com/NASA-SW-VnV/ikos/issues/337
 
 BUILD_DEPENDS=	llvm${LLVM_VERSION}>0:devel/llvm${LLVM_VERSION}
 LIB_DEPENDS=	libapron.so:math/apron \
@@ -36,6 +40,7 @@ CMAKE_OFF=	INSTALL_PYTHON_VIRTUALENV
 CMAKE_ARGS=	-DLLVM_CONFIG_EXECUTABLE:PATH=${LOCALBASE}/bin/llvm-config${LLVM_VERSION} \
 		-DPYTHON_EXECUTABLE:STRING=${PYTHON_CMD} \
 		-DPYTHON_VENV_EXECUTABLE:STRING=${PYTHON_CMD}
+CMAKE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 # CMake 4.5 compatibility, see https://github.com/NASA-SW-VnV/ikos/issues/338
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
 

@@ -1,6 +1,6 @@
 PORTNAME=	sem
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.12.0
+DISTVERSION=	0.29.1
 CATEGORIES=	devel
 
 MAINTAINER=	adamw@FreeBSD.org
@@ -13,7 +13,8 @@ LICENSE_FILE_APACHE20=	${WRKSRC}/LICENSE-APACHE
 LICENSE_FILE_MIT=	${WRKSRC}/LICENSE-MIT
 
 LIB_DEPENDS=	libgit2.so:devel/libgit2 \
-		libssh2.so:security/libssh2
+		libssh2.so:security/libssh2 \
+		libzstd.so:archivers/zstd
 
 USES=		cargo ssl
 USE_GITHUB=	yes

@@ -1,6 +1,6 @@
 PORTNAME=	odin
 DISTVERSIONPREFIX=	dev-
-DISTVERSION=	2026-06
+DISTVERSION=	2026-10
 CATEGORIES=	lang devel
 PKGNAMESUFFIX=	-lang
 
@@ -9,7 +9,7 @@ COMMENT=	Odin programming language
 WWW=		https://odin-lang.org \
 		https://github.com/odin-lang/Odin
 
-LICENSE=	BSD3CLAUSE
+LICENSE=	ZLIB
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BROKEN_armv7=	compilation fails:  use of undeclared identifier 'LLVMInitializeWebAssemblyTargetInfo'
@@ -47,9 +47,9 @@ do-install:
 
 do-test:
 	@${ECHO} "===> Compiling vendor libraries"
-.for dir in vendor/stb/src vendor/cgltf/src vendor/miniaudio/src
-	@${SETENV} ${MAKE_ENV} ${MAKE_CMD} -C ${WRKSRC}/${dir}
-.endfor
+	@cd ${WRKSRC}/vendor/stb/src && ${SETENV} ${MAKE_ENV} sh build_stb.sh
+	@cd ${WRKSRC}/vendor/cgltf/src && ${SETENV} ${MAKE_ENV} sh build_cgltf.sh
+	@cd ${WRKSRC}/vendor/miniaudio/src && ${SETENV} ${MAKE_ENV} sh build_miniaudio.sh
 	@${ECHO} "===> Running tests"
 	@cd ${WRKSRC} && \
 		 ${SETENV} ${TEST_ENV} ./odin test tests/core/normal.odin -file -all-packages -define:ODIN_TEST_FANCY=false && \
@@ -57,12 +57,9 @@ do-test:
 		 ${SETENV} ${TEST_ENV} ./odin test tests/vendor -all-packages -define:ODIN_TEST_FANCY=false && \
 		 ${SETENV} ${TEST_ENV} ./odin test tests/internal -all-packages -define:ODIN_TEST_FANCY=false
 
-# tests as of 2026-01:
-# Finished 470 tests in 1.634790591s. All tests were successful.
-# Finished 58 tests in 566.009413ms. All tests were successful.
-# Finished 36 tests in 1.574317511s. All tests were successful.
-
-# tests as of 2026-06:
-# Finished 507 tests in 2.454120088s. 1 test failed.
+# tests as of 2026-09:
+# Finished 603 tests in 2.410357009s. All tests were successful.
+# Finished 128 tests in 1.693737531s. All tests were successful.
+# Finished 131 tests in 786.296559ms. All tests were successful.
 
 .include <bsd.port.mk>

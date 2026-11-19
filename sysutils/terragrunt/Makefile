@@ -1,6 +1,6 @@
 PORTNAME=	terragrunt
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.93.9
+DISTVERSION=	1.0.8
 PORTREVISION=	7
 CATEGORIES=	sysutils
 
@@ -11,7 +11,7 @@ WWW=		https://terragrunt.gruntwork.io/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-USES=		go:1.25+,modules
+USES=		go:modules
 
 GO_MODULE=	github.com/gruntwork-io/terragrunt
 

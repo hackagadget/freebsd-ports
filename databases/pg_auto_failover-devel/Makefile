@@ -1,10 +1,11 @@
 PORTNAME=	pg_auto_failover
 DISTVERSION=	g20251117
+PORTREVISION=	1
 CATEGORIES=	databases
 PKGNAMEPREFIX=	postgresql${PGSQL_VER_NODOT}-
 PKGNAMESUFFIX=	-devel
 
-MAINTAINER=	pat@patmaddox.com
+MAINTAINER=	patmaddox@FreeBSD.org
 COMMENT=	Postgres extension for automated failover and high-availability
 WWW=		https://pg-auto-failover.readthedocs.io
 

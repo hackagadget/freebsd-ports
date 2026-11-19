@@ -1,5 +1,5 @@
 PORTNAME=	xsetroot
-DISTVERSION=	1.1.3
+DISTVERSION=	1.1.4
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -9,7 +9,7 @@ WWW=		https://gitlab.freedesktop.org/xorg/app/xsetroot
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:app
+USES=		xorg xorg-cat:app
 USE_XORG=	x11 xbitmaps xcursor xmuu xorgproto
 
 PLIST_FILES=	bin/xsetroot share/man/man1/xsetroot.1.gz

@@ -1,6 +1,6 @@
 PORTNAME=	libpowershell-native
 DISTVERSIONPREFIX=v
-DISTVERSION=	7.4.0
+DISTVERSION=	700.0.1
 CATEGORIES=	shells devel
 
 MAINTAINER=	arrowd@FreeBSD.org

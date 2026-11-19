@@ -1,6 +1,6 @@
---- chrome/browser/ui/views/tabs/shared/drop_arrow.cc.orig	2026-05-07 17:02:56 UTC
+--- chrome/browser/ui/views/tabs/shared/drop_arrow.cc.orig	2026-08-31 10:59:09 UTC
 +++ chrome/browser/ui/views/tabs/shared/drop_arrow.cc
-@@ -76,7 +76,7 @@ DropArrow::~DropArrow() {
+@@ -82,7 +82,7 @@ DropArrow::~DropArrow() {
  
  // static
  void DropArrow::MaybeAdjustDisplayBounds(gfx::Rect& display_bounds) {

@@ -188,6 +188,7 @@ include/asterisk/enum.h
 include/asterisk/event.h
 include/asterisk/event_defs.h
 include/asterisk/extconf.h
+include/asterisk/extension_state.h
 include/asterisk/features.h
 include/asterisk/features_config.h
 include/asterisk/file.h
@@ -293,6 +294,7 @@ include/asterisk/spinlock.h
 include/asterisk/srv.h
 include/asterisk/stasis.h
 include/asterisk/stasis_app.h
+include/asterisk/stasis_app_broadcast.h
 include/asterisk/stasis_app_device_state.h
 include/asterisk/stasis_app_impl.h
 include/asterisk/stasis_app_mailbox.h

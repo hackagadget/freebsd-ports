@@ -11,6 +11,7 @@
     SUBDIR += autoconvert
     SUBDIR += big5width
     SUBDIR += bitchx
+    SUBDIR += bpmf-vsime
     SUBDIR += bsdconv-opencc
     SUBDIR += bug5
     SUBDIR += c2t
@@ -32,6 +33,7 @@
     SUBDIR += fcitx-ui-light
     SUBDIR += fcitx5-chewing
     SUBDIR += fcitx5-chinese-addons
+    SUBDIR += fcitx5-keykey
     SUBDIR += fcitx5-mcbopomofo
     SUBDIR += fcitx5-rime
     SUBDIR += fcitx5-table-extra
@@ -42,8 +44,15 @@
     SUBDIR += gb2jis
     SUBDIR += gb2ps
     SUBDIR += gcin
+    SUBDIR += gcin-anthy
+    SUBDIR += gcin-chewing
+    SUBDIR += gcin-gtk2
     SUBDIR += gcin-gtk3
+    SUBDIR += gcin-gtk4
+    SUBDIR += gcin-guanyinma
+    SUBDIR += gcin-mcbopomofo
     SUBDIR += gcin-qt5
+    SUBDIR += gcin-qt6
     SUBDIR += gydict
     SUBDIR += hc
     SUBDIR += ibus-array
@@ -67,6 +76,7 @@
     SUBDIR += lunar
     SUBDIR += moettf
     SUBDIR += opencc
+    SUBDIR += opencc-cli
     SUBDIR += opendesktop-fonts
     SUBDIR += oto
     SUBDIR += p5-Date-Chinese
@@ -89,6 +99,8 @@
     SUBDIR += pcmanx
     SUBDIR += php-opencc
     SUBDIR += phpbb3-tw
+    SUBDIR += py-OpenCC
+    SUBDIR += py-chinese-calendar
     SUBDIR += py-rjieba
     SUBDIR += pycangjie
     SUBDIR += pyzy

@@ -1,6 +1,6 @@
---- chrome/browser/chrome_content_browser_client_navigation_throttles.cc.orig	2026-06-05 13:45:06 UTC
+--- chrome/browser/chrome_content_browser_client_navigation_throttles.cc.orig	2026-11-17 11:49:09 UTC
 +++ chrome/browser/chrome_content_browser_client_navigation_throttles.cc
-@@ -145,7 +145,7 @@
+@@ -150,7 +150,7 @@
  #include "chrome/browser/captive_portal/captive_portal_service_factory.h"
  #endif  // BUILDFLAG(ENABLE_CAPTIVE_PORTAL_DETECTION)
  
@@ -18,16 +18,7 @@
    WebAppSettingsNavigationThrottle::MaybeCreateAndAdd(registry);
    profile_management::ProfileManagementNavigationThrottle::MaybeCreateAndAdd(
        registry);
-@@ -463,7 +463,7 @@ void CreateAndAddChromeThrottlesForNavigation(
- #endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
- 
- #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) || \
--    BUILDFLAG(IS_CHROMEOS)
-+    BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
-   enterprise_connectors::DeviceTrustNavigationThrottle::MaybeCreateAndAdd(
-       registry);
- #endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN) ||
-@@ -517,7 +517,7 @@ void CreateAndAddChromeThrottlesForNavigation(
+@@ -518,7 +518,7 @@ void CreateAndAddChromeThrottlesForNavigation(
        registry, ui_manager);
  #endif  // BUILDFLAG(SAFE_BROWSING_AVAILABLE)
  

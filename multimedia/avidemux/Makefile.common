@@ -3,6 +3,8 @@ MASTER_SITES=	\
 		SF/avidemux/avidemux/${PORTVERSION}
 DISTNAME=	avidemux_${PORTVERSION}
 
+MAINTAINER?=	vvd@FreeBSD.org
+
 BUILD_DEPENDS+=	${BUILD_DEPENDS_${ARCH}}
 BUILD_DEPENDS_amd64=	yasm:devel/yasm
 BUILD_DEPENDS_i386=	yasm:devel/yasm

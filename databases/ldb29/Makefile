@@ -1,6 +1,6 @@
 PORTNAME=	ldb
 PORTVERSION=	2.9.2
-PORTREVISION=	2
+PORTREVISION=	5
 CATEGORIES=	databases
 MASTER_SITES=	SAMBA
 PKGNAMESUFFIX?=	${PORTVERSION:C/([[:digit:]]+)[.]([[:digit:]]+).*/\1\2/}
@@ -33,6 +33,11 @@ CONFIGURE_ARGS+=	--bundled-libraries=!talloc,!tevent,!tdb,!popt,!cmocka \
 			--with-privatelibdir=${PREFIX}/lib/ldb \
 			--without-gettext
 CONFIGURE_ENV+=		NOCOLOR=yes
+# lmdb0 related
+CONFIGURE_ENV+=		PKG_CONFIG_PATH=${LOCALBASE}/lmdb0/libdata/pkgconfig
+CFLAGS+=		-I${LOCALBASE}/lmdb0/include
+LDFLAGS+=		-L${LOCALBASE}/lmdb0/lib
+# end of lmdb0
 MAKE_ENV+=		NOCOLOR=yes
 CFLAGS+=		${_CFLAGS_${COMPILER_TYPE}}
 DEBUG_FLAGS=		-g -ggdb3 -O0
@@ -78,7 +83,7 @@ PYTHON3_PLIST_FILES=	${PKGCONFIGDIR}/pyldb-util${PYTHON_TAG}.pc \
 _CFLAGS_clang=	-fno-color-diagnostics
 
 _LDB_DEPENDS=	talloc242>=2.4.2:devel/talloc242 tevent016>=0.16.0:devel/tevent016 \
-		tdb1410>=1.4.10:databases/tdb1410 lmdb>=0.9.23:databases/lmdb \
+		tdb1410>=1.4.10:databases/tdb1410 lmdb0>=0.9.23:databases/lmdb0 \
 		popt>=0:devel/popt
 _LDB_BINS=	bin/ldbedit bin/ldbmodify bin/ldbadd bin/ldbdel bin/ldbsearch \
 		bin/ldbrename

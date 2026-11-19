@@ -11,9 +11,6 @@ lib/rsyslog/impstats.so
 lib/rsyslog/imtcp.so
 lib/rsyslog/imudp.so
 lib/rsyslog/imuxsock.so
-lib/rsyslog/liboverride_getaddrinfo.so
-lib/rsyslog/liboverride_gethostname.so
-lib/rsyslog/liboverride_gethostname_nonfqdn.so
 lib/rsyslog/lmnet.so
 lib/rsyslog/lmnetstrms.so
 lib/rsyslog/lmnsd_ptcp.so
@@ -23,6 +20,7 @@ lib/rsyslog/lmtcpsrv.so
 lib/rsyslog/lmzlibw.so
 lib/rsyslog/mmexternal.so
 lib/rsyslog/mmleefparse.so
+lib/rsyslog/omkinesis.so
 lib/rsyslog/ommail.so
 lib/rsyslog/omprog.so
 lib/rsyslog/omstdout.so

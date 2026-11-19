@@ -1,5 +1,5 @@
 PORTNAME=	grpcio
-PORTVERSION=	1.78.1
+PORTVERSION=	1.85.1
 PORTREVISION=	0
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
@@ -15,9 +15,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}protobuf>=3:devel/py-protobuf@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}six>1:devel/py-six@${PY_FLAVOR}
 LIB_DEPENDS=	libcares.so:dns/c-ares
 
-USES=		compiler:c++11-lib localbase:ldflags python ssl
-BROKEN_SSL=	libressl
-BROKEN_SSL_REASON=	use of undeclared identifier 'X509_STORE_set_get_crl'
+USES=		compiler:c++17-lang localbase:ldflags python ssl
 USE_PYTHON=	autoplist cython distutils
 MAKE_ENV+=	GRPC_PYTHON_BUILD_SYSTEM_CARES=true \
 		GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=true \
@@ -29,6 +27,6 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/grpc/_cython/cygrpc*.so
-	${REINPLACE_CMD} -e 's|^.*so$$|${PYTHONPREFIX_SITELIBDIR}/grpc/_cython/cygrpc${PYTHON_TAG}.so|' ${_PYTHONPKGLIST}
+	${REINPLACE_CMD} -e 's|^.*so$$|${PYTHONPREFIX_SITELIBDIR}/grpc/_cython/cygrpc${PYTHON_SOABI}.so|' ${_PYTHONPKGLIST}
 
 .include <bsd.port.mk>

@@ -6,6 +6,8 @@ MASTER_SITES?=	https://downloadmirror.intel.com/786084/
 MAINTAINER=	freebsd@intel.com
 COMMENT=	40G and 100G FreeBSD Driver for Virtual Function for Intel NIC
 
+BROKEN=	Fails to build
+
 MASTERDIR=	${.CURDIR}/../intel-ixl-kmod
 PATCHDIR=	${.CURDIR}/files
 PKGDIR=		${.CURDIR}

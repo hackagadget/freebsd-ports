@@ -1,3 +1,4 @@
+include/clad/Differentiator/Analyses.def
 include/clad/Differentiator/Array.h
 include/clad/Differentiator/ArrayExpression.h
 include/clad/Differentiator/ArrayRef.h
@@ -5,16 +6,18 @@ include/clad/Differentiator/BaseForwardModeVisitor.h
 include/clad/Differentiator/BuiltinDerivatives.h
 include/clad/Differentiator/CladConfig.h
 include/clad/Differentiator/CladUtils.h
+include/clad/Differentiator/CladtorchBuiltins.h
 include/clad/Differentiator/Compatibility.h
 include/clad/Differentiator/DerivativeBuilder.h
 include/clad/Differentiator/DerivedFnCollector.h
 include/clad/Differentiator/DerivedFnInfo.h
 include/clad/Differentiator/DiffMode.h
 include/clad/Differentiator/DiffPlanner.h
+include/clad/Differentiator/DiffScheduler.h
 include/clad/Differentiator/Differentiator.h
 include/clad/Differentiator/DynamicGraph.h
+include/clad/Differentiator/EnzymeBuiltins.h
 include/clad/Differentiator/ErrorEstimator.h
-include/clad/Differentiator/EstimationModel.h
 include/clad/Differentiator/ExternalRMVSource.h
 include/clad/Differentiator/FunctionTraits.h
 include/clad/Differentiator/HessianModeVisitor.h
@@ -22,6 +25,8 @@ include/clad/Differentiator/KokkosBuiltins.h
 include/clad/Differentiator/Matrix.h
 include/clad/Differentiator/MultiplexExternalRMVSource.h
 include/clad/Differentiator/NumericalDiff.h
+include/clad/Differentiator/Options.def
+include/clad/Differentiator/Options.h
 include/clad/Differentiator/ParseDiffArgsTypes.h
 include/clad/Differentiator/PushForwardModeVisitor.h
 include/clad/Differentiator/RestoreTracker.h
@@ -44,3 +49,4 @@ include/clad/tools/ClangBackendPlugin.h
 include/clad/tools/ClangPlugin.h
 lib/clad.so
 lib/cmake/clad/AddClad.cmake
+@dir include/cladtorch

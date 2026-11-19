@@ -1,7 +1,6 @@
 PORTNAME=	symengine
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.14.0
-PORTREVISION=	4
+DISTVERSION=	0.15.0
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -22,6 +21,8 @@ USE_LDCONFIG=	yes
 
 CMAKE_ON=	WITH_SYMENGINE_THREAD_SAFE BUILD_SHARED_LIBS BUILD_FOR_DISTRIBUTION
 CMAKE_OFF=	BUILD_BENCHMARKS WITH_COTIRE
+
+LDFLAGS+=	-pthread
 
 OPTIONS_DEFINE=			ARB ECM LLVM MPC TCMALLOC ASSERT
 OPTIONS_SINGLE=			INTCLASS
@@ -78,19 +79,12 @@ PIRANHA_DESC=		piranha
 PIRANHA_CMAKE_ON=	-DINTEGER_CLASS:STRING=piranha
 PIRANHA_BUILD_DEPENDS=	piranha>0:math/piranha
 
-.include <bsd.port.pre.mk>
-
-.if ${OSVERSION} >= 1600017 || (${PORT_OPTIONS:MLLVM} && ${LLVM_VERSION} >= 20)
-post-patch:
-	${REINPLACE_CMD} -e s/getDeclaration/getOrInsertDeclaration/ ${WRKSRC}/symengine/llvm_double.cpp
-.endif
-
 do-test: # one test fails: https://github.com/symengine/symengine/issues/1697
 	@cd ${BUILD_WRKSRC} && \
 		${SETENV} ${CONFIGURE_ENV} ${CMAKE_BIN} ${CMAKE_ARGS} -DBUILD_TESTING:BOOL=ON ${CMAKE_SOURCE_PATH} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} test
 
-# tests as of 0.14.0: 100% tests passed, 0 tests failed out of 66
+# tests as of 0.15.0: 100% tests passed, 0 tests failed out of 66
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

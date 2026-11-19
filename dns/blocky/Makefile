@@ -1,16 +1,16 @@
 PORTNAME=	blocky
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.31.0
+DISTVERSION=	0.36.0
 CATEGORIES=	dns
 
-MAINTAINER=	diizzy@FreeBSD.org
+MAINTAINER=	daniel.engberg.lists@pyret.net
 COMMENT=	Fast and lightweight DNS proxy as ad-blocker
 WWW=		https://0xerr0r.github.io/blocky/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.26+,modules
+USES=		go:modules
 
 USE_RC_SUBR=	blocky
 

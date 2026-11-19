@@ -1,12 +1,12 @@
 PORTNAME=	json
-PORTVERSION=	2.19.5
+PORTVERSION=	3.1.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	JSON implementation as a Ruby extension in C
 WWW=		https://ruby.github.io/json/ \
-		https://github.com/ruby/json/releases
+		https://github.com/ruby/json
 
 LICENSE=	BSD2CLAUSE RUBY
 LICENSE_COMB=	dual

@@ -44,6 +44,7 @@ include/QXmppQt6/QXmppE2eeMetadata.h
 include/QXmppQt6/QXmppElement.h
 include/QXmppQt6/QXmppEncryptedFileSharingProvider.h
 include/QXmppQt6/QXmppEncryptedFileSource.h
+include/QXmppQt6/QXmppEntityCapsStorage.h
 include/QXmppQt6/QXmppEntityTimeIq.h
 include/QXmppQt6/QXmppEntityTimeManager.h
 include/QXmppQt6/QXmppError.h
@@ -79,6 +80,7 @@ include/QXmppQt6/QXmppMessage.h
 include/QXmppQt6/QXmppMessageHandler.h
 include/QXmppQt6/QXmppMessageReaction.h
 include/QXmppQt6/QXmppMessageReceiptManager.h
+include/QXmppQt6/QXmppMessageRetraction.h
 include/QXmppQt6/QXmppMixConfigItem.h
 include/QXmppQt6/QXmppMixInfoItem.h
 include/QXmppQt6/QXmppMixInvitation.h
@@ -87,16 +89,20 @@ include/QXmppQt6/QXmppMixIq_p.h
 include/QXmppQt6/QXmppMixManager.h
 include/QXmppQt6/QXmppMixParticipantItem.h
 include/QXmppQt6/QXmppMovedManager.h
+include/QXmppQt6/QXmppMucData.h
 include/QXmppQt6/QXmppMucForms.h
 include/QXmppQt6/QXmppMucIq.h
 include/QXmppQt6/QXmppMucManager.h
 include/QXmppQt6/QXmppMucManagerV2.h
+include/QXmppQt6/QXmppNamespaces.h
+include/QXmppQt6/QXmppNetworkMonitor.h
 include/QXmppQt6/QXmppNonSASLAuth.h
 include/QXmppQt6/QXmppNonza.h
 include/QXmppQt6/QXmppOutOfBandUrl.h
 include/QXmppQt6/QXmppOutgoingClient.h
 include/QXmppQt6/QXmppOutgoingServer.h
 include/QXmppQt6/QXmppPasswordChecker.h
+include/QXmppQt6/QXmppPepBookmarkManager.h
 include/QXmppQt6/QXmppPingIq.h
 include/QXmppQt6/QXmppPresence.h
 include/QXmppQt6/QXmppPromise.h
@@ -121,6 +127,8 @@ include/QXmppQt6/QXmppRemoteMethod.h
 include/QXmppQt6/QXmppResultSet.h
 include/QXmppQt6/QXmppRosterIq.h
 include/QXmppQt6/QXmppRosterManager.h
+include/QXmppQt6/QXmppRosterMemoryStorage.h
+include/QXmppQt6/QXmppRosterStorage.h
 include/QXmppQt6/QXmppRpcIq.h
 include/QXmppQt6/QXmppRpcManager.h
 include/QXmppQt6/QXmppSasl2UserAgent.h
@@ -131,7 +139,9 @@ include/QXmppQt6/QXmppServerExtension.h
 include/QXmppQt6/QXmppServerPlugin.h
 include/QXmppQt6/QXmppSessionIq.h
 include/QXmppQt6/QXmppSocks.h
+include/QXmppQt6/QXmppSpamReport.h
 include/QXmppQt6/QXmppStanza.h
+include/QXmppQt6/QXmppStanzaId.h
 include/QXmppQt6/QXmppStartTlsPacket.h
 include/QXmppQt6/QXmppStreamError.h
 include/QXmppQt6/QXmppStreamFeatures.h
@@ -162,6 +172,11 @@ include/QXmppQt6/QXmppVCardManager.h
 include/QXmppQt6/QXmppVersionIq.h
 include/QXmppQt6/QXmppVersionManager.h
 include/QXmppQt6/QXmppVisitHelper_p.h
+include/QXmppQt6/QXmppXmlElement.h
+include/QXmppQt6/QXmppXmlElementScope.h
+include/QXmppQt6/QXmppXmlExtensions.h
+include/QXmppQt6/QXmppXmlFormatter.h
+include/QXmppQt6/QXmppXmlRegistry.h
 include/QXmppQt6/QXmppXmlTags_p.h
 include/QXmppQt6/qxmpp_export.h
 lib/cmake/QXmppOmemoQt6/QXmppOmemo-%%CMAKE_BUILD_TYPE%%.cmake

@@ -1,31 +1,28 @@
 PORTNAME=	agrum
-DISTVERSION=	2.3.2
-PORTREVISION=	1
+DISTVERSION=	3.3.2
 CATEGORIES=	science math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Graphical modeler for Bayesian networks, influence diagrams, etc
 WWW=		https://agrum.gitlab.io \
-		https://gitlab.com/agrumery/aGrUM
+		https://gitlab.com/agrumery/aGrUM \
+		https://github.com/agrumery/aGrUM
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 TEST_DEPENDS=	swig:devel/swig
 
-USES=		cmake compiler:c++20-lang shebangfix # the 'act' executable uses 'python' and is broken, when act is broken CMakeLists.txt builds with default configuration which is fine
+USES=		cmake compiler:c++20-lang shebangfix
 USE_LDCONFIG=	yes
-
-LLD_UNSAFE=	yes
 
 USE_GITLAB=	yes
 GL_ACCOUNT=	agrumery
 GL_PROJECT=	aGrUM
-GL_TAGNAME=	84561d99
 
 SHEBANG_FILES=	act
 
-CMAKE_ARGS=	-DPython_EXECUTABLE=${PYTHON_CMD}
+CMAKE_ARGS=	-DPYAGRUM_REQUIRED_PYTHON_VERSION=${PYTHON_VER}
 CMAKE_OFF=	USE_SWIG
 
 PLIST_SUB+=	VERSION=${PORTVERSION}
@@ -43,6 +40,7 @@ OPENMP_CMAKE_BOOL=	USE_OPENMP
 PYTHON_CMAKE_BOOL=	BUILD_PYTHON
 PYTHON_USES=		python
 PYTHON_PLIST_SUB=	PYTHON_VER_MAJ=${PYTHON_VER:R}
+PYTHON_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR}
 PYTHON_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR} \
 			${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR} \
 			${PYTHON_PKGNAMEPREFIX}matplotlib-inline>0:math/py-matplotlib-inline@${PY_FLAVOR} \
@@ -61,6 +59,9 @@ do-test:
 	@cd ${WRKSRC} && \
 		${SETENV} ${MAKE_ENV} ./act test release agrum -t all
 
-# tests as of 2.3.2: Failed 0 of 1487 tests
+# tests as of 3.3.2:
+# [doctest] test cases:    2814 |    2814 passed | 0 failed | 0 skipped
+# [doctest] assertions: 1196881 | 1196881 passed | 0 failed |
+# [doctest] Status: SUCCESS!
 
 .include <bsd.port.mk>

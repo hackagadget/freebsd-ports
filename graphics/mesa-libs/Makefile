@@ -1,5 +1,6 @@
 PORTNAME=	mesa-libs
 PORTVERSION=	${MESAVERSION}
+PORTREVISION=	1
 CATEGORIES=	graphics
 
 COMMENT=	OpenGL libraries that support GLX and EGL clients
@@ -19,8 +20,6 @@ BUILD_DEPENDS=	libglvnd>=0:graphics/libglvnd \
 LIB_DEPENDS=	libdisplay-info.so:sysutils/libdisplay-info
 RUN_DEPENDS=	spirv-tools>0:graphics/spirv-tools \
 		spirv-llvm-translator-${LLVM_PORT:T}>0:devel/spirv-llvm-translator@${LLVM_PORT:T}
-
-CONFIGURE_ENV+=	PKG_CONFIG_PATH="${LLVM_PREFIX}/libdata/pkgconfig"
 
 OPTIONS_GROUP=		PLATFORM
 OPTIONS_GROUP_PLATFORM=	X11 WAYLAND
@@ -49,18 +48,18 @@ LDFLAGS_i386=	-Wl,-znotext
 # a real gallium driver set so install_megadrivers actually ships the lib;
 # the per-driver lib/dri/*_dri.so shims that fall out of this build are
 # stripped in post-install (they belong to graphics/mesa-dri).
-GALLIUM_DRIVERS=	crocus i915 iris llvmpipe panfrost r300 r600 radeonsi svga zink
+GALLIUM_DRIVERS=	crocus i915 iris llvmpipe panfrost r300 r600 radeonsi \
+			svga virgl zink
 .if ${ARCH} != amd64 && ${ARCH} != i386 && ${ARCH} != x86_64
 GALLIUM_DRIVERS:=	${GALLIUM_DRIVERS:Ncrocus:Ni915:Niris:Nsvga}
 .endif
 .if ${ARCH} == armv7
-GALLIUM_DRIVERS=	llvmpipe
+# These require llvm to be compiled with the amdgpu backend, which is not default on armv7
+GALLIUM_DRIVERS:=       ${GALLIUM_DRIVERS:Nr600:Nradeonsi}
 .endif
 
 MESON_ARGS+=	-Dgallium-drivers=${GALLIUM_DRIVERS:ts,}
 MESON_ARGS+=	-Dvulkan-drivers=""
-
-MESON_ARGS+=	-Dvideo-codecs="all"
 
 MESON_ARGS+=	-Dandroid-libbacktrace=disabled \
 		-Dlmsensors=disabled \
@@ -100,6 +99,7 @@ post-install:
 	@${ECHO_CMD} "libGLX_indirect.so.0 libGLX_mesa.so.0" \
 		>${STAGEDIR}${PREFIX}/etc/libmap.d/mesa.conf
 # Strip the per-hardware DRI shims; they are owned by graphics/mesa-dri.
-	${RM} -rf ${STAGEDIR}${PREFIX}/lib/dri
+	${RM} -rf ${STAGEDIR}${PREFIX}/lib/dri \
+		${STAGEDIR}${PREFIX}/share/drirc.d
 
 .include <bsd.port.post.mk>

@@ -1,17 +1,16 @@
 PORTNAME=	tldx
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.5.0
-PORTREVISION=	1
+DISTVERSION=	1.6.1
 CATEGORIES=	dns
 
 MAINTAINER=	nxjoseph@FreeBSD.org
 COMMENT=	Domain Availability Research Tool
 WWW=		https://github.com/brandonyoungdev/tldx
 
-LICENSE=	APACHE20
+LICENSE=	Apache-2.0
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.26+,modules
+USES=		go:modules
 
 GO_MODULE=	github.com/brandonyoungdev/tldx
 GO_BUILDFLAGS+=	-ldflags="-s -w -X github.com/brandonyoungdev/tldx/cmd.Version=${DISTVERSIONFULL}"

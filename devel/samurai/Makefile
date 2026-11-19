@@ -9,8 +9,7 @@ WWW=		https://github.com/michaelforney/samurai
 
 LICENSE=	APACHE20 MIT
 LICENSE_COMB=	multi
-LICENSE_FILE_APACHE20=	${WRKSRC}/LICENSE
-LICENSE_FILE_MIT=	${WRKSRC}/LICENSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		cpe
 CPE_VENDOR=	${PORTNAME}_project
@@ -23,11 +22,5 @@ PLIST_FILES=	bin/samu \
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/samu ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/samu.1 ${STAGEDIR}${PREFIX}/share/man/man1
-
-.include <bsd.port.options.mk>
-
-.if ${OPSYS}_${OSREL:R} == FreeBSD_13
-CFLAGS+=	-D_XOPEN_SOURCE=700L
-.endif
 
 .include <bsd.port.mk>

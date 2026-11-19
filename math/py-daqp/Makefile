@@ -1,5 +1,5 @@
 PORTNAME=	daqp
-DISTVERSION=	0.8.7
+DISTVERSION=	0.11.2
 CATEGORIES=	math python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -11,6 +11,8 @@ WWW=		https://github.com/darnstrom/daqp
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>0:math/py-numpy@${PY_FLAVOR}
+
 USES=		python
 USE_PYTHON=	distutils cython autoplist
 
@@ -21,5 +23,7 @@ post-install:
 
 do-test:
 	@${SETENV} ${TEST_ENV} ${PYTHON_CMD} ${FILESDIR}/test.py
+
+# tests as of 0.11.2: solution: xstar=[-1. -1.] fval=-1.0 exitflag=1 info={'solve_time': 4.2e-08, 'setup_time': 4.458e-06, 'iterations': 1, 'nodes': 1, 'lam': array([0., 0., 0., 0.])}
 
 .include <bsd.port.mk>

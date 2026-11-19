@@ -1,11 +1,11 @@
 PORTNAME=	doBy
-DISTVERSION=	4.7.1
+DISTVERSION=	4.7.2
 CATEGORIES=	math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	Groupwise Statistics, LSmeans, Linear Estimates, Utilities
-WWW=		https://cran.r-project.org/web/packages/doBy/
+WWW=		https://cran.r-project.org/package=doBy
 
 LICENSE=	GPLv2+
 

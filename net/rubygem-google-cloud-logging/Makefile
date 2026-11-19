@@ -1,11 +1,11 @@
 PORTNAME=	google-cloud-logging
-PORTVERSION=	2.7.0
+PORTVERSION=	2.7.1
 CATEGORIES=	net rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Official library for Stackdriver Logging
-WWW=		https://cloud.google.com/ruby/docs/reference/google-cloud-logging/latest/ \
+WWW=		https://docs.cloud.google.com/ruby/docs/reference/google-cloud-logging/latest \
 		https://googleapis.github.io/google-cloud-ruby/docs/ \
 		https://github.com/googleapis/google-cloud-ruby/tree/main/google-cloud-logging \
 		https://github.com/googleapis/google-cloud-ruby

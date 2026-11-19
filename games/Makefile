@@ -11,6 +11,7 @@
     SUBDIR += 90secondportraits
     SUBDIR += Bugdom
     SUBDIR += Bugdom2
+    SUBDIR += CWR-CE
     SUBDIR += CaribbeanStud
     SUBDIR += DDNet
     SUBDIR += Doom64EX
@@ -20,10 +21,12 @@
     SUBDIR += NBlood
     SUBDIR += Nanosaur
     SUBDIR += OpenLara
+    SUBDIR += OpenLoco
     SUBDIR += OpenTomb
     SUBDIR += SRB2
     SUBDIR += SpaceCadetPinball
     SUBDIR += SpaceCadetPinball-devel
+    SUBDIR += UZDoom
     SUBDIR += abbayedesmorts
     SUBDIR += abe
     SUBDIR += abuse_sdl
@@ -144,7 +147,6 @@
     SUBDIR += cave9
     SUBDIR += cavezofphear
     SUBDIR += cdogs-sdl
-    SUBDIR += cgoban
     SUBDIR += chapping
     SUBDIR += chessx
     SUBDIR += chocolate-doom
@@ -187,6 +189,7 @@
     SUBDIR += dangen
     SUBDIR += darkplaces
     SUBDIR += defendguin
+    SUBDIR += dethrace
     SUBDIR += devd-controller-rules
     SUBDIR += devilutionX
     SUBDIR += dhewm3
@@ -289,7 +292,6 @@
     SUBDIR += freedink-data
     SUBDIR += freedink-dfarc
     SUBDIR += freedink-engine
-    SUBDIR += freedoko
     SUBDIR += freedroid
     SUBDIR += freedroidrpg
     SUBDIR += freeorion
@@ -300,7 +302,6 @@
     SUBDIR += fretsonfire-data
     SUBDIR += frikqcc
     SUBDIR += frobtads
-    SUBDIR += frogatto
     SUBDIR += frotz
     SUBDIR += frozen-bubble
     SUBDIR += fs2open
@@ -431,6 +432,7 @@
     SUBDIR += kbreakout
     SUBDIR += kdegames
     SUBDIR += kdiamond
+    SUBDIR += kdominate
     SUBDIR += kevedit
     SUBDIR += kfourinline
     SUBDIR += kgoldrunner
@@ -597,6 +599,7 @@
     SUBDIR += lskat
     SUBDIR += ltris
     SUBDIR += luanti
+    SUBDIR += luanti-mineclonia
     SUBDIR += lugaru
     SUBDIR += luola
     SUBDIR += lwjgl
@@ -775,7 +778,6 @@
     SUBDIR += pipewalker
     SUBDIR += pmars
     SUBDIR += pmars-sdl
-    SUBDIR += polyglot
     SUBDIR += pongix
     SUBDIR += ponscripter-07th-mod
     SUBDIR += popstar
@@ -989,6 +991,7 @@
     SUBDIR += trimines
     SUBDIR += triplane
     SUBDIR += trojka
+    SUBDIR += trx
     SUBDIR += tsito
     SUBDIR += tt
     SUBDIR += ttt
@@ -1018,7 +1021,6 @@
     SUBDIR += untahris
     SUBDIR += uqm
     SUBDIR += urbanterror-data
-    SUBDIR += valyriatear
     SUBDIR += vamos
     SUBDIR += vanilla-conquer
     SUBDIR += vavoom
@@ -1058,8 +1060,6 @@
     SUBDIR += worldofpadman
     SUBDIR += wtf
     SUBDIR += wxlauncher
-    SUBDIR += wyrmgus
-    SUBDIR += wyrmsun
     SUBDIR += xasteroids
     SUBDIR += xbat
     SUBDIR += xbill
@@ -1082,6 +1082,7 @@
     SUBDIR += xdesktopwaves
     SUBDIR += xdigger
     SUBDIR += xemeraldia
+    SUBDIR += xevil
     SUBDIR += xeyesplus
     SUBDIR += xfce4-eyes-plugin
     SUBDIR += xfireworks

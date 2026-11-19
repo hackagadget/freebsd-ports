@@ -1,5 +1,5 @@
 PORTNAME=	pipewire-spa-oss
-DISTVERSION=	g20260411
+DISTVERSION=	g20260807
 PORTREVISION=	2
 CATEGORIES=	audio
 
@@ -19,7 +19,7 @@ USES=		cargo llvm:lib,noexport
 USE_GITHUB=	yes
 GH_ACCOUNT=	shkhln
 GH_PROJECT=	pw-oss
-GH_TAGNAME=	b01ade0347a2e089075bcf6cf3297b6d54d629c5
+GH_TAGNAME=	99ccb3dc176524a31d17c39a094f6518e26d3d99
 
 CARGO_CRATES=	aho-corasick-1.1.4 \
 		annotate-snippets-0.11.5 \

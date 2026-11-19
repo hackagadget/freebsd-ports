@@ -1,6 +1,6 @@
---- test/test_cpp_extensions_jit.py.orig	2026-04-18 16:52:06 UTC
+--- test/test_cpp_extensions_jit.py.orig	2026-10-28 18:13:31 UTC
 +++ test/test_cpp_extensions_jit.py
-@@ -733,7 +733,8 @@ class TestCppExtensionJIT(common.TestCase):
+@@ -562,7 +562,8 @@ with tempfile.TemporaryDirectory() as build_directory:
          self.assertEqual(module.f(), 789)
  
      @unittest.skipIf(

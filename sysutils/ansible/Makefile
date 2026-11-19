@@ -1,5 +1,5 @@
 PORTNAME=	ansible
-DISTVERSION=	13.6.0
+DISTVERSION=	14.4.0
 CATEGORIES=	sysutils python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -29,7 +29,7 @@ python_OLD_CMD=	/Users/kbreit/Documents/Programming/ansible_collections/cisco/me
 
 NO_ARCH=	yes
 
-DO_MAKE_TEST=	env LC_ALL=C.UTF-8 ansible -m ping
+DO_MAKE_TEST=	ansible -m ping
 TEST_TARGET=	localhost
 
 post-patch:

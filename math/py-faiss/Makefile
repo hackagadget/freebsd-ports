@@ -1,6 +1,6 @@
 PORTNAME=	faiss
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.14.2
+DISTVERSION=	1.16.0
 CATEGORIES=	math
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/../../LICENSE
 
 BROKEN_i386=	clang crashes, see bug#261580
 
-PY_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16:math/py-numpy@${PY_FLAVOR} \
+PY_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=1.25:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}packaging>0:devel/py-packaging@${PY_FLAVOR}
 BUILD_DEPENDS=	swig:devel/swig \
 		${PY_DEPENDS}
@@ -30,9 +30,12 @@ GH_ACCOUNT=	facebookresearch
 WRKSRC_SUBDIR=	faiss/python
 
 CMAKE_ARGS=	-DPython_EXECUTABLE:STRING=${PYTHON_CMD}
+CMAKE_ON=	FAISS_ENABLE_PYTHON
 
 TEST_WRKSRC=	${WRKSRC}/../../tests
 TEST_ENV=	${MAKE_ENV} PYTHONPATH=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+TEST_ARGS=	--disable-plugin-autoload \
+		--ignore=external_module_test.py
 
 post-patch: # remove GPU testcases
 	@${RM} -r ${WRKSRC}/../../faiss/gpu
@@ -40,6 +43,7 @@ post-patch: # remove GPU testcases
 do-install: # see https://github.com/facebookresearch/faiss/issues/2194
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}
 	${INSTALL_LIB} ${BUILD_WRKSRC}/_swigfaiss.so ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}
+	${INSTALL_LIB} ${BUILD_WRKSRC}/_faiss_example_external_module.so ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}
 .for f in __init__.py array_conversions.py class_wrappers.py extra_wrappers.py gpu_wrappers.py loader.py swigfaiss.py
 	${INSTALL_DATA} ${BUILD_WRKSRC}/${f} ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}
 .endfor

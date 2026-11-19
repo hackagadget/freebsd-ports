@@ -1,6 +1,6 @@
---- components/embedder_support/user_agent_utils.cc.orig	2026-06-05 13:45:06 UTC
+--- components/embedder_support/user_agent_utils.cc.orig	2026-11-17 11:49:09 UTC
 +++ components/embedder_support/user_agent_utils.cc
-@@ -285,7 +285,7 @@ std::string GetUserAgentPlatform() {
+@@ -262,7 +262,7 @@ std::string GetUserAgentPlatform() {
    return "";
  #elif BUILDFLAG(IS_MAC)
    return "Macintosh; ";
@@ -9,7 +9,7 @@
    return "X11; ";  // strange, but that's what Firefox uses
  #elif BUILDFLAG(IS_ANDROID)
    return "Linux; ";
-@@ -325,7 +325,7 @@ std::string GetUnifiedPlatform() {
+@@ -302,7 +302,7 @@ std::string GetUnifiedPlatform() {
    return "Windows NT 10.0; Win64; x64";
  #elif BUILDFLAG(IS_FUCHSIA)
    return "Fuchsia";
@@ -18,16 +18,16 @@
    return "X11; Linux x86_64";
  #elif BUILDFLAG(IS_IOS)
    if (ui::GetDeviceFormFactor() == ui::DEVICE_FORM_FACTOR_TABLET) {
-@@ -585,7 +585,7 @@ bool GetMobileBitForUAMetadata() {
- }
+@@ -592,7 +592,7 @@ std::string GetPlatformVersion() {
  
- std::string GetPlatformVersion() {
--#if BUILDFLAG(IS_LINUX)
-+#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD) 
-   // TODO(crbug.com/40245146): Remove this Blink feature
-   if (base::FeatureList::IsEnabled(
-           blink::features::kReduceUserAgentDataLinuxPlatformVersion)) {
-@@ -639,6 +639,9 @@ std::string GetPlatformForUAMetadata() {
+ #if BUILDFLAG(IS_WIN)
+   return GetWindowsPlatformVersion();
+-#elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_FUCHSIA)
++#elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_BSD)
+   return std::string();
+ #else
+ 
+@@ -629,6 +629,9 @@ std::string GetPlatformForUAMetadata() {
  #else
    return "Chromium OS";
  #endif
@@ -37,7 +37,7 @@
  #else
    return std::string(version_info::GetOSType());
  #endif
-@@ -823,6 +826,16 @@ std::string BuildOSCpuInfoFromOSVersionAndCpuType(cons
+@@ -802,6 +805,16 @@ std::string BuildOSCpuInfoFromOSVersionAndCpuType(cons
                        "Android %s", os_version.c_str()
  #elif BUILDFLAG(IS_FUCHSIA)
                        "Fuchsia"

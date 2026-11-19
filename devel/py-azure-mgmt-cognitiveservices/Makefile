@@ -1,9 +1,9 @@
 PORTNAME=	azure-mgmt-cognitiveservices
-DISTVERSION=	15.0.0b1
+PORTVERSION=	15.0.0b6
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
-DISTNAME=	azure_mgmt_cognitiveservices-${DISTVERSION}
+DISTNAME=	azure_mgmt_cognitiveservices-${PORTVERSION}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Microsoft Azure Cognitiveservices Management Client Library for Python

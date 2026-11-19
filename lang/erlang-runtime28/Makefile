@@ -1,6 +1,6 @@
 PORTNAME=	erlang
 DISTVERSIONPREFIX=	OTP-
-DISTVERSION=	28.5.0.2
+DISTVERSION=	28.5.0.8
 PORTREVISION=	1
 CATEGORIES=	lang parallel java
 PKGNAMESUFFIX=	-runtime${PORTVERSION:C/\..*//}
@@ -22,7 +22,8 @@ GH_TAGNAME=	5.2.2:corba
 USE_PERL5=	build
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--enable-dirty-schedulers \
+CONFIGURE_ARGS=	--enable-deterministic-build \
+		--enable-dirty-schedulers \
 		--enable-kernel-poll \
 		--enable-smp-support \
 		--enable-threads

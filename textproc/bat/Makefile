@@ -1,10 +1,10 @@
 PORTNAME=	bat
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.26.1
-PORTREVISION=	2
+PORTREVISION=	6
 CATEGORIES=	textproc
 
-MAINTAINER=	pizzamig@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Clone of cat with syntax highlighting
 WWW=		https://github.com/sharkdp/bat
 

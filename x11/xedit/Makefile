@@ -1,5 +1,5 @@
 PORTNAME=	xedit
-DISTVERSION=	1.2.4
+DISTVERSION=	1.2.5
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
@@ -10,7 +10,7 @@ LICENSE=	MIT BSD3CLAUSE
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:xz xorg xorg-cat:app
+USES=		xorg xorg-cat:app
 USE_XORG=	x11 xaw7 xmu xorgproto xt
 
 .include <bsd.port.mk>

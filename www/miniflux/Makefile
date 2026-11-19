@@ -1,5 +1,5 @@
 PORTNAME=	miniflux
-DISTVERSION=	2.3.1
+DISTVERSION=	2.3.5
 PORTREVISION=	1
 CATEGORIES=	www
 
@@ -10,7 +10,7 @@ WWW=		https://miniflux.app/
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.24+,modules
+USES=		go:modules
 
 USE_GITHUB=	yes
 GH_PROJECT=	v2

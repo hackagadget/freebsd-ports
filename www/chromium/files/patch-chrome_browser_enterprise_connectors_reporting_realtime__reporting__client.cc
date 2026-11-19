@@ -1,4 +1,4 @@
---- chrome/browser/enterprise/connectors/reporting/realtime_reporting_client.cc.orig	2026-03-13 06:02:14 UTC
+--- chrome/browser/enterprise/connectors/reporting/realtime_reporting_client.cc.orig	2026-11-11 14:44:17 UTC
 +++ chrome/browser/enterprise/connectors/reporting/realtime_reporting_client.cc
 @@ -53,7 +53,7 @@
  #include "base/strings/utf_string_conversions.h"
@@ -18,30 +18,21 @@
  using Event = ::chrome::cros::reporting::proto::Event;
  #endif
  
-@@ -162,7 +162,7 @@ void RealtimeReportingClient::ReportPastEvent(const st
-                                      /*include_profile_user_name=*/false);
+@@ -153,7 +153,7 @@ RealtimeReportingClient::GetReportingSettings() {
  }
  
+ 
 -#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
 +#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+ 
  
  void AddCrowdstrikeSignalsToEvent(
-     base::DictValue& event,
-@@ -284,7 +284,7 @@ std::string RealtimeReportingClient::GetProfileUserNam
-   username_ =
-       identity_manager_ ? GetProfileEmail(identity_manager_) : std::string();
- 
--#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
-+#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
-   if (username_.empty()) {
-     username_ = Profile::FromBrowserContext(context_)->GetPrefs()->GetString(
-         enterprise_signin::prefs::kProfileUserEmail);
-@@ -341,7 +341,7 @@ std::string RealtimeReportingClient::GetBrowserClientI
+@@ -312,7 +312,7 @@ std::string RealtimeReportingClient::GetBrowserClientI
    return client_id;
  }
  
 -#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
-+#if (BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)) && defined(notyet)
++#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
  void RealtimeReportingClient::MaybeCollectDeviceSignalsAndReportEvent(
      Event event,
      policy::CloudPolicyClient* client,

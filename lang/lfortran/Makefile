@@ -1,7 +1,6 @@
 PORTNAME=	lfortran
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.63.0
-PORTREVISION=	1
+DISTVERSION=	0.69.0
 CATEGORIES=	lang
 
 MAINTAINER=	fortran@FreeBSD.org
@@ -22,22 +21,26 @@ LIB_DEPENDS=	libfmt.so:devel/libfmt	\
 		libunwind.so:devel/libunwind	\
 		libkokkoscore.so:devel/kokkos
 RUN_DEPENDS=	dwarfdump:devel/dwarfdump
+TEST_DEPENDS=	jupyter-console:devel/py-jupyter_console
 
 USE_GITHUB=	yes
 
-USES=		bison cmake:testing compiler:c++17-lang llvm:20,lib pkgconfig	\
-		python:build ssl shebangfix
+USES=		bison cmake:testing compiler:c++17-lang llvm:${LLVM_VERSION},lib	\
+		pkgconfig python:build ssl shebangfix
 SHEBANG_GLOB=	*.py *.sh
 BINARY_ALIAS=	python=${PYTHON_CMD}
 CMAKE_ON=	LFORTRAN_BUILD_ALL WITH_DWARFDUMP WITH_FMT WITH_JSON	\
 		WITH_KOKKOS WITH_LINKH WITH_LLVM WITH_LLVM_STACKTRACE	\
-		WITH_MLIR WITH_STACKTRACE WITH_UNWIND
-CMAKE_ARGS=	-DLLVM_INSTALL_DIR:PATH="${LOCALBASE}/llvm${LLVM_VERSION}"	\
+		WITH_STACKTRACE WITH_UNWIND
+# See https://github.com/lfortran/lfortran/issues/13217#issuecomment-5736429016
+CMAKE_OFF=	WITH_MLIR
+CMAKE_ARGS=	-DLFORTRAN_SHELL:PATH="${LOCALBASE}/bin/bash"	\
+		-DLLVM_INSTALL_DIR:PATH="${LOCALBASE}/llvm${LLVM_VERSION}"	\
 		-DMLIR_DIR:PATH="${LOCALBASE}/llvm${LLVM_VERSION}/lib/cmake/mlir"	\
 		-DCMAKE_PREFIX_PATH:PATH="${LOCALBASE}/llvm${LLVM_VERSION};${CMAKE_PREFIX_PATH}"
 USE_LDCONFIG=	yes
 
-LLVM_VERSION=	20
+LLVM_VERSION=	23	# Implies without MLIR
 
 OPTIONS_DEFINE=	EXAMPLES # NB
 # NB is broken ATM
@@ -48,7 +51,7 @@ NB_BUILD_DEPENDS=	sphinx-build:textproc/py-sphinx@${PY_FLAVOR}	\
 			jupyter:devel/py-jupyter-core@${PY_FLAVOR}	\
 			${PYTHON_PKGNAMEPREFIX}nbsphinx>0:textproc/py-nbsphinx@${PY_FLAVOR}	\
 			${PYTHON_PKGNAMEPREFIX}sphinx_material>0:textproc/py-sphinx-material@${PY_FLAVOR}	\
-			${PYTHON_PKGNAMEPREFIX}sphinx-copybutton>0:textproc/py-sphinx-copybutton@${PY_FLAVOR}	\
+			${PYTHON_PKGNAMEPREFIX}sphinx-copybutton>0:textproc/py-sphinx-copybutton@${PY_FLAVOR}
 
 PORTEXAMPLES=	*
 

@@ -1,11 +1,13 @@
---- pyproject.toml.orig	2025-03-23 09:28:46 UTC
+-- Allow building with the hatchling version available in ports.
+
+--- pyproject.toml.orig	2026-11-13 03:54:59 UTC
 +++ pyproject.toml
-@@ -100,7 +100,7 @@ typecheck = { chain = [
- "typecheck:mypy" = "mypy ."
+@@ -118,7 +118,7 @@ build-constraint-dependencies = [
+ 
  
  [build-system]
--requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
-+requires = ["hatchling>=1.26.3", "hatch-fancy-pypi-readme"]
+-requires = ["hatchling==1.33.0"]
++requires = ["hatchling>0"]
  build-backend = "hatchling.build"
  
  [tool.hatch.build]

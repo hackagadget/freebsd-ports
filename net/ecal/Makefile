@@ -1,7 +1,7 @@
 PORTNAME=	ecal
 DISTVERSIONPREFIX=	v
 DISTVERSION=	6.0.1
-PORTREVISION=	2
+PORTREVISION=	5
 CATEGORIES=	net devel
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -25,15 +25,16 @@ LIB_DEPENDS=	libabsl_hash.so:devel/abseil \
 		libftxui-component.so:devel/ftxui \
 		libhdf5.so:science/hdf5 \
 		libprotobuf.so:devel/protobuf \
-		libqwt.so:x11-toolkits/qwt6@qt5 \
+		libqwt.so:x11-toolkits/qwt6@qt6 \
 		libspdlog.so:devel/spdlog \
 		libsysinfo.so:devel/libsysinfo \
 		libtinyxml2.so:textproc/tinyxml2 \
 		libyaml-cpp.so:devel/yaml-cpp
 		# binaries aren't linked with libfineftp-server.so, see https://github.com/continental/ecal/issues/381; same with libcurl.so
 
-USES=		cmake compiler:c++17-lang desktop-file-utils localbase:ldflags pkgconfig qt:5 shared-mime-info
-USE_QT=		concurrent core gui widgets buildtools:build qmake:build
+USES=		cmake compiler:c++17-lang desktop-file-utils gl localbase:ldflags pkgconfig qt:6 shared-mime-info
+USE_QT=		base tools:build
+USE_GL=		gl
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
@@ -56,8 +57,8 @@ CMAKE_ARGS=	-DGIT_REVISION_MAJOR=${DISTVERSION:R:R} \
 		-DGIT_REVISION_MINOR=${DISTVERSION:R:E} \
 		-DGIT_REVISION_PATCH=${DISTVERSION:E} \
 		-Dasio_INCLUDE_DIR=${LOCALBASE}/include \
-		-Dqwt_INCLUDE_DIR=${LOCALBASE}/include/qt5/qwt6 \
-		-Dqwt_LIBRARY=${LOCALBASE}/lib/qt5/libqwt.so \
+		-Dqwt_INCLUDE_DIR=${LOCALBASE}/include/qt6/qwt6 \
+		-Dqwt_LIBRARY=${LOCALBASE}/lib/qt6/libqwt.so \
 		-Dtclap_INCLUDE_DIR=${WRKSRC}/thirdparty/tclap/tclap/include
 
 CXXFLAGS+=	-pthread # see https://github.com/eclipse-ecal/ecal/issues/933

@@ -1,5 +1,6 @@
 PORTNAME=	toot
 DISTVERSION=	0.52.1
+PORTREVISION=	1
 CATEGORIES=	net-im python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -9,10 +10,10 @@ COMMENT=	Interact with the Mastodon social network from the command line
 WWW=		https://github.com/ihabunek/toot \
 		https://pypi.org/project/toot
 
-LICENSE=	GPLv3
+LICENSE=	GPL-3.0-only
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4.5.0<5.0:www/py-beautifulsoup@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup4>=4.5.0<5.0:www/py-beautifulsoup4@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}click>=8.1<9:devel/py-click@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}python-dateutil>=2.8.1<3.0:devel/py-python-dateutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=2.13<3.0:www/py-requests@${PY_FLAVOR} \

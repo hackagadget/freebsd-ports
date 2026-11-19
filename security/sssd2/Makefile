@@ -1,5 +1,6 @@
 PORTNAME=	sssd
 PORTVERSION=	2.13.1
+PORTREVISION=	2
 CATEGORIES=	security
 PKGNAMESUFFIX=	2
 
@@ -62,7 +63,13 @@ TEST_TARGET=	check
 
 CPE_VENDOR=	fedoraproject
 
-CONFIGURE_ARGS=	--disable-cifs-idmap-plugin \
+# We have to explicitly pass --datadir and --sysconfdir because the software
+# uses these vars not only in Makefiles, but also as substitutions in various
+# .in files. At the same time these values default contain the '${prefix}'
+# string verbatim, which does not get expanded during the substitution.
+CONFIGURE_ARGS=	--datadir=${PREFIX}/share \
+		--sysconfdir=${PREFIX}/etc \
+		--disable-cifs-idmap-plugin \
 		--disable-linux-caps \
 		--without-selinux \
 		--without-autofs \
@@ -123,6 +130,10 @@ TEST_LIB_DEPENDS=	libcheck.so:devel/check \
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1500000
 CPPFLAGS+=	-DHAVE_TIMEZONE=1
+.endif
+
+.ifdef WITH_DEBUG
+EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src_util_sss__prctl.c
 .endif
 
 post-patch:

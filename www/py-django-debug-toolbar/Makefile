@@ -1,8 +1,8 @@
 PORTNAME=	django-debug-toolbar
-PORTVERSION=	6.3.0
-PORTREVISION=	1
+PORTVERSION=	8.0.0
 CATEGORIES=	www python
-MASTER_SITES=	PYPI
+MASTER_SITES=	PYPI \
+		https://github.com/django-commons/django-debug-toolbar/releases/download/${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	django_debug_toolbar-${PORTVERSION}
 
@@ -15,7 +15,7 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}hatchling>=0:devel/py-hatchling@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django52>=4.2.9:www/py-django52@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django52>=5.2:www/py-django52@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sqlparse>=0.2.0:databases/py-sqlparse@${PY_FLAVOR}
 
 USES=		python

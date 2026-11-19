@@ -1,5 +1,5 @@
 PORTNAME=	virtualbox-ose
-DISTVERSION=	7.2.10
+DISTVERSION=	7.2.22
 CATEGORIES=	emulators
 MASTER_SITES=	https://download.virtualbox.org/virtualbox/${DISTVERSION}/:src \
 		LOCAL/vvd:docs
@@ -35,7 +35,7 @@ FLAVOR?=	${FLAVORS:[1]}
 _VER=		-${DISTVERSION:R:S|.||}
 ${FLAVOR}_PKGNAMESUFFIX=	${FLAVOR:N${FLAVORS:[1]}:C|(.+)|-\1|}${_VER}
 
-USES=		compiler:c++17-lang cpe gnome iconv pkgconfig ssl tar:bzip2
+USES=		compiler:c++17-lang cpe gnome iconv jpeg pkgconfig ssl tar:bzip2
 CPE_VENDOR=	oracle
 CPE_PRODUCT=	vm_virtualbox
 USE_BINUTILS=	yes
@@ -124,28 +124,30 @@ DEBUG_CONFIGURE_ON=	--build-debug
 NLS_IMPLIES=		QT6
 PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 PULSEAUDIO_CONFIGURE_OFF=	--disable-pulse
+PYTHON_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}packaging>0:devel/py-packaging@${PY_FLAVOR}
 PYTHON_USES=		python
 PYTHON_USES_OFF=	python:build
 PYTHON_USE=		PYTHON=distutils,noegginfo,noflavors
 PYTHON_CONFIGURE_OFF=	--disable-python
 PYTHON_VARS=		pydistutils_pkgname=vboxapi pydistutils_pkgversion=1.0
 QT6_IMPLIES=		X11
-QT6_USES=		gl qmake:no_env qt:6 xorg
+QT6_USES=		qmake:no_env qt:6 xorg
 QT6_USE=		QT=base,scxml,tools,translations \
-			XORG=xcb GL=gl
+			XORG=xcb
 QT6_CONFIGURE_OFF=	--disable-qt
 R0LOGGING_IMPLIES=	DEBUG
 TPM_LIB_DEPENDS=	libtpms.so:sysutils/libtpms
 TPM_CONFIGURE_OFF=	--disable-libtpms
 UDPTUNNEL_CONFIGURE_OFF=	--disable-udptunnel
-VBOXIMG_LIB_DEPENDS=	libfuse.so.2:filesystems/fusefs-libs
+VBOXIMG_LIB_DEPENDS=	libfuse.so:filesystems/fusefs-libs
 VDE_RUN_DEPENDS=	vde_switch:net/vde2
 VDE_CONFIGURE_ON=	--enable-vde
 VNC_LIB_DEPENDS=	libvncserver.so:net/libvncserver
 VNC_CONFIGURE_ON=	--enable-vnc
 WEBSERVICE_BUILD_DEPENDS=	soapcpp2:devel/gsoap
-X11_USES=		sdl xorg
-X11_USE=		SDL=sdl XORG=x11,xcursor,xext,xinerama,xmu,xorgproto,xt
+X11_USES=		gl sdl xorg
+X11_USE=		GL=gl SDL=sdl \
+			XORG=x11,xcursor,xext,xinerama,xmu,xorgproto,xt
 X11_CONFIGURE_OFF=	--build-headless
 
 ENV=

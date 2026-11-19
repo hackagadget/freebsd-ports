@@ -1,6 +1,6 @@
 PORTNAME=	mesa
-DISTVERSION=	26.1-branchpoint-3285
-DISTVERSIONSUFFIX=	-gdde1709274f
+DISTVERSION=	26.3-branchpoint-1934
+DISTVERSIONSUFFIX=	-g6d4d60f15c9
 CATEGORIES=	graphics
 PKGNAMESUFFIX=	-devel
 
@@ -97,7 +97,7 @@ LLVM_DESC=		Build with LLVM support (see implies)
 LLVM_USES=		llvm:min=18,lib,noexport
 LLVM_CONFIGURE_ENV=	LLVM_CONFIG=${LLVM_CONFIG}
 LLVM_MESON_ENABLED=	llvm
-LLVM_MESON_TRUE=	amd-use-llvm
+LLVM_MESON_OFF=		-Damd-options=
 
 LTO_MESON_TRUE=		b_lto allow-broken-lto
 
@@ -121,7 +121,7 @@ VAAPI_MESON_ENABLED=	gallium-va
 VKLAYERS_DESC=		Vulkan layers: ${VKLAYERS_MESON_ON:C/.*=//} (implies ${VKLAYERS_IMPLIES})
 VKLAYERS_BUILD_DEPENDS=	glslangValidator:graphics/glslang
 VKLAYERS_LIB_DEPENDS=	libpng.so:graphics/png
-VKLAYERS_MESON_ON=	-Dvulkan-layers=anti-lag,device-select,overlay,screenshot,vram-report-limit
+VKLAYERS_MESON_ON=	-Dvulkan-layers=device-select,overlay,screenshot,vram-report-limit
 VKLAYERS_IMPLIES=	${"${PORT_OPTIONS:Manv}":?anv:radv} # any from OPTIONS_GROUP_VULKAN
 
 WAYLAND_BUILD_DEPENDS=	wayland-protocols>0:graphics/wayland-protocols
@@ -142,15 +142,13 @@ post-patch:
 	@${REINPLACE_CMD} '/MESA_GIT_SHA1/s/""/" (git-${DISTVERSIONSUFFIX:C/.*-g//})"/' \
 		${WRKSRC}/bin/git_sha1_gen.py
 
-post-patch-COINST-on:
-	@(cd ${WRKSRC}/src/util; for f in 00-*-defaults.conf; do \
+post-install-COINST-on:
+	@${INSTALL_DATA} ${WRKDIR}/libmap.conf \
+		${STAGEDIR}${PREFIX}/etc/libmap.d/${PKGBASE}.conf
+	@(cd ${STAGEDIR}${PREFIX}/share/drirc.d; for f in 00-*-defaults.conf; do \
 		suffix=$${f#00-}; infix=$${suffix%-defaults.conf}; \
 		${MV} 00-$$infix-defaults.conf \
 			 00-$$infix${PKGNAMESUFFIX}-defaults.conf; \
 	done)
-
-post-install-COINST-on:
-	@${INSTALL_DATA} ${WRKDIR}/libmap.conf \
-		${STAGEDIR}${PREFIX}/etc/libmap.d/${PKGBASE}.conf
 
 .include <bsd.port.mk>

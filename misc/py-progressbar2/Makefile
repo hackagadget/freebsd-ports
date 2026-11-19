@@ -1,5 +1,5 @@
 PORTNAME=	progressbar2
-PORTVERSION=	4.5.0
+PORTVERSION=	4.7.0
 CATEGORIES=	misc python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -18,7 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}python-utils>=3.8.1:misc/py-python-utils@${P
 
 NO_ARCH=	yes
 USES=		python
-USE_PYTHON=	autoplist pep517
+USE_PYTHON=	autoplist concurrent pep517
 
 CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}progressbar
 

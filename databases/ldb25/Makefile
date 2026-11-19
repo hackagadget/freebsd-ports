@@ -1,6 +1,6 @@
 PORTNAME=	ldb
 PORTVERSION=	2.5.3
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	databases
 MASTER_SITES=	SAMBA
 PKGNAMESUFFIX?=	25
@@ -15,7 +15,7 @@ IGNORE_NONTHREAD_PYTHON=	needs port lang/python${PYTHON_SUFFIX} to be \
 				build with THREADS support
 
 LDB_DEPENDS=	talloc>=2.2.0:devel/talloc tevent>=0.10.0:devel/tevent \
-		tdb>=1.4.0:databases/tdb lmdb>=0.9.23:databases/lmdb \
+		tdb>=1.4.0:databases/tdb lmdb0>=0.9.23:databases/lmdb0 \
 		popt>=0:devel/popt
 BUILD_DEPENDS=	${LDB_DEPENDS} \
 		${PY_SETUPTOOLS} \
@@ -109,6 +109,11 @@ PLIST_FILES+=	${PKGCONFIGDIR}/pyldb-util${PYTHON_TAG}.pc \
 CFLAGS+=	-fno-color-diagnostics
 .endif
 CONFIGURE_ENV+=	NOCOLOR=yes
+# lmdb0 related
+CONFIGURE_ENV+=	PKG_CONFIG_PATH=${LOCALBASE}/lmdb0/libdata/pkgconfig
+CFLAGS+=	-I${LOCALBASE}/lmdb0/include
+LDFLAGS+=	-L${LOCALBASE}/lmdb0/lib
+# end of lmdb0
 MAKE_ENV+=	NOCOLOR=yes
 
 LDB_MAN1=	share/man/man1/ldbadd.1.gz \

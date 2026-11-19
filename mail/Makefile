@@ -29,6 +29,7 @@
     SUBDIR += bmf
     SUBDIR += bogofilter
     SUBDIR += bogofilter-kc
+    SUBDIR += bogofilter-lmdb1
     SUBDIR += bogofilter-sqlite
     SUBDIR += bsd-vacation
     SUBDIR += bsfilter
@@ -105,6 +106,9 @@
     SUBDIR += dovecot-fts-xapian
     SUBDIR += dovecot-pigeonhole
     SUBDIR += dovecot-xaps
+    SUBDIR += dovecot24
+    SUBDIR += dovecot24-pigeonhole
+    SUBDIR += dovecot24-wormhole
     SUBDIR += dspam
     SUBDIR += ecartis
     SUBDIR += elm
@@ -163,13 +167,13 @@
     SUBDIR += imap-tools
     SUBDIR += imapdedup
     SUBDIR += imapfilter
+    SUBDIR += imapgoose
     SUBDIR += imapsync
     SUBDIR += imaptools
     SUBDIR += imaputils
     SUBDIR += isbg
     SUBDIR += isoqlog
     SUBDIR += isync
-    SUBDIR += james
     SUBDIR += jamlib
     SUBDIR += jmba
     SUBDIR += junkfilter
@@ -206,9 +210,6 @@
     SUBDIR += mailgraph
     SUBDIR += mailhog
     SUBDIR += mailio
-    SUBDIR += mailman
-    SUBDIR += mailman-exim4
-    SUBDIR += mailman-postfix
     SUBDIR += mailman3
     SUBDIR += mailpit
     SUBDIR += mailscanner
@@ -216,7 +217,6 @@
     SUBDIR += mailutils
     SUBDIR += mailx
     SUBDIR += mairix
-    SUBDIR += masqmail
     SUBDIR += mb2md
     SUBDIR += mbar
     SUBDIR += mblaze
@@ -241,7 +241,6 @@
     SUBDIR += milter-regex
     SUBDIR += milter-skem
     SUBDIR += mime-construct
-    SUBDIR += mime4j
     SUBDIR += mimedefang
     SUBDIR += mini_sendmail
     SUBDIR += minimalist
@@ -292,6 +291,8 @@
     SUBDIR += opensmtpd-filter-dkimsign
     SUBDIR += opensmtpd-filter-rspamd
     SUBDIR += opensmtpd-filter-senderscore
+    SUBDIR += opensmtpd-table-passwd
+    SUBDIR += opensmtpd-table-postgres
     SUBDIR += opensmtpd-table-socketmap
     SUBDIR += opensmtpd-table-sqlite
     SUBDIR += osbf-lua
@@ -418,6 +419,7 @@
     SUBDIR += p5-Net-LMTP
     SUBDIR += p5-Net-ManageSieve
     SUBDIR += p5-Net-POP3-SSLWrapper
+    SUBDIR += p5-Net-POP3-XOAuth2
     SUBDIR += p5-Net-QMTP
     SUBDIR += p5-Net-SMTP-Server
     SUBDIR += p5-Net-SMTP-TLS
@@ -497,6 +499,7 @@
     SUBDIR += postfix-policyd-spf-perl
     SUBDIR += postfix-policyd-weight
     SUBDIR += postfix-postfwd
+    SUBDIR += postfix_exporter
     SUBDIR += postfixadmin
     SUBDIR += postfixadmin-lite
     SUBDIR += postfixadmin33
@@ -506,8 +509,8 @@
     SUBDIR += prepflog
     SUBDIR += procmail
     SUBDIR += procmail-bgrb
+    SUBDIR += protonmail-bridge
     SUBDIR += proxsmtp
-    SUBDIR += py-afew
     SUBDIR += py-aiosmtpd
     SUBDIR += py-alot
     SUBDIR += py-authheaders
@@ -532,6 +535,7 @@
     SUBDIR += py-mailnag
     SUBDIR += py-mailsuite
     SUBDIR += py-managesieve3
+    SUBDIR += py-minismtpd
     SUBDIR += py-notmuch
     SUBDIR += py-notmuch2
     SUBDIR += py-offlineimap
@@ -542,11 +546,13 @@
     SUBDIR += py-pymilter
     SUBDIR += py-pysasl
     SUBDIR += py-pyspf
+    SUBDIR += py-python-oxmsg
     SUBDIR += py-python-slimta
     SUBDIR += py-pyzmail
     SUBDIR += py-resend
     SUBDIR += py-rfc6555
     SUBDIR += py-spf-engine
+    SUBDIR += py-standard-mailcap
     SUBDIR += py-tlsrpt-reporter
     SUBDIR += py-validate_email
     SUBDIR += pymsgauth
@@ -621,9 +627,11 @@
     SUBDIR += rubygem-actionmailer72
     SUBDIR += rubygem-actionmailer80
     SUBDIR += rubygem-actionmailer81
+    SUBDIR += rubygem-aws-actionmailer-ses-gitlab
     SUBDIR += rubygem-email_reply_parser
     SUBDIR += rubygem-email_reply_parser-discourse
     SUBDIR += rubygem-email_reply_trimmer
+    SUBDIR += rubygem-email_reply_trimmer-gitlab
     SUBDIR += rubygem-email_validator
     SUBDIR += rubygem-exception_notification
     SUBDIR += rubygem-extended_email_reply_parser
@@ -640,6 +648,7 @@
     SUBDIR += rubygem-net-smtp
     SUBDIR += rubygem-pony
     SUBDIR += rubygem-premailer
+    SUBDIR += rubygem-premailer-gitlab
     SUBDIR += rubygem-premailer-rails
     SUBDIR += rubygem-premailer-rails-rails-gitlab
     SUBDIR += rubygem-premailer-rails-rails5
@@ -654,6 +663,7 @@
     SUBDIR += rubygem-roadie-rails-rails52
     SUBDIR += rubygem-roadie-rails-rails61
     SUBDIR += rubygem-roadie-rails-rails72
+    SUBDIR += rubygem-roadie-rails-rails81
     SUBDIR += rubygem-roadie3
     SUBDIR += rubygem-ruby-qmail
     SUBDIR += rubygem-valid_email
@@ -699,6 +709,7 @@
     SUBDIR += spampd
     SUBDIR += spamprobe
     SUBDIR += spamstats
+    SUBDIR += spf-tools
     SUBDIR += spfmilter
     SUBDIR += spfval
     SUBDIR += spmfilter
@@ -741,15 +752,21 @@
     SUBDIR += sqwebmail
     SUBDIR += ssmtp
     SUBDIR += stalwart
+    SUBDIR += stalwart-cli
+    SUBDIR += stalwart-migrate
+    SUBDIR += stalwart-proxy
+    SUBDIR += stalwart016
     SUBDIR += surblhost
     SUBDIR += swaks
     SUBDIR += sylpheed
     SUBDIR += sympa
     SUBDIR += t-prot
+    SUBDIR += tarpitd
     SUBDIR += textmail
     SUBDIR += thunderbird
     SUBDIR += thunderbird-dictionaries
     SUBDIR += thunderbird-esr
+    SUBDIR += tidemail
     SUBDIR += tlb
     SUBDIR += tmpmail
     SUBDIR += tpop3d
@@ -757,6 +774,7 @@
     SUBDIR += up-imapproxy
     SUBDIR += usendmail
     SUBDIR += vacation
+    SUBDIR += vandelay
     SUBDIR += vbsfilter
     SUBDIR += vexim
     SUBDIR += vpopmail

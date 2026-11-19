@@ -1,16 +1,17 @@
 PORTNAME=	srt
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.5.5
+DISTVERSION=	1.5.7
+PORTREVISION=	1
 CATEGORIES=	www
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Secure Reliable Transport (SRT) Protocol
-WWW=		https://www.srtalliance.org/
+WWW=		https://www.srtalliance.org/ \
+		https://github.com/Haivision/srt
 
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	bash:shells/bash
 TEST_DEPENDS=	googletest>=0:devel/googletest
 
 USES=		cmake:testing compiler:c++17-lang pathfix shebangfix
@@ -24,9 +25,9 @@ CMAKE_TESTING_ON=	ENABLE_TESTING \
 			ENABLE_UNITTESTS
 CMAKE_TESTING_JOBS=	1
 
+CMAKE_ON=		ENABLE_SHOW_PROJECT_CONFIG
 CMAKE_OFF=		CMAKE_CXX_EXTENSIONS \
 			ENABLE_STATIC
-CMAKE_ON=		ENABLE_SHOW_PROJECT_CONFIG
 .if defined(WITH_DEBUG)
 CMAKE_ON+=		ENABLE_DEBUG
 .endif
@@ -36,7 +37,11 @@ CMAKE_ARGS=		-DUSE_CXX_STD=c++17
 
 OPTIONS_RADIO=		CRYPTO
 OPTIONS_RADIO_CRYPTO=	GNUTLS OPENSSL
-OPTIONS_DEFAULT=	OPENSSL
+OPTIONS_DEFINE=		SRTFFPLAY
+OPTIONS_DEFAULT=	OPENSSL SRTFFPLAY
+OPTIONS_SUB=		yes
+
+SRTFFPLAY_DESC=		Install the srt-ffplay script
 
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls \
 			libnettle.so:security/nettle
@@ -44,5 +49,9 @@ GNUTLS_CMAKE_ON=	-DUSE_ENCLIB=gnutls
 
 OPENSSL_USES=		ssl
 OPENSSL_CMAKE_ON=	-DUSE_ENCLIB=openssl
+
+SRTFFPLAY_RUN_DEPENDS=	bash:shells/bash
+
+# tests as of 1.5.7: 100% tests passed, 0 tests failed out of 265
 
 .include <bsd.port.mk>

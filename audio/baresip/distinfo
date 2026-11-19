@@ -1,5 +1,5 @@
-TIMESTAMP = 1781679752
-SHA256 (baresip-baresip-v4.9.0_GH0.tar.gz) = fe0dc70640616b5b6814f728af3ce83b4c56dd1d7a9a21658480c305bd092367
-SIZE (baresip-baresip-v4.9.0_GH0.tar.gz) = 1208796
-SHA256 (baresip-baresip-apps-v4.9.0_GH0.tar.gz) = 376012b8dd01c14c89d867a7f78e0e5d4ab4655ea2fea6e8aa6fbdf3ff28da84
-SIZE (baresip-baresip-apps-v4.9.0_GH0.tar.gz) = 62677
+TIMESTAMP = 1793823661
+SHA256 (baresip-baresip-v4.13.0_GH0.tar.gz) = 688dbb92844340c2dd8dab7d93aaebccb3aa433af9215bb099ca598fafc0e0a2
+SIZE (baresip-baresip-v4.13.0_GH0.tar.gz) = 1210129
+SHA256 (baresip-baresip-apps-v4.13.0_GH0.tar.gz) = 70d533a2d31622dcda4fe78b2c0e064ff5d9a0d8d89100075f01c47c821ca100
+SIZE (baresip-baresip-apps-v4.13.0_GH0.tar.gz) = 62738

@@ -26,6 +26,7 @@
     SUBDIR += heirloom-sh
     SUBDIR += ibsh
     SUBDIR += ion
+    SUBDIR += iris
     SUBDIR += jailkit
     SUBDIR += klish
     SUBDIR += ksh
@@ -55,6 +56,7 @@
     SUBDIR += pear-PHP_Shell
     SUBDIR += powershell
     SUBDIR += psh
+    SUBDIR += py-crazy-complete
     SUBDIR += rc
     SUBDIR += rubygem-shellwords
     SUBDIR += rura

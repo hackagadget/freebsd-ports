@@ -1,6 +1,5 @@
 PORTNAME=	usermin
-PORTVERSION=	2.510
-PORTREVISION=	1
+PORTVERSION=	2.570
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.webmin.com/uupdates/:up \
 		SF/webadmin/${PORTNAME}/${PORTVERSION}:sf
@@ -54,6 +53,6 @@ post-patch:
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/usermin
-	${CP} -r ${WRKSRC}/* ${STAGEDIR}${PREFIX}/lib/usermin
+	${CP} -R ${WRKSRC}/* ${STAGEDIR}${PREFIX}/lib/usermin
 
 .include <bsd.port.mk>

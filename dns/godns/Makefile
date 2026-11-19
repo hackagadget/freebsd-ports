@@ -1,6 +1,7 @@
 PORTNAME=	godns
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.4.2
+DISTVERSION=	3.4.6
+PORTREVISION=	1
 CATEGORIES=	dns
 MASTER_SITES=	https://raw.githubusercontent.com/TimothyYe/${PORTNAME}/${DISTVERSIONFULL}/:gomod \
 		https://github.com/TimothyYe/${PORTNAME}/releases/download/v${DISTVERSION}/:webui
@@ -8,20 +9,22 @@ DISTFILES=	go.mod:gomod \
 		${PORTNAME}-web-${DISTVERSIONFULL}.zip:webui
 EXTRACT_ONLY=	${DISTFILE_DEFAULT}
 
-MAINTAINER=	diizzy@FreeBSD.org
+MAINTAINER=	daniel.engberg.lists@pyret.net
 COMMENT=	Dynamic DNS client (DDNS) with optional external reporting features
 WWW=		https://github.com/TimothyYe/godns
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.24+,modules
+USES=		go:modules
 USE_RC_SUBR=	${PORTNAME}
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	TimothyYe
 GO_MODULE=	github.com/TimothyYe/godns
 GO_TARGET=	./cmd/${PORTNAME}
+
+CGO_ENABLED=	0
 
 post-extract:
 	@if [ ! -d ${WRKSRC}/internal/server/out ]; then \

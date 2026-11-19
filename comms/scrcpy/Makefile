@@ -1,6 +1,6 @@
 PORTNAME=	scrcpy
 DISTVERSIONPREFIX=	v
-DISTVERSION=	4.0
+DISTVERSION=	5.0.1
 CATEGORIES=	comms net
 MASTER_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/releases/download/${DISTVERSIONFULL}/:server
 DISTFILES=	${SERVER_FILE}:server
@@ -13,10 +13,14 @@ WWW=		https://github.com/Genymobile/scrcpy
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BUILD_DEPENDS=	${LOCALBASE}/include/va/va.h:multimedia/libva \
+		${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
 LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg
 RUN_DEPENDS=	adb:devel/android-tools
 
 USES=		compiler:c++11-lang cpe meson pkgconfig sdl
+
+CPE_VENDOR=	Genymotion
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Genymobile
@@ -40,8 +44,6 @@ PORTDOCS=	FAQ.md README.md
 OPTIONS_DEFINE=	DOCS
 
 SERVER_FILE=	${PORTNAME}-server-${DISTVERSIONFULL}
-
-CPE_VENDOR=	Genymotion
 
 post-extract:
 	${CP} ${DISTDIR}/${SERVER_FILE} ${WRKSRC}

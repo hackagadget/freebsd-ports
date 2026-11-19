@@ -1,6 +1,7 @@
 PORTNAME=	picoclaw
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.2.9
+DISTVERSION=	0.3.1
+PORTREVISION=	7
 CATEGORIES=	misc
 
 MAINTAINER=	olivier@FreeBSD.org
@@ -10,7 +11,7 @@ WWW=		https://github.com/sipeed/picoclaw
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.25+,modules
+USES=		go:modules
 
 BROKEN_i386=	vendored modernc.org/libc + modernc.org/sqlite broken on 386
 BROKEN_armv7=	vendored modernc.org/libc + modernc.org/sqlite broken on arm

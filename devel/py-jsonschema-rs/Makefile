@@ -1,6 +1,5 @@
 PORTNAME=	jsonschema-rs
-PORTVERSION=	0.46.5
-PORTREVISION=	1
+PORTVERSION=	0.61.2
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -20,6 +19,7 @@ USE_PYTHON=	autoplist concurrent pep517
 
 CARGO_BUILD=	no
 CARGO_INSTALL=	no
+CARGO_TEST=	no
 WRKSRC=		${WRKDIR}/jsonschema_rs-${PORTVERSION}
 
 .include <bsd.port.mk>

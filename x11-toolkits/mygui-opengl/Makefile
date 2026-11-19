@@ -8,7 +8,8 @@ MASTERDIR=	${.CURDIR}/../mygui
 MYGUI_RENDERSYSTEM=	4
 MYGUI_SUBDIR=		Platforms/OpenGL/OpenGLPlatform
 
-USES=		gl
-USE_GL=		gl glu
+USES=		gl localbase sdl
+USE_GL=		gl glu opengl
+USE_SDL=	image2
 
 .include "${MASTERDIR}/Makefile"

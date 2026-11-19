@@ -1,5 +1,5 @@
 PORTNAME=	cudatext
-PORTVERSION=	1.234.4.1
+PORTVERSION=	1.239.1.0
 CATEGORIES=	editors
 PKGNAMESUFFIX=	${LAZARUS_PKGNAMESUFFIX}
 
@@ -19,11 +19,11 @@ GH_PROJECT=	CudaText
 GH_TUPLE=	bgrabitmap:bgrabitmap:6ada359:bgrabitmap/bgrabitmap \
 		Alexey-T:EncConv:8caaa6b:encconv/encconv \
 		Alexey-T:ATBinHex-Lazarus:ac03d54:atbinhex/atbinhex \
-		Alexey-T:ATFlatControls:11594c7:atflatcontrols/atflatcontrols  \
-		Alexey-T:ATSynEdit:b964744:atsynedit/atsynedit \
-		Alexey-T:ATSynEdit_Cmp:c24f441:atsyneditcmp/atsyneditcmp \
-		Alexey-T:EControl:847ce66:econtrol/econtrol \
-		Alexey-T:ATSynEdit_Ex:c7f37a1:atsyneditex/atsyneditex \
+		Alexey-T:ATFlatControls:a118150:atflatcontrols/atflatcontrols  \
+		Alexey-T:ATSynEdit:fca14d4:atsynedit/atsynedit \
+		Alexey-T:ATSynEdit_Cmp:2fc22c5:atsyneditcmp/atsyneditcmp \
+		Alexey-T:EControl:1d42098:econtrol/econtrol \
+		Alexey-T:ATSynEdit_Ex:c4dc1f6:atsyneditex/atsyneditex \
 		Alexey-T:Python-for-Lazarus:fda3fdb:python4lazarus/python4lazarus \
 		Alexey-T:Emmet-Pascal:df69312:emmet/emmet \
 		Alexey-T:UniqueInstance:753f823:uniqueinstance/uniqueinstance
@@ -53,8 +53,6 @@ USE_FPC_gtk2=	cairo
 USE_GNOME_gtk2=	cairo
 USE_FPC+=	${USE_FPC_${FLAVOR}}
 USE_GNOME+=	${USE_GNOME_${FLAVOR}}
-
-#WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 post-patch:
 	${REINPLACE_CMD} 's|-512||g' ${WRKSRC}/setup/debfiles/${PORTNAME}.desktop

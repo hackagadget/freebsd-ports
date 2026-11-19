@@ -1,7 +1,8 @@
 PORTNAME=	xxhash
-PORTVERSION=	3.7.0
+PORTVERSION=	4.1.0
 CATEGORIES=	devel python
-MASTER_SITES=	PYPI
+MASTER_SITES=	PYPI \
+		https://github.com/ifduyue/python-xxhash/releases/download/v${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org

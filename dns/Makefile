@@ -7,17 +7,16 @@
     SUBDIR += axfr2acl
     SUBDIR += bind-tools
     SUBDIR += bind9-devel
-    SUBDIR += bind918
     SUBDIR += bind920
     SUBDIR += bindgraph
     SUBDIR += blocky
     SUBDIR += c-ares
     SUBDIR += cascade
     SUBDIR += cli53
+    SUBDIR += cmdns-cli
     SUBDIR += coredns
     SUBDIR += ddclient
     SUBDIR += ddns
-    SUBDIR += denominator
     SUBDIR += dhisd
     SUBDIR += dlint
     SUBDIR += dns-blackhole
@@ -35,6 +34,7 @@
     SUBDIR += dnsdist
     SUBDIR += dnsenum
     SUBDIR += dnsflood
+    SUBDIR += dnsglobe
     SUBDIR += dnshistory
     SUBDIR += dnsjava
     SUBDIR += dnsjit
@@ -57,7 +57,6 @@
     SUBDIR += dnswall
     SUBDIR += dnsx
     SUBDIR += doc
-    SUBDIR += dog
     SUBDIR += doggo
     SUBDIR += doh-proxy
     SUBDIR += dq
@@ -127,6 +126,7 @@
     SUBDIR += p5-DNS-ZoneParse
     SUBDIR += p5-DNS-nsdiff
     SUBDIR += p5-Data-Validate-Domain
+    SUBDIR += p5-Domain-PublicSuffix
     SUBDIR += p5-IO-Async-Resolver-DNS
     SUBDIR += p5-Mozilla-PublicSuffix
     SUBDIR += p5-Net-Amazon-Route53
@@ -145,7 +145,6 @@
     SUBDIR += p5-Net-DNS-TestNS
     SUBDIR += p5-Net-DNS-ToolKit
     SUBDIR += p5-Net-DNS-Zone-Parser
-    SUBDIR += p5-Net-DNS-ZoneFile-Fast
     SUBDIR += p5-Net-DNSBL-MultiDaemon
     SUBDIR += p5-Net-DNSBL-Statistics
     SUBDIR += p5-Net-DRI
@@ -174,6 +173,7 @@
     SUBDIR += pear-Horde_Idna
     SUBDIR += pear-Net_DNS2
     SUBDIR += pear-Net_DNS21
+    SUBDIR += poweradmin
     SUBDIR += powerdns
     SUBDIR += powerdns-recursor
     SUBDIR += prometheus-dnssec-exporter
@@ -185,7 +185,6 @@
     SUBDIR += py-dns-lexicon
     SUBDIR += py-dnslib
     SUBDIR += py-dnspython
-    SUBDIR += py-dnspython1
     SUBDIR += py-easyzone
     SUBDIR += py-idna
     SUBDIR += py-ldns

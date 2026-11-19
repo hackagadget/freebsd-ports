@@ -1,6 +1,6 @@
 PORTNAME=	sameboy
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.0.3
+DISTVERSION=	1.0.5
 CATEGORIES=	emulators games
 
 MAINTAINER=	eduardo@FreeBSD.org
@@ -22,8 +22,8 @@ USE_GL=		gl
 USE_GNOME=	gdkpixbuf
 USE_SDL=	sdl2
 
-MAKE_ARGS=	FREEDESKTOP=true \
-		WARNINGS="-Wno-error"
+MAKE_ARGS=	CONF=release \
+		FREEDESKTOP=true
 ALL_TARGET=	sdl
 
 PORTSCOUT=	limit:^d\.d+\.

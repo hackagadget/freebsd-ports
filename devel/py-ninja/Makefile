@@ -1,5 +1,5 @@
 PORTNAME=	ninja
-DISTVERSION=	1.13.0
+DISTVERSION=	1.13.2
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -21,5 +21,6 @@ USES=		cmake:indirect python
 USE_PYTHON=	pep517 autoplist
 
 MAKE_ENV+=	NINJA_PYTHON_DIST_ALLOW_NINJA_DEP=1
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

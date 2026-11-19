@@ -1,11 +1,11 @@
 PORTNAME=	google-cloud-storage
-PORTVERSION=	1.60.0
+PORTVERSION=	1.62.2
 CATEGORIES=	net rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Official library for Google Cloud Storage
-WWW=		https://cloud.google.com/ruby/docs/reference/google-cloud-storage/latest/ \
+WWW=		https://docs.cloud.google.com/ruby/docs/reference/google-cloud-storage/latest \
 		https://googleapis.github.io/google-cloud-ruby/docs/ \
 		https://github.com/googleapis/google-cloud-ruby/tree/main/google-cloud-storage \
 		https://github.com/googleapis/google-cloud-ruby

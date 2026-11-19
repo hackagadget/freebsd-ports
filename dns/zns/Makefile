@@ -1,7 +1,7 @@
 PORTNAME=	zns
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.4.0
-PORTREVISION=	11
+DISTVERSION=	0.6.0
+PORTREVISION=	6
 CATEGORIES=	dns
 
 MAINTAINER=	nxjoseph@FreeBSD.org
@@ -20,7 +20,7 @@ PLIST_FILES=	bin/${PORTNAME}
 OPTIONS_DEFINE=		JSON
 OPTIONS_DEFAULT=	JSON
 
-JSON_DESC=	Enable JSON output processing support
+JSON_DESC=	Install jq for JSON output processing support
 
 JSON_RUN_DEPENDS=	jq:textproc/jq
 

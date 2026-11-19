@@ -1,6 +1,6 @@
 PORTNAME=	subfinder
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.14.0
+DISTVERSION=	2.17.0
 PORTREVISION=	2
 CATEGORIES=	dns
 
@@ -10,7 +10,7 @@ WWW=		https://github.com/projectdiscovery/subfinder
 
 LICENSE=	MIT
 
-USES=		go:1.24+,modules
+USES=		go:modules
 
 GO_MODULE=	github.com/projectdiscovery/subfinder/v2
 GO_TARGET=	./cmd/${PORTNAME}

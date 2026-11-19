@@ -31,6 +31,7 @@
     SUBDIR += diakonos
     SUBDIR += diamond
     SUBDIR += dkns
+    SUBDIR += doom-modeline
     SUBDIR += drjava
     SUBDIR += dte
     SUBDIR += dz6
@@ -225,11 +226,13 @@
     SUBDIR += neovim
     SUBDIR += neovim-gtk
     SUBDIR += neovim-qt
+    SUBDIR += nerd-icons.el
     SUBDIR += notepadnext
-    SUBDIR += notepadnext-devel
     SUBDIR += novelwriter
     SUBDIR += nvi-m17n
     SUBDIR += nvi2
+    SUBDIR += omarchy-nvim
+    SUBDIR += omawrite
     SUBDIR += omegaT
     SUBDIR += openoffice-4
     SUBDIR += openoffice-devel
@@ -255,6 +258,7 @@
     SUBDIR += py-editorconfig
     SUBDIR += py-pynvim
     SUBDIR += py-vim-bridge
+    SUBDIR += qhexedit2
     SUBDIR += rehex
     SUBDIR += remarkable
     SUBDIR += retext
@@ -266,6 +270,7 @@
     SUBDIR += semi
     SUBDIR += setzer
     SUBDIR += shed
+    SUBDIR += shrink-path.el
     SUBDIR += slime
     SUBDIR += sly
     SUBDIR += sly-asdf
@@ -284,6 +289,7 @@
     SUBDIR += texworks
     SUBDIR += the
     SUBDIR += treeform
+    SUBDIR += ttt
     SUBDIR += turbo
     SUBDIR += tweak
     SUBDIR += uemacs
@@ -294,6 +300,7 @@
     SUBDIR += vigor
     SUBDIR += vile
     SUBDIR += vim
+    SUBDIR += vim-classic
     SUBDIR += vim-colorschemes-legacy
     SUBDIR += vim-lsp
     SUBDIR += vis

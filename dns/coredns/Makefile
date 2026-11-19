@@ -1,6 +1,7 @@
 PORTNAME=	coredns
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.14.4
+DISTVERSION=	1.15.0
+PORTREVISION=	1
 CATEGORIES=	dns
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -11,7 +12,7 @@ WWW=		https://coredns.io \
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:1.24+,modules
+USES=		go:modules
 
 GO_MODULE=	github.com/${PORTNAME}/${PORTNAME}
 
